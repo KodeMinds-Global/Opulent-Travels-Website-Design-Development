@@ -16,5 +16,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: '/opulent-voyage-genesis/',
+  base: '/Opulent-Travels-Website-Design-Development/',
+
 }));
