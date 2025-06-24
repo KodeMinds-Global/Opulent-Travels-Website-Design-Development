@@ -1,0 +1,180 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
+@layer base {
+  :root {
+    --background: 240 20% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 197 71% 73%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 197 42% 89%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 197 100% 50%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 197 71% 73%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 65% 4%;
+    --foreground: 210 40% 98%;
+    --card: 220 65% 4%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 65% 4%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 217 91% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom luxury styles */
+@layer components {
+  .luxury-card {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 rounded-2xl transition-colors duration-300;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+
+  .theme-card {
+    @apply backdrop-blur-md bg-light-surface/80 dark:bg-dark-surface/80 border border-light-primary/20 dark:border-dark-primary/20 rounded-2xl transition-all duration-300;
+  }
+
+  .gold-button {
+    @apply bg-gradient-to-r from-luxury-gold to-yellow-400 text-luxury-charcoal font-poppins font-semibold px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+    box-shadow: 0 4px 15px 0 rgba(255, 215, 0, 0.75);
+  }
+
+  .teal-button {
+    @apply bg-gradient-to-r from-luxury-teal to-cyan-400 text-white font-poppins font-semibold px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+    box-shadow: 0 4px 15px 0 rgba(64, 224, 208, 0.75);
+  }
+
+  .light-button {
+    @apply bg-gradient-to-r from-light-primary to-light-accent text-white font-poppins font-semibold px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+
+  .dark-button {
+    @apply bg-gradient-to-r from-dark-primary to-dark-accent text-white font-poppins font-semibold px-8 py-4 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-luxury-gold via-yellow-400 to-luxury-teal bg-clip-text text-transparent;
+  }
+
+  .text-light-gradient {
+    @apply bg-gradient-to-r from-light-accent via-light-primary to-light-secondary bg-clip-text text-transparent;
+  }
+
+  .text-dark-gradient {
+    @apply bg-gradient-to-r from-dark-accent via-dark-primary to-dark-secondary bg-clip-text text-transparent;
+  }
+
+  .hover-lift {
+    @apply transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+/* Dark mode specific styles */
+.dark .luxury-card {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #87CEEB, #00BFFF);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #4682B4, #1E90FF);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #1E40AF, #60A5FA);
+}
