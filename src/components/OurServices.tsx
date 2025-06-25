@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Car, Building, Users, Check } from 'lucide-react';
+import { getAssetPath } from '@/lib/utils';
 
 const OurServices = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -65,7 +66,7 @@ const OurServices = () => {
         'Island-Wide Options',
         'Tailored for M.I.C.E'
       ],
-      image: '/assets/images/mice.jpg',
+      image: getAssetPath('/assets/images/mice.jpg'),
       color: 'from-emerald-500 to-teal-500'
     }
   };

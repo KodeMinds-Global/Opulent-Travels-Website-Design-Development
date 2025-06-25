@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { OptimizedVideo } from '@/components/ui/optimized-video';
+import { getAssetPath } from '@/lib/utils';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,7 +13,7 @@ const Hero = () => {
 
   const slides = [
     {
-      video: "/Scene_01.webm",
+      video: getAssetPath("/Scene_01.webm"),
       title: "Sri Lanka",
       description: "Embark on extraordinary journeys to Sri Lanka and the Maldives, where luxury meets pristine natural beauty",
       primaryBtn: "Explore Destinations",
@@ -20,7 +21,7 @@ const Hero = () => {
       duration: 5000, // 5 seconds
     },
     {
-      video: "/Scene_02.webm",
+      video: getAssetPath("/Scene_02.webm"),
       title: "Maldives",
       description: "Experience world-class accommodations and personalized service in the most breathtaking locations",
       primaryBtn: "View Luxury Suites",
@@ -28,7 +29,7 @@ const Hero = () => {
       duration: 5000, // 5 seconds
     },
     {
-      video: "/Scene_03.webm",
+      video: getAssetPath("/Scene_03.webm"),
       title: "Rent Cars",
       description: "Create unforgettable memories with our curated collection of premium travel experiences",
       primaryBtn: "Book Experience",

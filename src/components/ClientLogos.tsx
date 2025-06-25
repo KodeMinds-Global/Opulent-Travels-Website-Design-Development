@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getAssetPath } from '@/lib/utils';
 
 const ClientLogos = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,13 +20,13 @@ const ClientLogos = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Using the actual logo files from public folder
+  // Using the actual logo files from public folder with correct paths
   const logos = [
-    { id: 1, path: '/assets/images/logo_01.png', alt: 'Partner Logo 1' },
-    { id: 2, path: '/assets/images/logo_02.png', alt: 'Partner Logo 2' },
-    { id: 3, path: '/assets/images/logo_03.png', alt: 'Partner Logo 3' },
-    { id: 4, path: '/assets/images/logo_04.png', alt: 'Partner Logo 4' },
-    { id: 5, path: '/assets/images/logo_05.png', alt: 'Partner Logo 5' }
+    { id: 1, path: getAssetPath('/assets/images/logo_01.png'), alt: 'Partner Logo 1' },
+    { id: 2, path: getAssetPath('/assets/images/logo_02.png'), alt: 'Partner Logo 2' },
+    { id: 3, path: getAssetPath('/assets/images/logo_03.png'), alt: 'Partner Logo 3' },
+    { id: 4, path: getAssetPath('/assets/images/logo_04.png'), alt: 'Partner Logo 4' },
+    { id: 5, path: getAssetPath('/assets/images/logo_05.png'), alt: 'Partner Logo 5' }
   ];
 
   // Duplicate logos for seamless loop
