@@ -13,7 +13,7 @@ const Hero = () => {
 
   const slides = [
     {
-      video: getAssetPath("/Scene_01.webm"),
+      video: getAssetPath("/assets/videos/Scene_01.webm"),
       title: "Sri Lanka",
       description: "Embark on extraordinary journeys to Sri Lanka and the Maldives, where luxury meets pristine natural beauty",
       primaryBtn: "Explore Destinations",
@@ -21,7 +21,7 @@ const Hero = () => {
       duration: 5000, // 5 seconds
     },
     {
-      video: getAssetPath("/Scene_02.webm"),
+      video: getAssetPath("/assets/videos/Scene_02.webm"),
       title: "Maldives",
       description: "Experience world-class accommodations and personalized service in the most breathtaking locations",
       primaryBtn: "View Luxury Suites",
@@ -29,7 +29,7 @@ const Hero = () => {
       duration: 5000, // 5 seconds
     },
     {
-      video: getAssetPath("/Scene_03.webm"),
+      video: getAssetPath("/assets/videos/Scene_03.webm"),
       title: "Rent Cars",
       description: "Create unforgettable memories with our curated collection of premium travel experiences",
       primaryBtn: "Book Experience",

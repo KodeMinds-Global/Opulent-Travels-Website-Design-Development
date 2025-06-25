@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "./ThemeToggle";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { getAssetPath } from "@/lib/utils";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,7 +45,7 @@ const Navigation = () => {
           <div className="flex items-center">
             <div className="bg-white/30 dark:bg-white/50 backdrop-blur-sm rounded-md p-1 flex items-center justify-center">
               <img
-                src="/assets/images/logo.png"
+                src={getAssetPath("/assets/images/logo.png")}
                 alt="Opulent Travels"
                 className="h-7 sm:h-10 md:h-12 w-auto" // Reduced size on smallest screens
               />
