@@ -1,0 +1,41 @@
+name: Deploy to Public Repository
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout private repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+        
+      - name: List build output
+        run: ls -la dist
+        
+      # Simple deployment method - direct push to the public repo
+      - name: Deploy to Public Repository
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PUBLIC_REPO_TOKEN }}
+          external_repository: KodeMinds-Global/opulent-travels-public
+          publish_branch: main
+          publish_dir: ./dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy from KodeMinds-Global/Opulent-Travels-Website-Design-Development'
+          force_orphan: false  # Don't force-push, maintain history 
