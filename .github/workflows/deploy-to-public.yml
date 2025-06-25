@@ -11,9 +11,7 @@ jobs:
     steps:
       - name: Checkout private repository
         uses: actions/checkout@v4
-        with:
-          repository: YOUR_USERNAME/Opulent-Travels-Website-Design-Development
-          token: ${{ secrets.PUBLIC_REPO_TOKEN }}
+        # No need to specify repository here since we're checking out the current repo
       
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -32,7 +30,7 @@ jobs:
         with:
           folder: dist
           token: ${{ secrets.PUBLIC_REPO_TOKEN }}
-          repository-name: YOUR_USERNAME/opulent-travels-public  # Replace with your username
+          repository-name: YOUR_ORGANIZATION/opulent-travels-public  # Replace with your organization name
           branch: main
           git-config-name: GitHub Actions
           git-config-email: github-actions@github.com
