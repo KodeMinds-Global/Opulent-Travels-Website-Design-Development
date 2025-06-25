@@ -30,7 +30,7 @@ jobs:
         with:
           folder: dist
           token: ${{ secrets.PUBLIC_REPO_TOKEN }}
-          repository-name: YOUR_ORGANIZATION/opulent-travels-public  # Replace with your organization name
+          repository-name: KodeMinds-Global/opulent-travels-public 
           branch: main
           git-config-name: GitHub Actions
           git-config-email: github-actions@github.com
