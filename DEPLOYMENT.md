@@ -55,3 +55,7 @@ If we decide to use a custom domain:
 1. Add a CNAME file to the public repository
 2. Configure DNS settings to point to GitHub Pages
 3. Update the Vite configuration as needed 
+
+## Updated Workflow File
+
+```yaml

@@ -11,7 +11,6 @@ jobs:
     steps:
       - name: Checkout private repository
         uses: actions/checkout@v4
-        # No need to specify repository here since we're checking out the current repo
       
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -25,13 +24,11 @@ jobs:
       - name: Build
         run: npm run build
         
-      - name: Deploy to public repository
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           token: ${{ secrets.PUBLIC_REPO_TOKEN }}
-          repository-name: KodeMinds-Global/opulent-travels-public 
+          repository-name: KodeMinds-Global/opulent-travels-public
           branch: main
-          git-config-name: GitHub Actions
-          git-config-email: github-actions@github.com
           clean: true 

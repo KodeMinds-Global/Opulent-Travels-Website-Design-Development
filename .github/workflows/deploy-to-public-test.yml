@@ -1,0 +1,28 @@
+name: Test GitHub Actions
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Check environment
+        run: |
+          echo "Running test workflow"
+          echo "Repository: ${{ github.repository }}"
+          echo "Current directory: $(pwd)"
+          ls -la
+          
+      - name: Test token permissions
+        run: |
+          if [ -n "${{ secrets.PUBLIC_REPO_TOKEN }}" ]; then
+            echo "PUBLIC_REPO_TOKEN is set"
+          else
+            echo "PUBLIC_REPO_TOKEN is NOT set"
+          fi 
