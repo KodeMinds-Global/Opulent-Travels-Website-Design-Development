@@ -24,7 +24,11 @@ jobs:
       - name: Build
         run: npm run build
         
-      - name: Deploy to GitHub Pages
+      - name: List build output
+        run: ls -la dist
+        
+      # Simple deployment method - direct push to the public repo
+      - name: Deploy to Public Repository
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.PUBLIC_REPO_TOKEN }}
@@ -33,4 +37,5 @@ jobs:
           publish_dir: ./dist
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy from KodeMinds-Global/Opulent-Travels-Website-Design-Development' 
+          commit_message: 'Deploy from KodeMinds-Global/Opulent-Travels-Website-Design-Development'
+          force_orphan: false  # Don't force-push, maintain history 
