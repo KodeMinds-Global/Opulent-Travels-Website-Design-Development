@@ -2,6 +2,10 @@
 
 A luxury travel agency website for showcasing premium travel experiences in Sri Lanka and Maldives.
 
+## Deployment Status
+
+The project is deployed to GitHub Pages via GitHub Actions.
+
 ## Features
 
 - Responsive design for all device sizes
