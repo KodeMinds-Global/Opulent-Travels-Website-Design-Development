@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { getAssetPath } from '@/lib/utils';
 
 const About = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -8,9 +9,9 @@ const About = () => {
   const isMobile = useIsMobile();
 
   const images = [
-    "/assets/images/about_01.jpg",
-    "/assets/images/about_02.jpg",
-    "/assets/images/about_03.jpg"
+    getAssetPath("/assets/images/about_01.jpg"),
+    getAssetPath("/assets/images/about_02.jpg"),
+    getAssetPath("/assets/images/about_03.jpg")
   ];
 
   useEffect(() => {

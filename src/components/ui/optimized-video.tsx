@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { getAssetPath } from '@/lib/utils';
 
 interface OptimizedVideoProps {
   src: string;
@@ -9,6 +10,9 @@ interface OptimizedVideoProps {
 export function OptimizedVideo({ src, className = "", priority = false }: OptimizedVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Get the correct path for the video source
+  const videoSrc = src.startsWith('http') ? src : getAssetPath(src);
   
   useEffect(() => {
     const video = videoRef.current;
@@ -41,7 +45,7 @@ export function OptimizedVideo({ src, className = "", priority = false }: Optimi
   return (
     <video
       ref={videoRef}
-      src={src}
+      src={videoSrc}
       muted
       loop
       playsInline

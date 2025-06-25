@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { getAssetPath } from '@/lib/utils';
 
 const ExploreSriLanka = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,22 +24,22 @@ const ExploreSriLanka = () => {
   // Image data for Sri Lanka
   const sriLankaImages = [
     {
-      src: "/assets/images/Sri_Lankan_04.jpg",
+      src: getAssetPath("/assets/images/Sri_Lankan_04.jpg"),
       alt: "Pristine Beaches & Coastal Escapes",
       caption: "Relax on golden sands, surf the waves, or enjoy vibrant marine life along the stunning coastline."
     },
     {
-      src: "/assets/images/Sri_Lankan_03.jpg",
+      src: getAssetPath("/assets/images/Sri_Lankan_03.jpg"),
       alt: "Wild Safaris & Nature Reserves",
       caption: "Encounter elephants, leopards, and a myriad of exotic birds in sprawling national parks."
     },
     {
-      src: "/assets/images/Sri_Lankan_02.jpg",
+      src: getAssetPath("/assets/images/Sri_Lankan_02.jpg"),
       alt: "Lush Hill Country & Tea Plantations",
       caption: "Wander through emerald tea estates, mist-shrouded mountains, and cascading waterfalls."
     },
     {
-      src: "/assets/images/Sri_Lankan_01.jpg",
+      src: getAssetPath("/assets/images/Sri_Lankan_01.jpg"),
       alt: "Adventure & Ecotourism",
       caption: "Thrill-seeking awaits with hiking, white-water rafting, and responsible exploration of natural wonders."
     }
@@ -138,7 +139,7 @@ const ExploreSriLanka = () => {
             <div className="relative overflow-hidden rounded-2xl shadow-2xl group hover-lift border border-gray-100 dark:border-dark-primary/30 mx-auto w-[95%]">
               <div className="h-[450px] overflow-hidden">
                 <img
-                  src="/assets/images/Sri_Lankan_05.jpg"
+                  src={getAssetPath("/assets/images/Sri_Lankan_05.jpg")}
                   alt="Sri Lanka Temple"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
