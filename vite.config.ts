@@ -16,5 +16,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: mode === 'production' ? '/opulent-travels-public/' : '/',
+  base: '/Opulent-Travels-Website-Design-Development/',
+
 }));
