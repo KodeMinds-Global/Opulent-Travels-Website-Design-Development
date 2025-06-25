@@ -16,7 +16,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/opulent-voyage-genesis">
+        <BrowserRouter basename="/Opulent-Travels-Website-Design-Development">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="*" element={<NotFound />} />
