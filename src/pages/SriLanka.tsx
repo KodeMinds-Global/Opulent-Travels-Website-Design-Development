@@ -12,7 +12,7 @@ const SriLanka = () => {
     title: "Discover Sri Lanka",
     subtitle: "The Pearl of the Indian Ocean",
     description: "Explore the breathtaking beauty, rich culture, and warm hospitality of this tropical paradise.",
-    backgroundImage: getAssetPath("/assets/images/valentin-petrov-m-mal-01.jpg"),
+    backgroundImage: getAssetPath("/assets/images/Sri_Lanka_bg.jpg"),
   };
 
   const highlightsSection = {

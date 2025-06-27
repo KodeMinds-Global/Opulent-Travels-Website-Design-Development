@@ -12,7 +12,7 @@ const Maldives = () => {
     title: "Discover Maldives",
     subtitle: "Paradise on Earth",
     description: "Experience crystal clear waters, pristine beaches, and luxury overwater villas in this tropical haven.",
-    backgroundImage: getAssetPath("/assets/images/valentin-petrov-m-mal-01.jpg"),
+    backgroundImage: getAssetPath("/assets/images/Maldives_bg.jpg"),
     // Using local image instead of unsplash to match the animation style
   };
 
