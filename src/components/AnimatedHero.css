@@ -1,0 +1,125 @@
+/* Animation classes for the animated hero component */
+
+/* Scale utility for the overlay animation */
+.scale-200 {
+  transform: scale(2);
+}
+
+/* Background zoom-in animation */
+@keyframes bgZoomIn {
+  from {
+    transform: scale(1.2);
+  } 
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-bgZoomIn {
+  animation: bgZoomIn 4s ease-in-out 1 forwards;
+}
+
+/* Background zoom-out animation */
+@keyframes bgZoomOut {
+  from {
+    transform: scale(1);
+  } 
+  to {
+    transform: scale(2);
+  }
+}
+
+.animate-bgZoomOut {
+  animation: bgZoomOut 4s ease-in-out 1 forwards;
+}
+
+/* SVG text animation */
+@keyframes textAnimation {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  80% {
+    fill: transparent;
+  }
+  100% {
+    fill: #fff;
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-textDraw .animated-path {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 0.1;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: textAnimation 4s ease-in-out 1 forwards;
+}
+
+/* Text reveal animation for title */
+@keyframes textReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    letter-spacing: -5px;
+    filter: blur(10px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 2px;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0;
+  }
+}
+
+.animate-textReveal {
+  animation: textReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.5s 1 forwards;
+  opacity: 0;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease-out 1s 1 forwards;
+}
+
+/* Animation delay utilities */
+.animation-delay-300 {
+  animation-delay: 1.3s;
+}
+
+.animation-delay-600 {
+  animation-delay: 1.6s;
+}
+
+.animation-delay-900 {
+  animation-delay: 1.9s;
+}
+
+/* Slow bounce animation for scroll indicator */
+@keyframes bounceSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2s ease-in-out infinite;
+} 

@@ -1,12 +1,13 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import SriLanka from "./pages/SriLanka";
+import Maldives from "./pages/Maldives";
 
 const queryClient = new QueryClient();
 
@@ -16,12 +17,14 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/Opulent-Travels-Website-Design-Development">
+        <HashRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/sri-lanka" element={<SriLanka />} />
+            <Route path="/maldives" element={<Maldives />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

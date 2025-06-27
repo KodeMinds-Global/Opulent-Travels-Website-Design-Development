@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "./ThemeToggle";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { getAssetPath } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,14 +20,14 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#Sri Lanka", label: "Sri Lanka" },
-    { href: "#Maldives", label: "Maldives" },
-    { href: "#Rent Car", label: "Rent Car" },
-    { href: "#packages", label: "Packages" },
-    { href: "#testimonials", label: "Reviews" },
-    { href: "#contact", label: "Contact" },
+    { href: "/", label: "Home", isRouterLink: true },
+    { href: "#about", label: "About", isRouterLink: false },
+    { href: "/sri-lanka", label: "Sri Lanka", isRouterLink: true },
+    { href: "/maldives", label: "Maldives", isRouterLink: true },
+    { href: "#Rent Car", label: "Rent Car", isRouterLink: false },
+    { href: "#packages", label: "Packages", isRouterLink: false },
+    { href: "#testimonials", label: "Reviews", isRouterLink: false },
+    { href: "#contact", label: "Contact", isRouterLink: false },
   ];
 
   return (
@@ -43,29 +45,46 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex items-center">
             <div className="bg-white/30 dark:bg-white/50 backdrop-blur-sm rounded-md p-1 flex items-center justify-center">
-              <img
-                src="/assets/images/logo.png"
-                alt="Opulent Travels"
-                className="h-7 sm:h-10 md:h-12 w-auto" // Reduced size on smallest screens
-              />
+              <Link to="/">
+                <img
+                  src={getAssetPath("/assets/images/logo.png")}
+                  alt="Opulent Travels"
+                  className="h-7 sm:h-10 md:h-12 w-auto" // Reduced size on smallest screens
+                />
+              </Link>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`font-montserrat font-medium transition-all duration-300 relative group ${
-                  isScrolled
-                    ? "text-luxury-charcoal dark:text-white hover:text-luxury-teal"
-                    : "text-white/90 hover:text-white"
-                }`}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-luxury-gold to-luxury-teal transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              link.isRouterLink ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className={`font-montserrat font-medium transition-all duration-300 relative group ${
+                    isScrolled
+                      ? "text-luxury-charcoal dark:text-white hover:text-luxury-teal"
+                      : "text-white/90 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-luxury-gold to-luxury-teal transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`font-montserrat font-medium transition-all duration-300 relative group ${
+                    isScrolled
+                      ? "text-luxury-charcoal dark:text-white hover:text-luxury-teal"
+                      : "text-white/90 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-luxury-gold to-luxury-teal transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              )
             ))}
           </div>
 
@@ -73,7 +92,7 @@ const Navigation = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <ThemeToggle />
             <Button className="gold-button bg-luxury-gold text-black">
-            Get a quote
+              Get a quote
             </Button>
           </div>
 
@@ -120,18 +139,33 @@ const Navigation = () => {
         >
           <div className="pt-4 pb-3 space-y-1 sm:space-y-2">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block font-montserrat text-sm sm:text-base md:text-lg font-medium py-2 px-2 hover:bg-black/5 dark:hover:bg-white/5 rounded transition-colors duration-300 ${
-                  isScrolled || isMobileMenuOpen
-                    ? "text-luxury-charcoal dark:text-white hover:text-luxury-teal"
-                    : "text-white/90 hover:text-white"
-                }`}
-              >
-                {link.label}
-              </a>
+              link.isRouterLink ? (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block font-montserrat text-sm sm:text-base md:text-lg font-medium py-2 px-2 hover:bg-black/5 dark:hover:bg-white/5 rounded transition-colors duration-300 ${
+                    isScrolled || isMobileMenuOpen
+                      ? "text-luxury-charcoal dark:text-white hover:text-luxury-teal"
+                      : "text-white/90 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block font-montserrat text-sm sm:text-base md:text-lg font-medium py-2 px-2 hover:bg-black/5 dark:hover:bg-white/5 rounded transition-colors duration-300 ${
+                    isScrolled || isMobileMenuOpen
+                      ? "text-luxury-charcoal dark:text-white hover:text-luxury-teal"
+                      : "text-white/90 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              )
             ))}
             <div className="pt-2">
               <Button className="gold-button w-full text-xs sm:text-sm md:text-base py-1.5 sm:py-2 md:py-3 mt-2">
