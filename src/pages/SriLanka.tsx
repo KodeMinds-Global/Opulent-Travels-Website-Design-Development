@@ -5,6 +5,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Button } from '@/components/ui/button';
 import { getAssetPath } from '@/lib/utils';
 import AnimatedHero from '@/components/AnimatedHero';
+import ImageCarousel from '@/components/ui/image-carousel';
 
 const SriLanka = () => {
   // Main sections data
@@ -23,6 +24,34 @@ const SriLanka = () => {
       "Sri Lankan cuisine is a flavorful mix of spices, coconut, and fresh ingredients. Famous for its Ceylon tea, the country also produces cinnamon, rubber, and other valuable resources that have shaped its economy and history."
     ]
   };
+
+  // Carousel items for highlights
+  const carouselItems = [
+    {
+      title: "Sri Lanka",
+      name: "Ancient Cities",
+      description: "Explore UNESCO World Heritage sites like Sigiriya, Polonnaruwa, and Anuradhapura, where ancient civilizations built remarkable monuments, palaces, and religious sites.",
+      image: getAssetPath("/assets/images/Sri_Lankan_01.jpg")
+    },
+    {
+      title: "Sri Lanka",
+      name: "Tea Plantations",
+      description: "Visit the lush green tea estates in Nuwara Eliya and Ella, known as Little England, where you can learn about tea production and enjoy breathtaking mountain views.",
+      image: getAssetPath("/assets/images/Sri_Lankan_02.jpg")
+    },
+    {
+      title: "Sri Lanka",
+      name: "Wildlife Safaris",
+      description: "Encounter elephants, leopards, and exotic birds in Yala, Udawalawe, and Wilpattu National Parks, home to some of the highest densities of wildlife in Asia.",
+      image: getAssetPath("/assets/images/Sri_Lankan_03.jpg")
+    },
+    {
+      title: "Sri Lanka",
+      name: "Stunning Beaches",
+      description: "Relax on golden sands at Mirissa, Unawatuna, Bentota, and Arugam Bay, where palm-fringed shores meet the warm waters of the Indian Ocean.",
+      image: getAssetPath("/assets/images/Sri_Lankan_04.jpg")
+    }
+  ];
 
   const highlightsSection = {
     title: "Sri Lanka Highlights",
@@ -134,34 +163,16 @@ const SriLanka = () => {
         </div>
       </section>
 
-      {/* Highlights Section */}
-      <section className="py-20 bg-light-surface dark:bg-dark-surface">
+      {/* Highlights Section with Image Carousel */}
+      <section className="py-10 bg-light-surface dark:bg-dark-surface">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{highlightsSection.title}</h2>
             <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">{highlightsSection.description}</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {highlightsSection.highlights.map((highlight, index) => (
-              <div 
-                key={index} 
-                className="group bg-white dark:bg-dark-primary/20 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift"
-              >
-                <div className="h-60 overflow-hidden">
-                  <img 
-                    src={highlight.image} 
-                    alt={highlight.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold mb-2 text-luxury-charcoal dark:text-white">{highlight.title}</h3>
-                  <p className="font-montserrat text-gray-700 dark:text-gray-300">{highlight.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Image Carousel */}
+          <ImageCarousel items={carouselItems} />
         </div>
       </section>
 

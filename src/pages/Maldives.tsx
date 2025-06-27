@@ -5,6 +5,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Button } from '@/components/ui/button';
 import { getAssetPath } from '@/lib/utils';
 import AnimatedHero from '@/components/AnimatedHero';
+import ImageCarousel from '@/components/ui/image-carousel';
 
 const Maldives = () => {
   // Main sections data
@@ -24,6 +25,34 @@ const Maldives = () => {
       "The Maldivian culture is rich with influences from the lands that lie along the trading routes of the Indian Ocean. Visitors can experience traditional 'Bodu Beru' performances, taste delicious seafood cuisine, and witness the warm hospitality that the Maldivian people are known for."
     ]
   };
+
+  // Carousel items for highlights
+  const carouselItems = [
+    {
+      title: "Maldives",
+      name: "Overwater Villas",
+      description: "Stay in luxurious accommodations suspended above crystal clear lagoons, where you can wake up to panoramic ocean views and direct access to the pristine waters below.",
+      image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=3165&auto=format&fit=crop"
+    },
+    {
+      title: "Maldives",
+      name: "Marine Life",
+      description: "Explore vibrant coral reefs and swim alongside manta rays, turtles, and tropical fish in one of the world's most biodiverse marine ecosystems.",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2940&auto=format&fit=crop"
+    },
+    {
+      title: "Maldives",
+      name: "Water Activities",
+      description: "Enjoy snorkeling, diving, surfing, and paddleboarding in perfect conditions year-round in the warm, crystal-clear waters of the Indian Ocean.",
+      image: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=2301&auto=format&fit=crop"
+    },
+    {
+      title: "Maldives",
+      name: "Private Islands",
+      description: "Experience exclusive resorts located on their own pristine tropical atolls, offering unparalleled privacy, luxury, and personalized service.",
+      image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=3133&auto=format&fit=crop"
+    }
+  ];
 
   const highlightsSection = {
     title: "Maldives Highlights",
@@ -136,34 +165,16 @@ const Maldives = () => {
         </div>
       </section>
 
-      {/* Highlights Section */}
-      <section className="py-20 bg-light-surface dark:bg-dark-surface">
+      {/* Highlights Section with Image Carousel */}
+      <section className="py-10 bg-light-surface dark:bg-dark-surface">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{highlightsSection.title}</h2>
             <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">{highlightsSection.description}</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {highlightsSection.highlights.map((highlight, index) => (
-              <div 
-                key={index} 
-                className="group bg-white dark:bg-dark-primary/20 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift"
-              >
-                <div className="h-60 overflow-hidden">
-                  <img 
-                    src={highlight.image} 
-                    alt={highlight.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold mb-2 text-luxury-charcoal dark:text-white">{highlight.title}</h3>
-                  <p className="font-montserrat text-gray-700 dark:text-gray-300">{highlight.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Image Carousel */}
+          <ImageCarousel items={carouselItems} />
         </div>
       </section>
 
