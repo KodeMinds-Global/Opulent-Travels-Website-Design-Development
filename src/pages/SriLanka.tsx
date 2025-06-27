@@ -14,6 +14,15 @@ const SriLanka = () => {
     description: "Explore the breathtaking beauty, rich culture, and warm hospitality of this tropical paradise.",
     backgroundImage: getAssetPath("/assets/images/Sri_Lanka_bg.jpg"),
   };
+  
+  const countryDescriptionSection = {
+    title: "About Sri Lanka",
+    description: [
+      "Sri Lanka, formerly known as Ceylon, is an island nation located in the Indian Ocean, just south of India. This tropical paradise is known for its diverse landscapes, ranging from rainforests and arid plains to highlands and sandy beaches.",
+      "With a history that dates back over 3,000 years, Sri Lanka is home to eight UNESCO World Heritage Sites, including ancient cities, sacred temples, and natural wonders. The country's rich cultural heritage is influenced by Buddhism, Hinduism, and colonial powers like Portugal, the Netherlands, and Britain.",
+      "Sri Lankan cuisine is a flavorful mix of spices, coconut, and fresh ingredients. Famous for its Ceylon tea, the country also produces cinnamon, rubber, and other valuable resources that have shaped its economy and history."
+    ]
+  };
 
   const highlightsSection = {
     title: "Sri Lanka Highlights",
@@ -102,6 +111,27 @@ const SriLanka = () => {
         description={heroSection.description}
         backgroundImage={heroSection.backgroundImage}
       />
+
+      {/* Country Description Section */}
+      <section className="py-20 bg-gray-50 dark:bg-dark-primary/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white text-center">{countryDescriptionSection.title}</h2>
+            <div className="space-y-6">
+              {countryDescriptionSection.description.map((paragraph, index) => (
+                <p key={index} className="font-lora text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                Explore Sri Lanka Packages
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Highlights Section */}
       <section className="py-20 bg-white dark:bg-dark-surface">

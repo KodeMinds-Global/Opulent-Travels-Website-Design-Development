@@ -10,7 +10,7 @@ const FloatingWhatsApp = () => {
   };
 
   return (
-    <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-10 sm:bottom-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 z-50">
+    <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-6 sm:bottom-6 md:bottom-8 lg:bottom-10 z-50">
       <button
         onClick={handleWhatsAppClick}
         className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 animate-pulse group"

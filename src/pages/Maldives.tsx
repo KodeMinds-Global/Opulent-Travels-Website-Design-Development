@@ -16,6 +16,15 @@ const Maldives = () => {
     // Using local image instead of unsplash to match the animation style
   };
 
+  const countryDescriptionSection = {
+    title: "About Maldives",
+    description: [
+      "The Maldives is a tropical paradise consisting of 26 ring-shaped atolls, which are made up of more than 1,000 coral islands. Located in the heart of the Indian Ocean, this nation is renowned for its stunning white-sand beaches, crystal-clear turquoise waters, and vibrant marine life.",
+      "With an average ground level of just 1.5 meters (4 feet 11 inches) above sea level, the Maldives is the world's lowest country, making it a pristine destination where land and sea exist in perfect harmony.",
+      "The Maldivian culture is rich with influences from the lands that lie along the trading routes of the Indian Ocean. Visitors can experience traditional 'Bodu Beru' performances, taste delicious seafood cuisine, and witness the warm hospitality that the Maldivian people are known for."
+    ]
+  };
+
   const highlightsSection = {
     title: "Maldives Highlights",
     description: "From underwater adventures to overwater luxury, discover the wonders of the Maldives",
@@ -104,6 +113,27 @@ const Maldives = () => {
         backgroundImage={heroSection.backgroundImage}
         // No svgPath prop, so it will use text animation
       />
+
+      {/* Country Description Section */}
+      <section className="py-20 bg-gray-50 dark:bg-dark-primary/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white text-center">{countryDescriptionSection.title}</h2>
+            <div className="space-y-6">
+              {countryDescriptionSection.description.map((paragraph, index) => (
+                <p key={index} className="font-lora text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+            <div className="mt-10 flex justify-center">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                Explore Maldives Packages
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Highlights Section */}
       <section className="py-20 bg-white dark:bg-dark-surface">
