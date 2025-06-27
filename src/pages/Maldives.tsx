@@ -115,10 +115,11 @@ const Maldives = () => {
       />
 
       {/* Country Description Section */}
-      <section className="py-20 bg-gray-50 dark:bg-dark-primary/10">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-white dark:bg-gradient-to-br dark:from-dark-background dark:via-dark-surface dark:to-dark-primary/10 relative">
+        <div className="hidden dark:block absolute inset-0 bg-gradient-to-br from-dark-background via-dark-surface to-dark-primary/10 z-0"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white text-center">{countryDescriptionSection.title}</h2>
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-8 text-luxury-charcoal dark:text-white text-center">{countryDescriptionSection.title}</h2>
             <div className="space-y-6">
               {countryDescriptionSection.description.map((paragraph, index) => (
                 <p key={index} className="font-lora text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -127,7 +128,7 @@ const Maldives = () => {
               ))}
             </div>
             <div className="mt-10 flex justify-center">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button className="light-button dark:dark-button">
                 Explore Maldives Packages
               </Button>
             </div>
@@ -136,18 +137,18 @@ const Maldives = () => {
       </section>
 
       {/* Highlights Section */}
-      <section className="py-20 bg-white dark:bg-dark-surface">
+      <section className="py-20 bg-light-surface dark:bg-dark-surface">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{highlightsSection.title}</h2>
-            <p className="font-lora text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">{highlightsSection.description}</p>
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{highlightsSection.title}</h2>
+            <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">{highlightsSection.description}</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {highlightsSection.highlights.map((highlight, index) => (
               <div 
                 key={index} 
-                className="group bg-gray-50 dark:bg-dark-primary/20 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                className="group bg-white dark:bg-dark-primary/20 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift"
               >
                 <div className="h-60 overflow-hidden">
                   <img 
@@ -157,8 +158,8 @@ const Maldives = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold mb-2 text-gray-900 dark:text-white">{highlight.title}</h3>
-                  <p className="font-montserrat text-gray-600 dark:text-gray-300">{highlight.description}</p>
+                  <h3 className="font-playfair text-xl font-bold mb-2 text-luxury-charcoal dark:text-white">{highlight.title}</h3>
+                  <p className="font-montserrat text-gray-700 dark:text-gray-300">{highlight.description}</p>
                 </div>
               </div>
             ))}
@@ -167,18 +168,18 @@ const Maldives = () => {
       </section>
 
       {/* Experiences Section */}
-      <section className="py-20 bg-gray-50 dark:bg-dark-background">
+      <section className="py-20 bg-light-background dark:bg-dark-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{experiencesSection.title}</h2>
-            <p className="font-lora text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">{experiencesSection.description}</p>
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{experiencesSection.title}</h2>
+            <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">{experiencesSection.description}</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {experiencesSection.experiences.map((experience, index) => (
               <div 
                 key={index} 
-                className="group bg-white dark:bg-dark-primary/10 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                className="group theme-card overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift"
               >
                 <div className="h-60 overflow-hidden">
                   <img 
@@ -188,10 +189,10 @@ const Maldives = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold mb-2 text-gray-900 dark:text-white">{experience.title}</h3>
-                  <p className="font-montserrat text-gray-600 dark:text-gray-300 mb-4">{experience.description}</p>
-                  <p className="font-playfair text-lg font-bold text-blue-600 dark:text-blue-400">{experience.price}</p>
-                  <Button className="mt-4 w-full bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-dark-primary/30 dark:hover:bg-dark-primary/50 dark:text-white">
+                  <h3 className="font-playfair text-xl font-bold mb-2 text-luxury-charcoal dark:text-white">{experience.title}</h3>
+                  <p className="font-montserrat text-gray-700 dark:text-gray-300 mb-4">{experience.description}</p>
+                  <p className="font-playfair text-lg font-bold text-light-accent dark:text-dark-accent">{experience.price}</p>
+                  <Button className="mt-4 w-full bg-light-primary/10 hover:bg-light-primary/20 text-light-primary dark:bg-dark-primary/30 dark:hover:bg-dark-primary/50 dark:text-white">
                     View Details
                   </Button>
                 </div>
@@ -202,23 +203,23 @@ const Maldives = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-white dark:bg-dark-surface">
+      <section className="py-20 bg-light-surface dark:bg-dark-surface">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{testimonialSection.title}</h2>
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{testimonialSection.title}</h2>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonialSection.testimonials.map((testimonial, index) => (
               <div 
                 key={index} 
-                className="bg-gray-50 dark:bg-dark-primary/20 rounded-xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
+                className="luxury-card p-8 hover-lift"
               >
                 <div className="flex items-center mb-4">
                   {Array(5).fill(0).map((_, i) => (
                     <svg 
                       key={i} 
-                      className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`} 
+                      className={`w-5 h-5 ${i < testimonial.rating ? 'text-luxury-gold' : 'text-gray-300'}`} 
                       fill="currentColor" 
                       viewBox="0 0 20 20"
                     >
@@ -226,10 +227,10 @@ const Maldives = () => {
                     </svg>
                   ))}
                 </div>
-                <p className="font-lora text-gray-600 dark:text-gray-300 italic mb-6">"{testimonial.comment}"</p>
+                <p className="font-lora text-gray-700 dark:text-gray-300 italic mb-6">"{testimonial.comment}"</p>
                 <div>
-                  <p className="font-playfair font-bold text-gray-900 dark:text-white">{testimonial.name}</p>
-                  <p className="font-montserrat text-gray-500 dark:text-gray-400">{testimonial.location}</p>
+                  <p className="font-playfair font-bold text-luxury-charcoal dark:text-white">{testimonial.name}</p>
+                  <p className="font-montserrat text-gray-600 dark:text-gray-400">{testimonial.location}</p>
                 </div>
               </div>
             ))}
@@ -238,15 +239,15 @@ const Maldives = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-sky-400 dark:from-blue-800 dark:to-sky-600">
+      <section className="py-20 bg-light-gradient dark:bg-dark-gradient">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-6 text-white">Ready to Experience Paradise?</h2>
-          <p className="font-lora text-xl text-white/90 max-w-3xl mx-auto mb-8">Contact our travel specialists to plan your perfect Maldives getaway.</p>
+          <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-6 text-luxury-charcoal dark:text-white">Ready to Experience Paradise?</h2>
+          <p className="font-lora text-xl text-gray-700 dark:text-white/90 max-w-3xl mx-auto mb-8">Contact our travel specialists to plan your perfect Maldives getaway.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-white text-blue-600 hover:bg-gray-100 shadow-md hover:shadow-xl transition-all py-3 px-8 text-lg">
+            <Button className="gold-button">
               Get a Quote
             </Button>
-            <Button variant="outline" className="border-2 border-white text-white hover:bg-white/10 transition-all py-3 px-8 text-lg">
+            <Button className="teal-button">
               Learn More
             </Button>
           </div>
