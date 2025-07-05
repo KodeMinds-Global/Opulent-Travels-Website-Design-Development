@@ -210,6 +210,14 @@ export default {
 						transform: 'scale(1)',
 						opacity: '1'
 					}
+				},
+				'flip': {
+					'0%': {
+						transform: 'rotateY(0deg)'
+					},
+					'100%': {
+						transform: 'rotateY(180deg)'
+					}
 				}
 			},
 			animation: {
@@ -224,8 +232,18 @@ export default {
 				'pulse-gold': 'pulse-gold 2s infinite',
 				'float': 'float 3s ease-in-out infinite',
 				'slide-up': 'slide-up 0.8s ease-out',
-				'zoom-in': 'zoom-in 0.6s ease-out'
-			}
+				'zoom-in': 'zoom-in 0.6s ease-out',
+				'flip': 'flip 0.6s ease-out'
+			},
+			rotate: {
+				'y-180': 'rotateY(180deg)',
+			},
+			transitionProperty: {
+				'height': 'height',
+				'spacing': 'margin, padding',
+				'width': 'width',
+				'transform': 'transform',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

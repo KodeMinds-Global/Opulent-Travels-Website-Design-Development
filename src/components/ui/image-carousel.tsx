@@ -79,42 +79,44 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({
   }, [currentIndex, autoRunTime]);
 
   return (
-    <div className={`carousel-container ${className}`}>
-      <div className="carousel" ref={carouselRef}>
-        <div className="list" ref={listRef}>
-          {items.map((item, index) => (
-            <div 
-              key={index}
-              className="item"
-              style={{ backgroundImage: `url(${item.image})` }}
-            >
-              <div className="content">
-                <div className="title">{item.title}</div>
-                <div className="name">{item.name}</div>
-                <div className="des">{item.description}</div>
-           
+    <div className={`carousel-wrapper overflow-hidden shadow-xl ${className}`} style={{ borderRadius: '20px' }}>
+      <div className={`carousel-container`}>
+        <div className="carousel" ref={carouselRef}>
+          <div className="list" ref={listRef}>
+            {items.map((item, index) => (
+              <div 
+                key={index}
+                className="item"
+                style={{ backgroundImage: `url(${item.image})` }}
+              >
+                <div className="content">
+                  <div className="title">{item.title}</div>
+                  <div className="name">{item.name}</div>
+                  <div className="des">{item.description}</div>
+            
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Time running */}
-        <div className="timeRunning" ref={runningTimeRef}></div>
+          {/* Time running */}
+          <div className="timeRunning" ref={runningTimeRef}></div>
 
-        {/* Next/prev buttons */}
-        <div className="arrows">
-          <Button 
-            onClick={() => showSlider('prev')} 
-            className="prev bg-light-accent dark:bg-dark-accent text-white hover:bg-white hover:text-gray-900 h-12 w-12 rounded-full p-0 flex items-center justify-center"
-          >
-            &lt;
-          </Button>
-          <Button 
-            onClick={() => showSlider('next')} 
-            className="next bg-light-accent dark:bg-dark-accent text-white hover:bg-white hover:text-gray-900 h-12 w-12 rounded-full p-0 flex items-center justify-center"
-          >
-            &gt;
-          </Button>
+          {/* Next/prev buttons */}
+          <div className="arrows">
+            <Button 
+              onClick={() => showSlider('prev')} 
+              className="prev bg-light-accent dark:bg-dark-accent text-white hover:bg-white hover:text-gray-900 h-12 w-12 rounded-full p-0 flex items-center justify-center"
+            >
+              &lt;
+            </Button>
+            <Button 
+              onClick={() => showSlider('next')} 
+              className="next bg-light-accent dark:bg-dark-accent text-white hover:bg-white hover:text-gray-900 h-12 w-12 rounded-full p-0 flex items-center justify-center"
+            >
+              &gt;
+            </Button>
+          </div>
         </div>
       </div>
     </div>

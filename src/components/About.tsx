@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { getAssetPath } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -62,7 +64,7 @@ const About = () => {
             </p>
             
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-4 lg:gap-6">
+            <div className="grid grid-cols-3 gap-1 sm:gap-2 md:gap-4 lg:gap-6 mb-6">
               <div className="text-center">
                 <div className="font-playfair font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl text-luxury-teal dark:text-dark-accent mb-1 sm:mb-2">500+</div>
                 <div className="font-montserrat text-xs sm:text-sm text-gray-600 dark:text-gray-400">Happy Clients</div>
@@ -76,6 +78,13 @@ const About = () => {
                 <div className="font-montserrat text-xs sm:text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
               </div>
             </div>
+            
+            {/* About Us Page Link Button */}
+            <Link to="/about-us">
+              <Button className="gold-button bg-luxury-gold text-black hover:bg-luxury-gold/90 transition-all mt-4">
+                Learn More About Us
+              </Button>
+            </Link>
           </div>
 
           {/* Right Image Frame */}

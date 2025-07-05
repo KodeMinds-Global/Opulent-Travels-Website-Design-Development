@@ -21,7 +21,7 @@ const Navigation = () => {
 
   const navLinks = [
     { href: "/", label: "Home", isRouterLink: true },
-    { href: "#about", label: "About", isRouterLink: false },
+    { href: "/about-us", label: "About", isRouterLink: true },
     { href: "/sri-lanka", label: "Sri Lanka", isRouterLink: true },
     { href: "/maldives", label: "Maldives", isRouterLink: true },
     { href: "#Rent Car", label: "Rent Car", isRouterLink: false },
