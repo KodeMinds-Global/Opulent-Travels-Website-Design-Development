@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
@@ -6,8 +6,12 @@ import PackageCard from '@/components/PackageCard';
 import PackageFilter from '@/components/PackageFilter';
 import { usePackages } from '@/hooks/usePackages';
 import { getAssetPath } from '@/lib/utils';
+import { useSearchParams } from 'react-router-dom';
 
 const Packages = () => {
+  const [searchParams] = useSearchParams();
+  const typeParam = searchParams.get('type');
+  
   const {
     filteredPackages,
     filter,
@@ -15,6 +19,13 @@ const Packages = () => {
     searchTerm,
     setSearchTerm
   } = usePackages();
+
+  // Set filter based on URL parameter
+  useEffect(() => {
+    if (typeParam === 'sriLanka' || typeParam === 'maldives') {
+      setFilter(typeParam);
+    }
+  }, [typeParam, setFilter]);
 
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
@@ -25,7 +36,9 @@ const Packages = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src={getAssetPath("/assets/images/Sri_Lankan_05.jpg")} 
+            src={filter === 'maldives' ? 
+              getAssetPath("/assets/images/Maldives_bg.jpg") : 
+              getAssetPath("/assets/images/Sri_Lankan_05.jpg")} 
             alt="Luxury Travel Packages" 
             className="w-full h-full object-cover"
           />
@@ -39,10 +52,14 @@ const Packages = () => {
         <div className="container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col justify-center">
           <div className="max-w-3xl animate-fade-up">
             <h1 className="font-playfair font-bold text-3xl sm:text-4xl md:text-5xl text-white mb-4">
-              Exclusive Travel <span className="text-luxury-gold">Packages</span>
+              {filter === 'maldives' ? 'Maldives ' : filter === 'sriLanka' ? 'Sri Lanka ' : 'Exclusive Travel '}<span className="text-luxury-gold">Packages</span>
             </h1>
             <p className="font-lora text-base sm:text-lg md:text-xl text-white/90 max-w-2xl">
-              Discover our curated collection of luxury experiences in Sri Lanka and the Maldives, designed to create unforgettable memories.
+              {filter === 'maldives' ? 
+                'Discover our collection of luxury Maldives experiences, from overwater villas to underwater adventures.' : 
+                filter === 'sriLanka' ? 
+                'Explore our curated Sri Lanka packages, showcasing the island\'s rich culture, wildlife, and beaches.' :
+                'Discover our curated collection of luxury experiences in Sri Lanka and the Maldives, designed to create unforgettable memories.'}
             </p>
           </div>
         </div>

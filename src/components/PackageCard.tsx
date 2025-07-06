@@ -11,8 +11,11 @@ const PackageCard: React.FC<PackageCardProps> = ({ package: pkg }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const getPackageUrl = () => {
-    const baseUrl = pkg.type === 'sriLanka' ? '/packages/sri-lanka' : '/packages/maldives';
-    return `${baseUrl}/${pkg.id}`;
+    if (pkg.type === 'sriLanka') {
+      return `/sri-lanka/package/${pkg.id}`;
+    } else {
+      return `/maldives/package/${pkg.id}`;
+    }
   };
 
   return (

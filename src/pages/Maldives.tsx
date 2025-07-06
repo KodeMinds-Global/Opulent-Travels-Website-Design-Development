@@ -6,8 +6,13 @@ import { Button } from '@/components/ui/button';
 import { getAssetPath } from '@/lib/utils';
 import AnimatedHero from '@/components/AnimatedHero';
 import ImageCarousel from '@/components/ui/image-carousel';
+import { Link } from 'react-router-dom';
+import { usePackages } from '@/hooks/usePackages';
 
 const Maldives = () => {
+  // Get Maldives packages from the hook
+  const { maldivesPackages } = usePackages();
+  
   // Main sections data
   const heroSection = {
     title: "Discover Maldives",
@@ -81,29 +86,17 @@ const Maldives = () => {
     ]
   };
 
+  // Use real package data for experiences section
   const experiencesSection = {
     title: "Luxury Experiences",
     description: "Curated experiences that showcase the best of the Maldives",
-    experiences: [
-      {
-        title: "Romantic Getaway",
-        description: "7-day luxury escape for couples with private dining and spa treatments.",
-        price: "From $3,200 per person",
-        image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=3133&auto=format&fit=crop",
-      },
-      {
-        title: "Underwater Adventure",
-        description: "5-day package focused on snorkeling and diving in the best reefs.",
-        price: "From $2,800 per person",
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2940&auto=format&fit=crop",
-      },
-      {
-        title: "Family Paradise",
-        description: "8-day family retreat with kid-friendly activities and spacious accommodations.",
-        price: "From $3,600 per person",
-        image: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=2301&auto=format&fit=crop",
-      }
-    ]
+    experiences: maldivesPackages.slice(0, 3).map(pkg => ({
+      id: pkg.id,
+      title: pkg.title,
+      description: pkg.shortDescription,
+      price: `From $${pkg.price} per person`,
+      image: pkg.imageUrl,
+    }))
   };
 
   const testimonialSection = {
@@ -157,8 +150,10 @@ const Maldives = () => {
               ))}
             </div>
             <div className="mt-10 flex justify-center">
-              <Button className="light-button dark:dark-button">
-                Explore Maldives Packages
+              <Button className="light-button dark:dark-button" asChild>
+                <Link to="/packages?type=maldives">
+                  Explore Maldives Packages
+                </Link>
               </Button>
             </div>
           </div>
@@ -203,8 +198,10 @@ const Maldives = () => {
                   <h3 className="font-playfair text-xl font-bold mb-2 text-luxury-charcoal dark:text-white">{experience.title}</h3>
                   <p className="font-montserrat text-gray-700 dark:text-gray-300 mb-4">{experience.description}</p>
                   <p className="font-playfair text-lg font-bold text-light-accent dark:text-dark-accent">{experience.price}</p>
-                  <Button className="mt-4 w-full bg-light-primary/10 hover:bg-light-primary/20 text-light-primary dark:bg-dark-primary/30 dark:hover:bg-dark-primary/50 dark:text-white">
-                    View Details
+                  <Button className="mt-4 w-full bg-light-primary/10 hover:bg-light-primary/20 text-light-primary dark:bg-dark-primary/30 dark:hover:bg-dark-primary/50 dark:text-white" asChild>
+                    <Link to={`/maldives/package/${experience.id}`}>
+                      View Details
+                    </Link>
                   </Button>
                 </div>
               </div>
