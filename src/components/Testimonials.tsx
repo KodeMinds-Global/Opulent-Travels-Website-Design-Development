@@ -111,33 +111,19 @@ const Testimonials = () => {
           <div 
             className="rounded-2xl p-5 sm:p-6 backdrop-blur-sm bg-gray-800/90 shadow-xl border border-gray-700 transition-all duration-500"
           >
-            {/* Stars */}
-            <div className="flex justify-center mb-4">
-              {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <span key={i} className="text-luxury-gold text-base sm:text-lg">⭐</span>
-              ))}
-            </div>
-
             {/* Quote */}
             <blockquote className="font-lora text-sm sm:text-base text-gray-200 mb-5 sm:mb-6 leading-relaxed text-center">
               "{testimonials[currentIndex].text}"
             </blockquote>
 
-            {/* Client Info */}
-            <div className="flex items-center justify-center">
-              <img
-                src={testimonials[currentIndex].image}
-                alt={testimonials[currentIndex].name}
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-luxury-gold/30 mr-3 sm:mr-4"
-              />
-              <div className="text-left">
-                <h4 className="font-playfair font-bold text-sm sm:text-base text-white">
-                  {testimonials[currentIndex].name}
-                </h4>
-                <p className="font-montserrat text-xs sm:text-sm text-luxury-gold">
-                  {testimonials[currentIndex].location}
-                </p>
-              </div>
+            {/* Client Info (only name and country) */}
+            <div className="text-center">
+              <h4 className="font-playfair font-bold text-sm sm:text-base text-white">
+                {testimonials[currentIndex].name}
+              </h4>
+              <p className="font-montserrat text-xs sm:text-sm text-luxury-gold">
+                {testimonials[currentIndex].location}
+              </p>
             </div>
           </div>
 
@@ -190,13 +176,6 @@ const Testimonials = () => {
                       border border-gray-700
                     `}
                   >
-                    {/* Stars */}
-                    <div className="flex justify-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-luxury-gold text-lg">⭐</span>
-                      ))}
-                    </div>
-
                     {/* Quote */}
                     <blockquote className={`font-lora text-gray-200 mb-6 leading-relaxed ${
                       isCenter ? 'text-base lg:text-lg' : 'text-sm'
@@ -204,27 +183,18 @@ const Testimonials = () => {
                       "{testimonial.text}"
                     </blockquote>
 
-                    {/* Client Info */}
-                    <div className="flex items-center">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className={`rounded-full object-cover ring-2 ring-luxury-gold/30 mr-4 ${
-                          isCenter ? 'w-14 h-14' : 'w-10 h-10'
-                        }`}
-                      />
-                      <div className="text-left">
-                        <h4 className={`font-playfair font-bold text-white ${
-                          isCenter ? 'text-base' : 'text-sm'
-                        }`}>
-                          {testimonial.name}
-                        </h4>
-                        <p className={`font-montserrat text-luxury-gold ${
-                          isCenter ? 'text-sm' : 'text-xs'
-                        }`}>
-                          {testimonial.location}
-                        </p>
-                      </div>
+                    {/* Client Info (only name and country) */}
+                    <div className="text-center">
+                      <h4 className={`font-playfair font-bold text-white ${
+                        isCenter ? 'text-base' : 'text-sm'
+                      }`}>
+                        {testimonial.name}
+                      </h4>
+                      <p className={`font-montserrat text-luxury-gold ${
+                        isCenter ? 'text-sm' : 'text-xs'
+                      }`}>
+                        {testimonial.location}
+                      </p>
                     </div>
                   </div>
                 </div>

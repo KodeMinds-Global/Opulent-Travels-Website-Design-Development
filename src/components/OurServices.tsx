@@ -160,12 +160,7 @@ const OurServices = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button className={`bg-gradient-to-r ${currentService.color} text-white font-medium py-2.5 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 dark:dark-button`}>
-                View More
-              </Button>
-              
-            </div>
+            {/* Removed 'View More' button as requested */}
           </div>
 
           {/* Image Side */}

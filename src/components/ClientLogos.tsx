@@ -72,7 +72,7 @@ const ClientLogos = () => {
                   key={index}
                   className="logo-slide flex-shrink-0 px-8 w-1/4 flex items-center justify-center"
                 >
-                  <div className="bg-white dark:bg-gray-700 rounded-xl shadow-lg p-6 w-full h-24 flex items-center justify-center hover:shadow-xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 border border-gray-200 dark:border-gray-600">
+                  <div className="bg-slate-300 dark:bg-gray-700 rounded-xl shadow-lg p-6 w-full h-24 flex items-center justify-center hover:shadow-xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 border border-gray-200 dark:border-gray-600">
                     <img
                       src={logo.path}
                       alt={logo.alt}

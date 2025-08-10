@@ -178,16 +178,6 @@ const RentCar = () => {
                   alt={car.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-3 left-3 text-white">
-                  <h3 className="font-playfair font-bold text-lg">{car.name}</h3>
-                  <p className="font-poppins text-luxury-gold font-semibold text-sm">{car.price}</p>
-                </div>
-              </div>
-              <div className="p-4">
-                <Button className="w-full light-button dark:dark-button text-sm py-1.5">
-                  View Details
-                </Button>
               </div>
             </div>
           ))}
@@ -198,7 +188,7 @@ const RentCar = () => {
           isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
         }`}>
           <Button className="light-button dark:dark-button text-base px-8 py-4">
-            View All Vehicles
+            View Details
           </Button>
         </div>
       </div>
