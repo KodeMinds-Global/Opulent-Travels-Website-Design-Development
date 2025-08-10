@@ -24,7 +24,7 @@ const Navigation = () => {
     { href: "/about-us", label: "About", isRouterLink: true },
     { href: "/sri-lanka", label: "Sri Lanka", isRouterLink: true },
     { href: "/maldives", label: "Maldives", isRouterLink: true },
-    { href: "#Rent Car", label: "Rent Car", isRouterLink: false },
+  { href: "/rent-car", label: "Rent Car", isRouterLink: true },
     { href: "/packages", label: "Packages", isRouterLink: true },
     { href: "#testimonials", label: "Reviews", isRouterLink: false },
     { href: "#contact", label: "Contact", isRouterLink: false },

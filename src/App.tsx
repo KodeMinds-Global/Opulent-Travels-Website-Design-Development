@@ -13,6 +13,7 @@ import AboutUs from "./pages/AboutUs";
 import SriLankaPackageDetail from "./pages/PackageDetail/SriLankaPackageDetail";
 import MaldivesPackageDetail from "./pages/PackageDetail/MaldivesPackageDetail";
 import Packages from "./pages/Packages";
+import RentCarPage from "./pages/RentCar";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/sri-lanka" element={<SriLanka />} />
             <Route path="/maldives" element={<Maldives />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/rent-car" element={<RentCarPage />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/sri-lanka/package/:packageId" element={<SriLankaPackageDetail />} />
             <Route path="/maldives/package/:packageId" element={<MaldivesPackageDetail />} />
