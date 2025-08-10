@@ -55,6 +55,9 @@ export function usePackages() {
   
   return {
     allPackages,
+  // Expose specific collections for direct access where needed
+  sriLankaPackages,
+  maldivesPackages,
     filteredPackages,
     featuredPackages,
     filter,
