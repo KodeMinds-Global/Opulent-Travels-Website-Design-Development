@@ -21,6 +21,8 @@ const About = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // Unobserve after first trigger to avoid re-animating on subsequent scrolls
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.3 }

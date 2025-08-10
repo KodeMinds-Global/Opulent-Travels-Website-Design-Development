@@ -9,6 +9,7 @@ const ClientLogos = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.3 }

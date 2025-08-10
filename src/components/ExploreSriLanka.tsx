@@ -9,16 +9,17 @@ const ExploreSriLanka = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setIsVisible(true)
+          observer.unobserve(entry.target)
         }
       },
-      { threshold: 0.3 }
-    );
+      { threshold: 0.2 }
+    )
 
-    const section = document.getElementById('explore-sri-lanka');
-    if (section) observer.observe(section);
+    const el = document.getElementById('explore-sri-lanka')
+    if (el) observer.observe(el)
 
-    return () => observer.disconnect();
+    return () => observer.disconnect()
   }, []);
 
   // Image data for Sri Lanka

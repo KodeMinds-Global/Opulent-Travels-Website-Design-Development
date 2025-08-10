@@ -18,6 +18,8 @@ const WhyChooseUs = () => {
           setIsVisible(true);
           // Start counter animations
           animateCounters();
+          // Unobserve after first trigger so animations and counters run only once
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.3 }
