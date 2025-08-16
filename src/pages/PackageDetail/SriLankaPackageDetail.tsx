@@ -156,8 +156,8 @@ const SriLankaPackageDetail = () => {
                   max-w-md lg:max-w-lg
                   mx-auto pr-6 pl-6
                   lg:mx-0 ${index % 2 === 0 
-                    ? 'lg:mr-auto lg:pr-12 lg:pl-0' 
-                    : 'lg:ml-auto lg:pl-12 lg:pr-0'
+                    ? 'lg:mr-auto lg:pr-1 lg:pl-0' 
+                    : 'lg:ml-auto lg:pl-1 lg:pr-0'
                   }
                 `}>
                   <div className="bg-white dark:bg-dark-surface/80 rounded-2xl p-6 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group">
