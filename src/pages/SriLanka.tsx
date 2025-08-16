@@ -6,8 +6,12 @@ import { Button } from '@/components/ui/button';
 import { getAssetPath } from '@/lib/utils';
 import AnimatedHero from '@/components/AnimatedHero';
 import ImageCarousel from '@/components/ui/image-carousel';
+import { usePackages } from '@/hooks/usePackages';
+import { Link } from 'react-router-dom';
 
 const SriLanka = () => {
+  const { sriLankaPackages } = usePackages();
+  
   // Main sections data
   const heroSection = {
     title: "Discover Sri Lanka",
@@ -173,6 +177,135 @@ const SriLanka = () => {
           
           {/* Image Carousel */}
           <ImageCarousel items={carouselItems} />
+        </div>
+      </section>
+
+      {/* Sri Lankan Packages Section */}
+      <section className="py-20 bg-white dark:bg-gradient-to-br dark:from-dark-background dark:via-dark-surface dark:to-dark-primary/10 relative">
+        <div className="hidden dark:block absolute inset-0 bg-gradient-to-br from-dark-background via-dark-surface to-dark-primary/10 z-0"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">
+              Sri Lankan <span className="text-transparent bg-clip-text" style={{
+                background: 'linear-gradient(90deg, #00308F 0%, #0066CC 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>Tour Packages</span>
+            </h2>
+            <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Discover carefully curated Sri Lankan experiences designed to showcase the island's rich heritage and natural beauty
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sriLankaPackages.map((pkg, index) => (
+              <Link
+                key={pkg.id}
+                to={`/sri-lanka/package/${pkg.id}`}
+                className="group block"
+              >
+                <div className="luxury-card hover-lift group overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20">
+                  {/* Package Image */}
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={pkg.imageUrl}
+                      alt={pkg.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    
+                    {/* Overlay with gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Price Badge */}
+                    <div className="absolute top-4 right-4 bg-luxury-gold/90 backdrop-blur-sm text-black px-3 py-2 rounded-full font-bold">
+                      From ${pkg.price}
+                    </div>
+                    
+                    {/* Featured Badge */}
+                    {pkg.featured && (
+                      <div className="absolute top-4 left-4 bg-gradient-to-r from-luxury-coral to-pink-400 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        Featured
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Package Content */}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-luxury-teal dark:text-luxury-teal font-montserrat text-sm font-medium">
+                        {pkg.duration}
+                      </span>
+                      <div className="flex items-center space-x-1">
+                        <svg className="w-4 h-4 text-luxury-gold" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Premium</span>
+                      </div>
+                    </div>
+                    
+                    <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-3 group-hover:text-luxury-teal dark:group-hover:text-luxury-teal transition-colors duration-300">
+                      {pkg.title}
+                    </h3>
+                    
+                    <p className="font-lora text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                      {pkg.shortDescription}
+                    </p>
+
+                    {/* Highlights */}
+                    <div className="space-y-2 mb-6">
+                      {pkg.highlights.slice(0, 3).map((highlight, i) => (
+                        <div key={i} className="flex items-start space-x-2">
+                          <div className="w-1.5 h-1.5 bg-luxury-gold rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="font-lora text-gray-600 dark:text-gray-400 text-sm">{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Locations */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {pkg.locations.slice(0, 3).map((location, i) => (
+                        <span
+                          key={i}
+                          className="px-2 py-1 bg-gray-100 dark:bg-dark-primary/20 text-gray-700 dark:text-gray-300 text-xs rounded-full"
+                        >
+                          {location}
+                        </span>
+                      ))}
+                      {pkg.locations.length > 3 && (
+                        <span className="px-2 py-1 bg-gray-100 dark:bg-dark-primary/20 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                          +{pkg.locations.length - 3} more
+                        </span>
+                      )}
+                    </div>
+
+                    {/* CTA */}
+                    <div className="flex items-center justify-between">
+                      <div className="text-luxury-charcoal dark:text-white">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">Starting from</span>
+                        <div className="font-bold text-lg">${pkg.price} <span className="text-sm font-normal">/ person</span></div>
+                      </div>
+                      <div className="transform transition-transform duration-300 group-hover:translate-x-1">
+                        <svg className="w-6 h-6 text-luxury-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          
+          {/* View All Packages Button */}
+          <div className="text-center mt-12">
+            <Link to="/packages">
+              <Button className="px-8 py-3 rounded-full bg-gradient-to-r from-luxury-teal to-blue-500 hover:from-luxury-teal/90 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 font-medium">
+                View All Sri Lankan Packages
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
 

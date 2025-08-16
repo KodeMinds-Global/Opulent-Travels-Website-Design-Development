@@ -1,103 +1,261 @@
 import { Package, SriLankaPackage, MaldivesPackage } from '../types/package';
 import { getAssetPath } from '@/lib/utils';
 
-// Sample Sri Lanka Packages
+// Sample Sri Lanka Packages with complete details
 const sriLankaPackages: SriLankaPackage[] = [
   {
     id: 'sl-001',
     type: 'sriLanka',
-    title: 'Cultural Triangle Explorer',
-    shortDescription: 'Discover the ancient wonders of Sri Lanka\'s cultural triangle, including Sigiriya, Anuradhapura, and Polonnaruwa.',
-    longDescription: 'Embark on an extraordinary journey through Sri Lanka\'s famed Cultural Triangle, where centuries of history, art, and spirituality await. This carefully crafted 5-day expedition takes you through the heart of Sri Lanka\'s ancient kingdoms, offering unparalleled insights into the island\'s rich heritage and architectural marvels. From the towering Sigiriya Rock Fortress to the sacred temples of Anuradhapura and the intricate stone carvings of Polonnaruwa, every day brings new discoveries and awe-inspiring moments.',
+    title: '5N6D SRI LANKA TOUR',
+    shortDescription: 'Experience the best of Sri Lanka in 6 days covering Kandy, Bentota, and Colombo with cultural sites, beaches, and city exploration.',
+    longDescription: 'Embark on an extraordinary 6-day journey through Sri Lanka\'s most captivating destinations. From the cultural heart of Kandy to the pristine beaches of Bentota and the vibrant city of Colombo, this tour offers the perfect blend of heritage, nature, and modern experiences.',
     imageUrl: getAssetPath('/assets/images/Sri_Lankan_01.jpg'),
-    price: 1250,
-    duration: '5 days / 4 nights',
+    price: 424,
+    duration: '5 nights / 6 days',
     highlights: [
-      'Climb the iconic Sigiriya Rock Fortress, a UNESCO World Heritage site',
-      'Explore the ancient city of Anuradhapura with its sacred Bo Tree',
-      'Discover the medieval capital of Polonnaruwa',
-      'Visit the Dambulla Cave Temple with its magnificent Buddha statues',
-      'Experience authentic Sri Lankan village life'
+      'Visit Pinnawala Elephant Orphanage',
+      'Explore the Temple of the Sacred Tooth Relic in Kandy',
+      'Experience traditional Kandyan Cultural Show',
+      'Tour Royal Botanical Garden at Peradeniya',
+      'Relax at beautiful Bentota beaches',
+      'Comprehensive Colombo city tour'
     ],
     inclusions: [
-      'Accommodation in 4-star hotels',
-      'Daily breakfast and dinner',
-      'Private air-conditioned transportation',
-      'English-speaking guide',
-      'All entrance fees to attractions',
-      'Welcome drink upon arrival'
+      '2 nights accommodation in Kandy with breakfast and dinner',
+      '2 nights accommodation in Bentota with breakfast and dinner', 
+      '1 night accommodation in Colombo with breakfast and dinner',
+      'All transfers and sightseeing by air-conditioned vehicle',
+      'English speaking licensed driver/guide throughout the tour',
+      'Entrance fees to major attractions',
+      'All taxes and banking charges'
     ],
     exclusions: [
-      'International airfare',
-      'Visa fees',
-      'Travel insurance',
-      'Personal expenses',
-      'Gratuities',
-      'Lunch meals'
+      'Lunch and beverages',
+      'Kandy Esala Perehera supplement',
+      'Water Sports',
+      'Extras of personal nature',
+      'Tips and gratuities',
+      'Extra services other than those specified'
     ],
+    detailedItinerary: [
+      {
+        day: 1,
+        title: 'ARRIVAL COLOMBO – PINNAWALA – KANDY',
+        description: 'Welcome to Sri Lanka! Your adventure begins with arrival in Colombo and transfer to the cultural capital, Kandy.',
+        activities: [
+          'Arrival at Colombo International Airport at 13:00 Hrs (Approx)',
+          'Onward transfer to Kandy (4 hrs)',
+          'Enroute visit Pinnawala Elephant Orphanage',
+          'Lunch at a restaurant (direct payment)',
+          'Upon arrival at Kandy, transfer to hotel and check-in',
+          'Dinner and overnight in Kandy'
+        ],
+        meals: ['Dinner'],
+        accommodation: 'Kandy Hotel'
+      },
+      {
+        day: 2,
+        title: 'KANDY',
+        description: 'Immerse yourself in the rich cultural heritage of Kandy with temple visits and cultural performances.',
+        activities: [
+          'Breakfast at hotel',
+          'Morning visit to the Holy Tooth Relic Temple for observing the puja ceremony (09:30 AM Puja)',
+          'Later visit the Royal Sacred City',
+          'Orientation tour covering Kandy lake, university area etc.',
+          'Lunch at a restaurant (direct payment)',
+          'In the late afternoon Kandyan Cultural Show',
+          'Dinner and overnight in Kandy'
+        ],
+        meals: ['Breakfast', 'Dinner'],
+        accommodation: 'Kandy Hotel'
+      },
+      {
+        day: 3,
+        title: 'KANDY – PERADENIYA - BENTOTA',
+        description: 'Journey from the hill country to the coast, visiting botanical gardens and tea plantations.',
+        activities: [
+          'Breakfast and check-out',
+          'Transfer to Bentota via Peradeniya',
+          'Enroute visit a Tea Plantation',
+          'Upon arrival at Peradeniya, visit the Royal Botanical Garden',
+          'Lunch at a restaurant (direct payment)',
+          'Continue transfer to Bentota',
+          'Free afternoon for leisure and exploration',
+          'Dinner and overnight in Bentota'
+        ],
+        meals: ['Breakfast', 'Dinner'],
+        accommodation: 'Bentota Hotel'
+      },
+      {
+        day: 4,
+        title: 'BENTOTA',
+        description: 'Explore the southern coast with visits to historic Galle and beautiful Mirissa.',
+        activities: [
+          'Breakfast at hotel',
+          'Morning half day tour of Galle and Mirissa',
+          'Lunch at a restaurant (direct payment)',
+          'Free afternoon at Bentota beach',
+          'Dinner and overnight in Bentota'
+        ],
+        meals: ['Breakfast', 'Dinner'],
+        accommodation: 'Bentota Hotel'
+      },
+      {
+        day: 5,
+        title: 'BENTOTA – COLOMBO',
+        description: 'Experience the vibrant capital city with comprehensive sightseeing before your final night.',
+        activities: [
+          'Breakfast at hotel',
+          'Free morning in Bentota',
+          'Checkout at midday and transfer to Colombo',
+          'Lunch at a restaurant (direct payment)',
+          'Upon arrival in Colombo, orientation tour covering Gangaramaya Temple, Independence Square, Galle Face, Beira Lake, Colombo National Museum, Viharamahadevi Park, Dutch Hospital & Pettah',
+          'Transfer to hotel in Colombo',
+          'Dinner and overnight in Colombo'
+        ],
+        meals: ['Breakfast', 'Dinner'],
+        accommodation: 'Colombo Hotel'
+      },
+      {
+        day: 6,
+        title: 'DEPARTURE COLOMBO',
+        description: 'Final departure with packed breakfast and airport transfer.',
+        activities: [
+          'At dawn checkout with packed breakfast',
+          'Transfer to Colombo International Airport',
+          'Board flight departing at 06:40 AM'
+        ],
+        meals: ['Packed Breakfast'],
+        accommodation: 'Departure'
+      }
+    ],
+    pricingTable: {
+      currency: 'USD',
+      validFrom: '01 MAY 2025',
+      validTo: '31 OCT 2025',
+      categories: [
+        {
+          name: '3 Star',
+          prices: {
+            '2Pax': 538,
+            '4Pax': 424,
+            '6Pax': 382,
+            '8Pax': 348,
+            'ExtraAdult': 519,
+            'ChildWithBed': 269,
+            'ChildWithoutBed': 135
+          }
+        },
+        {
+          name: '3.5 Star',
+          prices: {
+            '2Pax': 582,
+            '4Pax': 467,
+            '6Pax': 418,
+            '8Pax': 386,
+            'ExtraAdult': 552,
+            'ChildWithBed': 291,
+            'ChildWithoutBed': 146
+          }
+        },
+        {
+          name: '4 Star',
+          prices: {
+            '2Pax': 596,
+            '4Pax': 482,
+            '6Pax': 432,
+            '8Pax': 398,
+            'ExtraAdult': 578,
+            'ChildWithBed': 298,
+            'ChildWithoutBed': 149
+          }
+        },
+        {
+          name: '5 Star',
+          prices: {
+            '2Pax': 672,
+            '4Pax': 556,
+            '6Pax': 494,
+            '8Pax': 462,
+            'ExtraAdult': 664,
+            'ChildWithBed': 336,
+            'ChildWithoutBed': 168
+          }
+        }
+      ]
+    },
+    supplements: [
+      'On arrival lunch US$8 per person in a local restaurant'
+    ],
+    seasonalSupplements: {
+      kandyEsalaPerehera: {
+        period: '28th July to 10th August 2025',
+        rates: {
+          '3Star': 30,
+          '3.5Star': 35,
+          '4Star': 60,
+          '5Star': 70
+        }
+      },
+      peakSeason: {
+        period: '01st July – 31st Aug 2025',
+        rates: {
+          '3Star': 10,
+          '3.5Star': 15,
+          '4Star': 20,
+          '5Star': 25
+        }
+      }
+    },
+    hotelList: {
+      '3Star': {
+        Kandy: 'Travelers Nest Hotel',
+        Beach: 'Blue Beach Hotel',
+        Colombo: 'Grand Oriental Hotel'
+      },
+      '3.5Star': {
+        Kandy: 'Topaz Hotel',
+        Beach: 'Coral Sands Hotel',
+        Colombo: 'Ocean Colombo Hotel'
+      },
+      '4Star': {
+        Kandy: 'Thilanka Hotel',
+        Beach: 'Laya Beach Hotel',
+        Colombo: 'Mirage Hotel Colombo'
+      },
+      '5Star': {
+        Kandy: 'Grand Kandyan Hotel',
+        Beach: 'Blue Water Hotel & Spa',
+        Colombo: 'NH Collection Colombo'
+      }
+    },
     itinerary: [
       {
         day: 1,
-        title: 'Arrival and Transfer to Habarana',
-        description: 'Welcome to Sri Lanka! Upon arrival at Bandaranaike International Airport, you\'ll be met by your private guide and transferred to your hotel in Habarana, the central point for exploring the Cultural Triangle.',
+        title: 'Arrival and Transfer to Kandy',
+        description: 'Welcome to Sri Lanka! Upon arrival at Bandaranaike International Airport, you\'ll be met by your private guide and transferred to Kandy via Pinnawala.',
         activities: [
           'Airport pickup and welcome briefing',
-          'Scenic drive to Habarana (approximately 4 hours)',
-          'Check-in and evening at leisure',
-          'Welcome dinner at hotel'
+          'Visit Pinnawala Elephant Orphanage',
+          'Scenic drive to Kandy',
+          'Check-in and evening at leisure'
         ]
       },
       {
         day: 2,
-        title: 'Sigiriya Rock Fortress & Minneriya Safari',
-        description: 'Begin your adventure with an early morning climb to the magnificent Sigiriya Rock Fortress. In the afternoon, enjoy a wildlife safari at Minneriya National Park, famous for its large elephant gatherings.',
+        title: 'Kandy Cultural Exploration',
+        description: 'Immerse yourself in Kandy\'s rich cultural heritage with temple visits and traditional performances.',
         activities: [
-          'Morning ascent of Sigiriya Rock Fortress',
-          'Exploration of ancient frescoes and Lion\'s Paw entrance',
-          'Afternoon jeep safari at Minneriya National Park',
-          'Dinner at a local restaurant with traditional music'
-        ]
-      },
-      {
-        day: 3,
-        title: 'Ancient City of Anuradhapura',
-        description: 'Spend the day exploring Anuradhapura, Sri Lanka\'s first capital and a UNESCO World Heritage site, home to some of the world\'s oldest trees and stupas.',
-        activities: [
-          'Visit to Sri Maha Bodhi, the sacred Bo Tree',
-          'Exploration of Ruwanwelisaya Stupa and Jetavanaramaya',
-          'Tour of Isurumuniya Temple with its famous lovers carving',
-          'Traditional lunch at a local home'
-        ]
-      },
-      {
-        day: 4,
-        title: 'Medieval Capital of Polonnaruwa',
-        description: 'Discover the second ancient capital of Sri Lanka, Polonnaruwa, renowned for its well-preserved ruins and impressive stone sculptures.',
-        activities: [
-          'Exploration of the Royal Palace complex',
-          'Visit to Gal Vihara with its magnificent Buddha statues',
-          'Tour of Vatadage and other archaeological treasures',
-          'Evening cultural performance at hotel'
-        ]
-      },
-      {
-        day: 5,
-        title: 'Dambulla Cave Temple and Departure',
-        description: 'Visit the golden Dambulla Cave Temple in the morning before transferring back to Colombo or directly to the airport for your departure.',
-        activities: [
-          'Morning visit to Dambulla Cave Temple',
-          'Exploration of the five caves with their Buddha statues',
-          'Farewell lunch',
-          'Transfer to airport or Colombo'
+          'Visit Temple of the Sacred Tooth Relic',
+          'Kandy city tour including lake and markets',
+          'Traditional Kandyan cultural show',
+          'Evening at leisure'
         ]
       }
     ],
     featured: true,
-    locations: ['Sigiriya', 'Anuradhapura', 'Polonnaruwa', 'Dambulla', 'Minneriya'],
+    locations: ['Kandy', 'Bentota', 'Colombo', 'Pinnawala', 'Peradeniya', 'Galle'],
     culturalExperiences: [
-      'Traditional dance performance',
-      'Village cooking demonstration',
-      'Ancient meditation practices',
       'Local crafts workshop'
     ]
   },
