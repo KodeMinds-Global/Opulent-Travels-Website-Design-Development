@@ -152,7 +152,14 @@ const SriLankaPackageDetail = () => {
                 </div>
                 
                 {/* Content */}
-                <div className={`${index % 2 === 0 ? 'mr-auto pr-12 lg:pr-20' : 'ml-auto pl-12 lg:pl-20'} max-w-md lg:max-w-lg`}>
+                <div className={`
+                  max-w-md lg:max-w-lg
+                  mx-auto pr-6 pl-6
+                  lg:mx-0 ${index % 2 === 0 
+                    ? 'lg:mr-auto lg:pr-12 lg:pl-0' 
+                    : 'lg:ml-auto lg:pl-12 lg:pr-0'
+                  }
+                `}>
                   <div className="bg-white dark:bg-dark-surface/80 rounded-2xl p-6 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group">
                     {/* Day Header */}
                     <div className="flex items-center justify-between mb-4">
