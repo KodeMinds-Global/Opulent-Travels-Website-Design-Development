@@ -64,9 +64,8 @@ const SriLankaPackageDetail = () => {
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background">
       <Navigation />
-      
       {/* Hero Section with Parallax Effect */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
         {/* Background Image with Parallax */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed transform scale-110"
@@ -75,62 +74,48 @@ const SriLankaPackageDetail = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70"></div>
         </div>
         
-        {/* Floating Elements */}
-        <div className="absolute inset-0 overflow-hidden">
+        {/* Floating Elements - Hidden on mobile for better performance */}
+        <div className="hidden sm:block absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-luxury-gold rounded-full animate-float opacity-70"></div>
           <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-luxury-teal rounded-full animate-float opacity-60" style={{ animationDelay: '1s' }}></div>
           <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-luxury-coral rounded-full animate-float opacity-80" style={{ animationDelay: '2s' }}></div>
         </div>
         
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center items-center text-center">
-          <div className={`max-w-4xl transition-all duration-1500 ${isVisible.hero ? 'animate-fade-up opacity-100' : 'opacity-0 translate-y-12'}`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 h-full flex flex-col justify-center items-center text-center">
+          <div className={`max-w-4xl w-full transition-all duration-1500 ${isVisible.hero ? 'animate-fade-up opacity-100' : 'opacity-0 translate-y-12'}`}>
             {/* Package Badge */}
-            <div className="inline-flex items-center bg-luxury-gold/90 backdrop-blur-sm text-black px-6 py-2 rounded-full font-medium mb-6 transform hover:scale-105 transition-transform duration-300">
-              <Star className="w-4 h-4 mr-2" />
-              Premium Sri Lanka Experience
+            <div className="inline-flex items-center bg-luxury-gold/90 backdrop-blur-sm text-black px-4 sm:px-6 py-2 rounded-full font-medium mb-4 sm:mb-6 transform hover:scale-105 transition-transform duration-300">
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+              <span className="text-sm sm:text-base">Premium Sri Lanka Experience</span>
             </div>
             
             {/* Package Title */}
-            <h1 className="font-playfair font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
+            <h1 className="font-playfair font-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 sm:mb-6 leading-tight px-2">
               {packageData.title}
             </h1>
             
             {/* Package Info Cards */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl px-4 py-3 flex items-center text-white">
-                <Clock className="w-5 h-5 mr-2 text-luxury-gold" />
-                <span className="font-medium">{packageData.duration}</span>
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 px-4">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex items-center text-white">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-luxury-gold" />
+                <span className="font-medium text-sm sm:text-base">{packageData.duration}</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl px-4 py-3 flex items-center text-white">
-                <MapPin className="w-5 h-5 mr-2 text-luxury-teal" />
-                <span className="font-medium">{packageData.locations.length} Destinations</span>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl px-4 py-3 flex items-center text-white">
-                <DollarSign className="w-5 h-5 mr-2 text-luxury-coral" />
-                <span className="font-medium">From ${packageData.price}</span>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl px-3 sm:px-4 py-2 sm:py-3 flex items-center text-white">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-luxury-teal" />
+                <span className="font-medium text-sm sm:text-base">{packageData.locations.length} Destinations</span>
               </div>
             </div>
             
             {/* Description */}
-            <p className="font-lora text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="font-lora text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
               {packageData.longDescription}
             </p>
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="px-8 py-4 bg-luxury-gold hover:bg-luxury-gold/90 text-black font-bold text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-                Book Now - ${packageData.price}
-              </Button>
-              <Button variant="outline" className="px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-black font-bold text-lg rounded-full backdrop-blur-sm transition-all duration-300">
-                Get Free Quote
-              </Button>
-            </div>
           </div>
         </div>
         
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="hidden sm:block absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
             <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
           </div>
