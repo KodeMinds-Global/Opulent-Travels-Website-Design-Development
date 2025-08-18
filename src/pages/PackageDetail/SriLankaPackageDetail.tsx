@@ -136,7 +136,7 @@ const SriLankaPackageDetail = () => {
           
           <div className="relative lg:max-w-3xl lg:mx-auto">
             {/* Timeline Line */}
-            <div className="absolute hidden lg:block left-1/2 transform -translate-x-1/2 lg:left-16 lg:transform-none w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
+            <div className="absolute hidden md:block left-1/2 transform -translate-x-1/2 lg:left-16 lg:transform-none w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
             
             {(packageData as any).detailedItinerary?.map((day: any, index: number) => (
               <div 
@@ -147,7 +147,7 @@ const SriLankaPackageDetail = () => {
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
                 {/* Timeline Dot */}
-                <div className="absolute hidden lg:flex left-1/2 transform -translate-x-1/2 lg:left-20 lg:transform-none lg:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 items-center justify-center">
+                <div className="absolute hidden md:flex left-1/2 transform -translate-x-1/2 lg:left-20 lg:transform-none lg:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 items-center justify-center">
                   <span className="text-white font-bold text-sm">{day.day}</span>
                 </div>
                 
