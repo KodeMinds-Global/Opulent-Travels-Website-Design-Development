@@ -36,6 +36,41 @@ export interface SeasonalSupplement {
   };
 }
 
+export interface TermsSection {
+  title: string;
+  items: string[];
+  colorScheme: string;
+}
+
+export interface TermsAndConditions {
+  mainTitle: string;
+  validityPeriod: {
+    from: string;
+    to: string;
+  };
+  sections: {
+    allRates: TermsSection;
+    transfersInclude: TermsSection;
+    transfersExclude: TermsSection;
+    childrenPolicy: TermsSection;
+    general: TermsSection;
+    pleaseNote: TermsSection;
+    cancellationCharges: TermsSection;
+    hotelConfirmations: {
+      title: string;
+      content: string[];
+      colorScheme: string;
+    };
+    hotelRules: TermsSection;
+    visa: {
+      title: string;
+      content: string;
+      link: string;
+      colorScheme: string;
+    };
+  };
+}
+
 export interface BasePackage {
   id: string;
   title: string;

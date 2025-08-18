@@ -3,8 +3,10 @@ import { useParams, Navigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import TermsAndConditions from '@/components/TermsAndConditions';
 import { Button } from '@/components/ui/button';
 import { usePackages } from '@/hooks/usePackages';
+import { sriLankaTermsAndConditions } from '@/data/termsAndConditions';
 import { Clock, MapPin, Users, Star, Calendar, DollarSign, CheckCircle, XCircle, Hotel, Car, Plane, Camera, Heart, Shield } from 'lucide-react';
 
 const SriLankaPackageDetail = () => {
@@ -428,139 +430,7 @@ const SriLankaPackageDetail = () => {
       )}
 
       {/* Terms & Conditions Section */}
-      <section className="py-20 bg-white dark:bg-dark-surface relative">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-playfair font-bold text-3xl md:text-5xl text-luxury-charcoal dark:text-white mb-4">
-              The Rates Quoted Are Based on the Following 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500"> Terms & Conditions</span>
-            </h2>
-          </div>
-
-          <div className="max-w-6xl mx-auto space-y-8">
-            {/* All Rates Section */}
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 border border-green-200 dark:border-green-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">All Rates are</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• In United States Dollars, Per Person, in sharing double/twin room</li>
-                <li>• Valid for travel from 1st May 2025 – 31st October 2025</li>
-              </ul>
-            </div>
-
-            {/* Transfers & Tours Include */}
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">All Transfers & Tours Include</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Daily bottle of mineral water</li>
-                <li>• Private Transfers between Airport –Hotel – Sightseeing – Hotel</li>
-                <li>• English speaking licensed driver / guide, throughout the tour</li>
-                <li>• Hotel accommodation on twin sharing room with meals including Breakfast (Unless booked otherwise)</li>
-              </ul>
-            </div>
-
-            {/* Transfers & Tours Exclude */}
-            <div className="bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 rounded-2xl p-6 border border-red-200 dark:border-red-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">All Transfers & Tours Exclude</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Beverages, Portages & Tips</li>
-                <li>• Entrance fees at places of interest (such as parks, museums etc.)</li>
-              </ul>
-            </div>
-
-            {/* Children Policy */}
-            <div className="bg-gradient-to-r from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-2xl p-6 border border-purple-200 dark:border-purple-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">Children Policy</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Infants 0 – 2 years : Free of charge (Baby cot on request)</li>
-                <li>• Child 2 – 11 years : 50% of adult rate sharing room with parents including extra bed</li>
-                <li>• Child 2 – 11 years : 25% of adult rate sharing room with parents excluding extra bed</li>
-              </ul>
-            </div>
-
-            {/* General Terms */}
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl p-6 border border-amber-200 dark:border-amber-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">General</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Rates are based on private touring.</li>
-                <li>• If a place of visit is closed to visitors, on a particular time/date, every effort will be made to replace with an alternative.</li>
-                <li>• During major events, accommodation may not be in the mentioned city.</li>
-                <li>• Sequence of itinerary is subject to change without prior notice, in the best interest.</li>
-                <li>• Hotel classifications are based on local standards</li>
-                <li>• Amendments / cancellations etc., are subject to terms and conditions.</li>
-                <li>• Information is as per time of print and subject to change without notice.</li>
-              </ul>
-            </div>
-
-            {/* Please Note */}
-            <div className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-2xl p-6 border border-teal-200 dark:border-teal-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">Please Note</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• The rates quoted are based on the listed proposed hotels.</li>
-                <li>• The above rates are net and include government taxes (VAT, TDL & NBT).</li>
-                <li>• These rates are subject to change without prior notice in the event government changes the tax policy, or if the hotels change their rates, or for situations beyond our control.</li>
-                <li>• These rates are applicable for tour operators/travel agents working exclusively with us.</li>
-                <li>• All hotel classifications are as per local hotel classifications.</li>
-                <li>• Meal plan on tour will be on booked basis.</li>
-                <li>• Breakfast will start from the 2nd day.</li>
-                <li>• Half Board will be from arrival day dinner to departure day breakfast.</li>
-                <li>• Full Board will be from arrival day lunch to departure day breakfast.</li>
-                <li>• Transportation by air-conditioned vehicle from Airport to Airport, as per the itinerary.</li>
-                <li>• In an unlikely event of a customer need a betterment, it should be brought to our notice immediately for rectification. No post tour complaints will be considered.</li>
-                <li>• Optional excursions and additional services could be provided for which charges will be collected locally.</li>
-                <li>• Visits to wild life parks, adventure activities, swimming etc, will be at client's own risk.</li>
-                <li>• Safari vehicles (none air-conditioned) available are basic with basic insurance cover</li>
-                <li>• Payment by credit cards will be subject to 3.5% bank charges.</li>
-                <li>• Tours could be re-routed with/ or without adequate notice, in the best interest of the customer.</li>
-                <li>• Certain places of interest could be closed during lunch hours, public holidays etc., and the DMC will not be responsible for those.</li>
-              </ul>
-            </div>
-
-            {/* Cancellation Charges */}
-            <div className="bg-gradient-to-r from-rose-50 to-red-50 dark:from-rose-900/20 dark:to-red-900/20 rounded-2xl p-6 border border-rose-200 dark:border-rose-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">Cancellation charges (Sri Lanka)</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• Within 07 - 00 days - 100% cancellation charge.</li>
-                <li>• Within 14 - 08 days - 75% cancellation charge.</li>
-                <li>• Within 21-15 days - 50% cancellation charge.</li>
-                <li>• If any advance payments are made to any hotels or other suppliers to reserve services, those will be added to the cancellation charges.</li>
-              </ul>
-            </div>
-
-            {/* Hotel Confirmations */}
-            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-2xl p-6 border border-indigo-200 dark:border-indigo-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">Hotel Confirmations</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-3">
-                Hotels reservations will be made when confirming, however due to prevailing demand situation, final confirmation of hotel/s, will be subject to availability at the time of receiving the timely confirmation.
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                In the event of an untimely payment, leading to the hotel reservation being cancelled, by the hotel, we will make every effort to re-book the hotel/s and confirmation will be subject to then availability. Alternatively we will arrange suitable other accommodation. However no refunds or compensation will be considered in such events. This will also apply for last minute reservations.
-              </p>
-            </div>
-
-            {/* Hotel Rules & Regulations */}
-            <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-2xl p-6 border border-emerald-200 dark:border-emerald-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">Hotel Rules & Regulations</h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                <li>• The official check-in time at all hotels will be 14.00 hrs.</li>
-                <li>• The official check-out time at all hotels will be 12.00 hrs.</li>
-                <li>• For early arrival we recommend that the hotel to be reserved from previous day.</li>
-                <li>• Cancellation policy will be applicable for any reduction of allocated / blocked rooms, after the release period.</li>
-              </ul>
-            </div>
-
-            {/* Visa */}
-            <div className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900/20 dark:to-gray-900/20 rounded-2xl p-6 border border-slate-200 dark:border-slate-800">
-              <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-4">Visa</h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                A tourist visa needs to be obtained for nationals other than Singapore & Maldives and could be obtained online. For further details, visit 
-                <a href="http://www.eta.gov.lk/" target="_blank" rel="noopener noreferrer" className="text-green-600 dark:text-green-400 hover:underline ml-1">
-                  http://www.eta.gov.lk/
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <TermsAndConditions termsData={sriLankaTermsAndConditions} />
 
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-luxury-teal via-blue-600 to-luxury-coral relative overflow-hidden">
