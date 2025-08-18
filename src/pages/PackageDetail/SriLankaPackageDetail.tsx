@@ -134,9 +134,9 @@ const SriLankaPackageDetail = () => {
             </p>
           </div>
           
-          <div className="relative">
+          <div className="relative lg:max-w-4xl lg:mx-auto">
             {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 lg:left-8 lg:transform-none w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
             
             {(packageData as any).detailedItinerary?.map((day: any, index: number) => (
               <div 
@@ -147,7 +147,7 @@ const SriLankaPackageDetail = () => {
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 flex items-center justify-center">
+                <div className="absolute left-1/2 transform -translate-x-1/2 lg:left-8 lg:transform-none lg:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 flex items-center justify-center">
                   <span className="text-white font-bold text-sm">{day.day}</span>
                 </div>
                 
@@ -155,10 +155,7 @@ const SriLankaPackageDetail = () => {
                 <div className={`
                   max-w-md lg:max-w-lg
                   mx-auto pr-6 pl-6
-                  lg:mx-0 ${index % 2 === 0 
-                    ? 'lg:mr-auto lg:pr-1 lg:pl-0' 
-                    : 'lg:ml-auto lg:pl-1 lg:pr-0'
-                  }
+                  lg:ml-20 lg:mr-0 lg:pl-8 lg:pr-0
                 `}>
                   <div className="bg-white dark:bg-dark-surface/80 rounded-2xl p-6 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group">
                     {/* Day Header */}
