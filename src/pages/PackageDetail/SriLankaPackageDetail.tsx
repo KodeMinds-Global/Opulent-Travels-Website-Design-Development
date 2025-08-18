@@ -337,8 +337,95 @@ const SriLankaPackageDetail = () => {
               </div>
             </div>
           )}
+
+          {/* Peak Supplement Section */}
+          {(packageData as any).seasonalSupplements?.peakSeason && (
+            <div className="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 border-l-4 border-blue-400">
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <div className="bg-blue-400 text-white px-3 py-1 rounded-md font-bold text-sm mr-4 flex-shrink-0">
+                    Peak Supplement
+                  </div>
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    {(packageData as any).seasonalSupplements.peakSeason.period} (Applicable for all the hotels)
+                  </span>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+                  {Object.entries((packageData as any).seasonalSupplements.peakSeason.rates).map(([category, rate]: [string, any], index: number) => (
+                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-blue-200 dark:border-blue-700">
+                      <div className="text-sm font-semibold text-gray-800 dark:text-white">
+                        {category.replace('Star', '* Hotel')}
+                      </div>
+                      <div className="text-blue-600 dark:text-blue-400 font-bold">
+                        US$ {rate}Nett per room per day
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
+      {/* Hotel List Section */}
+      {(packageData as any).hotelList && (
+        <section className="py-20 bg-light-surface dark:bg-dark-surface/30 relative">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="font-playfair font-bold text-3xl md:text-5xl text-luxury-charcoal dark:text-white mb-4">
+                Hotel <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-500">List</span>
+              </h2>
+              <p className="font-lora text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+                Carefully selected accommodations for your comfort and convenience
+              </p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <div className="min-w-[800px] bg-white dark:bg-dark-surface rounded-2xl shadow-xl overflow-hidden">
+                <table className="w-full">
+                  <thead className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+                    <tr>
+                      <th className="px-4 py-4 text-left font-bold">Place</th>
+                      <th className="px-4 py-4 text-center font-bold">3* Hotels</th>
+                      <th className="px-4 py-4 text-center font-bold">3.5* Hotels</th>
+                      <th className="px-4 py-4 text-center font-bold">4* Hotels</th>
+                      <th className="px-4 py-4 text-center font-bold">5* Hotels</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(() => {
+                      const hotelList = (packageData as any).hotelList;
+                      const locations = Object.keys(hotelList['3Star'] || {});
+                      
+                      return locations.map((location: string, index: number) => (
+                        <tr key={index} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors last:border-0">
+                          <td className="px-4 py-4 font-semibold text-gray-800 dark:text-white">
+                            {location === 'Beach' ? 'Wadduwa/Hikkaduwa' : location}
+                          </td>
+                          <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">
+                            {hotelList['3Star']?.[location] || '-'}
+                          </td>
+                          <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">
+                            {hotelList['3.5Star']?.[location] || '-'}
+                          </td>
+                          <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">
+                            {hotelList['4Star']?.[location] || '-'}
+                          </td>
+                          <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">
+                            {hotelList['5Star']?.[location] || '-'}
+                          </td>
+                        </tr>
+                      ));
+                    })()}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-luxury-teal via-blue-600 to-luxury-coral relative overflow-hidden">
