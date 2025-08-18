@@ -134,9 +134,9 @@ const SriLankaPackageDetail = () => {
             </p>
           </div>
           
-          <div className="relative lg:max-w-5xl lg:mx-auto lg:px-8">
+          <div className="relative lg:max-w-3xl lg:mx-auto">
             {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 lg:left-12 lg:transform-none w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 lg:left-16 lg:transform-none w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
             
             {(packageData as any).detailedItinerary?.map((day: any, index: number) => (
               <div 
@@ -147,7 +147,7 @@ const SriLankaPackageDetail = () => {
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 lg:left-12 lg:transform-none lg:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 flex items-center justify-center">
+                <div className="absolute left-1/2 transform -translate-x-1/2 lg:left-16 lg:transform-none lg:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 flex items-center justify-center">
                   <span className="text-white font-bold text-sm">{day.day}</span>
                 </div>
                 
@@ -155,7 +155,7 @@ const SriLankaPackageDetail = () => {
                 <div className={`
                   max-w-md lg:max-w-lg
                   mx-auto pr-6 pl-6
-                  lg:ml-24 lg:mr-0 lg:pl-6 lg:pr-0
+                  lg:ml-24 lg:mr-0 lg:pl-4 lg:pr-0
                 `}>
                   <div className="bg-white dark:bg-dark-surface/80 rounded-2xl p-6 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group">
                     {/* Day Header */}
@@ -275,7 +275,7 @@ const SriLankaPackageDetail = () => {
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="absolute top-0 left-0 w-full h-full">
             <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-float"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-white/5 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-white/5 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>increase li
           </div>
         </div>
         
