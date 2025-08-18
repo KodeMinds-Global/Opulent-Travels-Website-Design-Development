@@ -269,6 +269,77 @@ const SriLankaPackageDetail = () => {
         </div>
       </section>
 
+      {/* Pricing Table Section */}
+      <section className="py-20 bg-white dark:bg-gradient-to-br dark:from-dark-background dark:via-dark-surface dark:to-dark-primary/10 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-playfair font-bold text-3xl md:text-5xl text-luxury-charcoal dark:text-white mb-4">
+              Package <span className="text-transparent bg-clip-text bg-gradient-to-r from-luxury-teal to-blue-500">Pricing</span>
+            </h2>
+            <div className="bg-luxury-gold/10 dark:bg-luxury-gold/20 rounded-lg p-4 mb-6">
+              <h3 className="font-bold text-xl text-luxury-charcoal dark:text-white mb-2">
+                LAND PACKAGE PRICE: (VALID FROM {(packageData as any).pricingTable?.validFrom || '01 MAY'} – {(packageData as any).pricingTable?.validTo || '31 OCT 2025'})
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">Tariff – in {(packageData as any).pricingTable?.currency || 'US'}$, per Person, net</p>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto mb-8">
+            <div className="min-w-[800px] bg-white dark:bg-dark-surface rounded-2xl shadow-xl overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-gradient-to-r from-luxury-teal to-blue-500 text-white">
+                  <tr>
+                    <th className="px-4 py-4 text-left font-bold">Category</th>
+                    <th className="px-4 py-4 text-center font-bold">2 Pax</th>
+                    <th className="px-4 py-4 text-center font-bold">4 Pax</th>
+                    <th className="px-4 py-4 text-center font-bold">6 Pax</th>
+                    <th className="px-4 py-4 text-center font-bold">8 Pax</th>
+                    <th className="px-4 py-4 text-center font-bold">Extra Adult<br/>(Triple Sharing)</th>
+                    <th className="px-4 py-4 text-center font-bold">Child with Bed<br/>(2-11yrs.)</th>
+                    <th className="px-4 py-4 text-center font-bold">Child without Bed<br/>(2-11yrs.)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(packageData as any).pricingTable?.categories?.map((category: any, index: number) => (
+                    <tr key={index} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors last:border-0">
+                      <td className="px-4 py-4 font-semibold text-gray-800 dark:text-white">{category.name}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['2Pax']}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['4Pax']}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['6Pax']}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['8Pax']}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['ExtraAdult']}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['ChildWithBed']}</td>
+                      <td className="px-4 py-4 text-center text-gray-700 dark:text-gray-300">{category.prices['ChildWithoutBed']}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Supplements Section */}
+          {(packageData as any).supplements && (packageData as any).supplements.length > 0 && (
+            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-2xl p-6 border-l-4 border-yellow-400">
+              <div className="flex items-start">
+                <div className="bg-yellow-400 text-black px-3 py-1 rounded-md font-bold text-sm mr-4 flex-shrink-0">
+                  Supplements:
+                </div>
+                <div className="space-y-2">
+                  {(packageData as any).supplements.map((supplement: string, index: number) => (
+                    <div key={index} className="flex items-start">
+                      <div className="w-2 h-2 bg-yellow-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {supplement}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-luxury-teal via-blue-600 to-luxury-coral relative overflow-hidden">
         <div className="absolute inset-0">
