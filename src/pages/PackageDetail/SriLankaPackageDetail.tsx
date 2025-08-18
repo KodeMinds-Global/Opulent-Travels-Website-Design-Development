@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import TermsAndConditions from '@/components/TermsAndConditions';
+import CustomCTA from '@/components/CustomCTA';
 import { Button } from '@/components/ui/button';
 import { usePackages } from '@/hooks/usePackages';
 import { sriLankaTermsAndConditions } from '@/data/termsAndConditions';
@@ -432,36 +433,8 @@ const SriLankaPackageDetail = () => {
       {/* Terms & Conditions Section */}
       <TermsAndConditions termsData={sriLankaTermsAndConditions} />
 
-      {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-luxury-teal via-blue-600 to-luxury-coral relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/10 rounded-full animate-float"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-white/5 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>increase li
-          </div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <h2 className="font-playfair font-bold text-3xl md:text-5xl text-white mb-6">
-            Ready for Your Sri Lankan Adventure?
-          </h2>
-          <p className="font-lora text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-            Don't miss out on this incredible journey. Book now and create memories that will last a lifetime.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="px-8 py-4 bg-white hover:bg-gray-100 text-luxury-charcoal font-bold text-lg rounded-full shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-              <Calendar className="w-5 h-5 mr-2" />
-              Book Now - ${packageData.price}
-            </Button>
-            <Button variant="outline" className="px-8 py-4 border-2 border-white text-white hover:bg-white/10 font-bold text-lg rounded-full backdrop-blur-sm transition-all duration-300">
-              <Car className="w-5 h-5 mr-2" />
-              Customize Package
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* Custom CTA Section */}
+      <CustomCTA />
       
       <Footer />
       <FloatingWhatsApp />
