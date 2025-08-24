@@ -8,11 +8,14 @@ import CustomCTA from '@/components/CustomCTA';
 import { Button } from '@/components/ui/button';
 import { usePackages } from '@/hooks/usePackages';
 import { sriLankaTermsAndConditions } from '@/data/termsAndConditions';
-import { Clock, MapPin, Users, Star, Calendar, DollarSign, CheckCircle, XCircle, Hotel, Car, Plane, Camera, Heart, Shield } from 'lucide-react';
+import { Clock, MapPin, Users, Star, Calendar, DollarSign, CheckCircle, XCircle, Hotel, Car, Plane, Camera, Heart, Shield, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { getAssetPath } from '@/lib/utils';
 
 const SriLankaPackageDetail = () => {
   const { packageId } = useParams();
   const { getPackageById } = usePackages();
+  const [selectedDay, setSelectedDay] = useState<any>(null);
+  const [showImageModal, setShowImageModal] = useState(false);
   const [isVisible, setIsVisible] = useState({
     hero: false,
     itinerary: false,
@@ -23,6 +26,26 @@ const SriLankaPackageDetail = () => {
   });
   
   const packageData = getPackageById(packageId || '');
+
+  // Open day modal
+  const openDayModal = (day: any) => {
+    setSelectedDay(day);
+  };
+
+  // Close day modal
+  const closeDayModal = () => {
+    setSelectedDay(null);
+  };
+
+  // Open image modal
+  const openImageModal = () => {
+    setShowImageModal(true);
+  };
+
+  // Close image modal
+  const closeImageModal = () => {
+    setShowImageModal(false);
+  };
 
   useEffect(() => {
     // Trigger hero animation immediately
@@ -132,77 +155,206 @@ const SriLankaPackageDetail = () => {
             <h2 className="font-playfair font-bold text-3xl md:text-5xl text-luxury-charcoal dark:text-white mb-4">
               Day-by-Day <span className="text-transparent bg-clip-text bg-gradient-to-r from-luxury-teal to-blue-500">Itinerary</span>
             </h2>
-            <p className="font-lora text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="font-lora text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12">
               Experience every moment of your Sri Lankan adventure with our detailed daily schedule
             </p>
           </div>
           
-          <div className="relative lg:max-w-3xl lg:mx-auto">
-            {/* Timeline Line */}
-            <div className="absolute hidden md:block left-1/2 transform -translate-x-1/2 lg:left-16 lg:transform-none w-1 h-full bg-gradient-to-b from-luxury-teal to-luxury-coral rounded-full opacity-30"></div>
-            
-            {(packageData as any).detailedItinerary?.map((day: any, index: number) => (
-              <div 
-                key={day.day}
-                className={`relative mb-16 transition-all duration-1000 ${
-                  isVisible.itinerary ? 'animate-fade-up opacity-100' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${index * 200}ms` }}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute hidden md:flex left-1/2 transform -translate-x-1/2 lg:left-20 lg:transform-none lg:-translate-x-1/2 w-8 h-8 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full border-4 border-white dark:border-dark-background shadow-lg z-10 items-center justify-center">
-                  <span className="text-white font-bold text-sm">{day.day}</span>
-                </div>
-                
-                {/* Content */}
-                <div className={`
-                  max-w-md lg:max-w-lg
-                  mx-auto pr-6 pl-6
-                  lg:ml-24 lg:mr-0 lg:pl-4 lg:pr-0
-                `}>
-                  <div className="bg-white dark:bg-dark-surface/80 rounded-2xl p-6 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group">
-                    {/* Day Header */}
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white group-hover:text-luxury-teal transition-colors duration-300">
-                        Day {day.day}
-                      </h3>
-                      <div className="flex items-center space-x-2">
-                        {day.meals?.map((meal: string, i: number) => (
-                          <span key={i} className="px-2 py-1 bg-luxury-gold/20 text-luxury-gold text-xs rounded-full">
-                            {meal}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <h4 className="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">{day.title}</h4>
-                    <p className="font-lora text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">{day.description}</p>
-                    
-                    {/* Activities */}
-                    <div className="space-y-2">
-                      {day.activities?.map((activity: string, i: number) => (
-                        <div key={i} className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-luxury-teal rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-gray-600 dark:text-gray-400 text-sm">{activity}</span>
+          {/* Map-Centered Layout with Left/Right Day Cards */}
+          <div className="relative max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
+              
+              {/* Left Side Day Cards - Days 1,2,3,4... */}
+              <div className="flex-1 space-y-4 order-2 lg:order-1 w-full lg:w-auto">
+                {(packageData as any).detailedItinerary?.slice(0, Math.ceil((packageData as any).detailedItinerary.length / 2)).map((day: any, index: number) => (
+                  <div 
+                    key={`left-${day.day}`}
+                    className={`transition-all duration-1000 ${
+                      isVisible.itinerary ? 'animate-fade-up opacity-100' : 'opacity-0 translate-y-8'
+                    }`}
+                    style={{ transitionDelay: `${index * 150}ms` }}
+                  >
+                    <div 
+                      className="bg-white dark:bg-dark-surface/90 rounded-2xl shadow-xl border-2 border-transparent hover:border-luxury-teal/50 hover:shadow-2xl hover:transform hover:scale-105 transition-all duration-500 cursor-pointer p-6"
+                      onClick={() => openDayModal(day)}
+                    >
+                      <div className="flex items-center justify-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-luxury-teal to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                          <span className="text-white font-bold text-lg">{day.day}</span>
                         </div>
-                      ))}
-                    </div>
-                    
-                    {/* Accommodation */}
-                    {day.accommodation && day.accommodation !== 'Departure' && (
-                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                          <MapPin className="w-4 h-4 mr-2" />
-                          <span>Overnight in {day.accommodation}</span>
+                        <div className="text-center">
+                          <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white">
+                            Day {day.day}
+                          </h3>
                         </div>
                       </div>
-                    )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Central Sri Lanka Map */}
+              <div className="flex-shrink-0 order-1 lg:order-2">
+                <div className="relative group cursor-pointer" onClick={openImageModal}>
+                  <img 
+                    src={getAssetPath('/assets/images/lk.png')} 
+                    alt="Sri Lanka Map" 
+                    className="w-96 h-96 md:w-[32rem] md:h-[32rem] lg:w-[40rem] lg:h-[40rem] xl:w-[44rem] xl:h-[44rem] 2xl:w-[48rem] 2xl:h-[48rem] object-contain filter drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-luxury-teal/20 via-transparent to-luxury-coral/20 rounded-full blur-xl opacity-50"></div>
+                  
+                  {/* Click indicator overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-full flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 text-sm font-medium text-gray-800">
+                      Click to enlarge
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
+
+              {/* Right Side Day Cards - Days 5,6,7,8... */}
+              <div className="flex-1 space-y-4 order-3 w-full lg:w-auto">
+                {(packageData as any).detailedItinerary?.slice(Math.ceil((packageData as any).detailedItinerary.length / 2)).map((day: any, index: number) => (
+                  <div 
+                    key={`right-${day.day}`}
+                    className={`transition-all duration-1000 ${
+                      isVisible.itinerary ? 'animate-fade-up opacity-100' : 'opacity-0 translate-y-8'
+                    }`}
+                    style={{ transitionDelay: `${(index + Math.ceil((packageData as any).detailedItinerary.length / 2)) * 150}ms` }}
+                  >
+                    <div 
+                      className="bg-white dark:bg-dark-surface/90 rounded-2xl shadow-xl border-2 border-transparent hover:border-luxury-teal/50 hover:shadow-2xl hover:transform hover:scale-105 transition-all duration-500 cursor-pointer p-6"
+                      onClick={() => openDayModal(day)}
+                    >
+                      <div className="flex items-center justify-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-luxury-coral to-pink-500 rounded-full flex items-center justify-center shadow-lg">
+                          <span className="text-white font-bold text-lg">{day.day}</span>
+                        </div>
+                        <div className="text-center">
+                          <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white">
+                            Day {day.day}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Click Instruction */}
+            <div className="text-center mt-12">
+              <p className="text-sm text-gray-500 dark:text-gray-400 italic">
+                Click on any day card to view detailed itinerary information
+              </p>
+            </div>
           </div>
         </div>
+
+        {/* Day Detail Modal */}
+        {selectedDay && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-dark-surface rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+              {/* Modal Header */}
+              <div className="relative bg-gradient-to-r from-luxury-teal to-blue-500 text-white p-6">
+                <button
+                  onClick={closeDayModal}
+                  className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-300"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-xl">{selectedDay.day}</span>
+                  </div>
+                  <div>
+                    <h3 className="font-playfair font-bold text-2xl mb-2">Day {selectedDay.day}</h3>
+                    <h4 className="font-bold text-lg opacity-90">{selectedDay.title}</h4>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                {/* Description */}
+                <div className="mb-6">
+                  <h5 className="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">Description</h5>
+                  <p className="font-lora text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {selectedDay.description}
+                  </p>
+                </div>
+                
+                {/* Meals */}
+                {selectedDay.meals && selectedDay.meals.length > 0 && (
+                  <div className="mb-6">
+                    <h5 className="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">Meals Included</h5>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedDay.meals.map((meal: string, i: number) => (
+                        <span key={i} className="px-4 py-2 bg-luxury-gold/20 text-luxury-gold rounded-full text-sm font-medium">
+                          {meal}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Activities */}
+                {selectedDay.activities && selectedDay.activities.length > 0 && (
+                  <div className="mb-6">
+                    <h5 className="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">Activities & Highlights</h5>
+                    <div className="space-y-3">
+                      {selectedDay.activities.map((activity: string, i: number) => (
+                        <div key={i} className="flex items-start space-x-3">
+                          <div className="w-2 h-2 bg-luxury-teal rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-gray-600 dark:text-gray-400 leading-relaxed">{activity}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Accommodation */}
+                {selectedDay.accommodation && selectedDay.accommodation !== 'Departure' && (
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-4">
+                    <div className="flex items-center">
+                      <MapPin className="w-5 h-5 mr-3 text-luxury-coral" />
+                      <div>
+                        <span className="font-semibold text-gray-800 dark:text-white">Overnight Accommodation</span>
+                        <p className="text-gray-600 dark:text-gray-400">{selectedDay.accommodation}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Image Modal */}
+        {showImageModal && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={closeImageModal}>
+            <div className="relative max-w-7xl max-h-[95vh] w-full h-full flex items-center justify-center">
+              <button
+                onClick={closeImageModal}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors duration-300 backdrop-blur-sm"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+              
+              <img 
+                src={getAssetPath('/assets/images/lk.png')} 
+                alt="Sri Lanka Map - Full Size" 
+                className="max-w-full max-h-full object-contain filter drop-shadow-2xl rounded-lg"
+                onClick={(e) => e.stopPropagation()}
+              />
+              
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm">
+                Click outside to close
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Inclusions & Exclusions Section */}
