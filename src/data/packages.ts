@@ -7,9 +7,9 @@ const sriLankaPackages: SriLankaPackage[] = [
     id: 'sl-001',
     type: 'sriLanka',
     title: '5N6D SRI LANKA TOUR',
-    shortDescription: 'Experience the best of Sri Lanka in 6 days covering Kandy, Bentota, and Colombo with cultural sites, beaches, and city exploration.',
-    longDescription: 'Embark on an extraordinary 6-day journey through Sri Lanka\'s most captivating destinations. From the cultural heart of Kandy to the pristine beaches of Bentota and the vibrant city of Colombo, this tour offers the perfect blend of heritage, nature, and modern experiences.',
-    imageUrl: getAssetPath('/assets/images/Sri_Lankan_01.jpg'),
+    short_description: 'Experience the best of Sri Lanka in 6 days covering Kandy, Bentota, and Colombo with cultural sites, beaches, and city exploration.',
+    long_description: 'Embark on an extraordinary 6-day journey through Sri Lanka\'s most captivating destinations. From the cultural heart of Kandy to the pristine beaches of Bentota and the vibrant city of Colombo, this tour offers the perfect blend of heritage, nature, and modern experiences.',
+    image_url: getAssetPath('/assets/images/Sri_Lankan_01.jpg'),
     price: 424,
     duration: '5 nights / 6 days',
     highlights: [
@@ -255,7 +255,7 @@ const sriLankaPackages: SriLankaPackage[] = [
     ],
     featured: true,
     locations: ['Kandy', 'Bentota', 'Colombo', 'Pinnawala', 'Peradeniya', 'Galle'],
-    culturalExperiences: [
+    cultural_experiences: [
       'Local crafts workshop'
     ]
   },
@@ -263,9 +263,9 @@ const sriLankaPackages: SriLankaPackage[] = [
     id: 'sl-002',
     type: 'sriLanka',
     title: 'Coastal Paradise Retreat',
-    shortDescription: 'Relax on pristine beaches and discover the southern coast\'s colonial charm and natural beauty.',
-    longDescription: 'Indulge in the ultimate coastal escape along Sri Lanka\'s pristine southern shores. This luxurious 7-day retreat balances idyllic beach relaxation with cultural discoveries, offering you the perfect mix of adventure and tranquility. From the historic colonial charm of Galle Fort to the untouched beaches of Tangalle and the vibrant marine life of Mirissa, this journey showcases the diverse beauty of Sri Lanka\'s coastline.',
-    imageUrl: getAssetPath('/assets/images/Sri_Lankan_02.jpg'),
+    short_description: 'Relax on pristine beaches and discover the southern coast\'s colonial charm and natural beauty.',
+    long_description: 'Indulge in the ultimate coastal escape along Sri Lanka\'s pristine southern shores. This luxurious 7-day retreat balances idyllic beach relaxation with cultural discoveries, offering you the perfect mix of adventure and tranquility. From the historic colonial charm of Galle Fort to the untouched beaches of Tangalle and the vibrant marine life of Mirissa, this journey showcases the diverse beauty of Sri Lanka\'s coastline.',
+    image_url: getAssetPath('/assets/images/Sri_Lankan_02.jpg'),
     price: 1800,
     duration: '7 days / 6 nights',
     highlights: [
@@ -372,7 +372,7 @@ const sriLankaPackages: SriLankaPackage[] = [
     ],
     featured: true,
     locations: ['Bentota', 'Galle', 'Mirissa', 'Tangalle', 'Weligama'],
-    culturalExperiences: [
+    cultural_experiences: [
       'Stilt fishing demonstration',
       'Local market visits',
       'Traditional mask making',
@@ -383,9 +383,9 @@ const sriLankaPackages: SriLankaPackage[] = [
     id: 'sl-003',
     type: 'sriLanka',
     title: 'Tea Plantation & Hill Country Tour',
-    shortDescription: 'Journey through misty mountains, lush tea estates, and colonial hill stations in Sri Lanka\'s picturesque highlands.',
-    longDescription: 'Escape to the cool climes and verdant landscapes of Sri Lanka\'s central highlands on this enchanting 6-day journey. Wind your way through mist-covered mountains, emerald tea plantations, and charming colonial-era hill stations that seem frozen in time. From the scenic train ride to Ella and the tea factories of Nuwara Eliya to the biodiversity of Horton Plains National Park, this tour showcases the serene beauty and rich heritage of Sri Lanka\'s hill country.',
-    imageUrl: getAssetPath('/assets/images/Sri_Lankan_03.jpg'),
+    short_description: 'Journey through misty mountains, lush tea estates, and colonial hill stations in Sri Lanka\'s picturesque highlands.',
+    long_description: 'Escape to the cool climes and verdant landscapes of Sri Lanka\'s central highlands on this enchanting 6-day journey. Wind your way through mist-covered mountains, emerald tea plantations, and charming colonial-era hill stations that seem frozen in time. From the scenic train ride to Ella and the tea factories of Nuwara Eliya to the biodiversity of Horton Plains National Park, this tour showcases the serene beauty and rich heritage of Sri Lanka\'s hill country.',
+    image_url: getAssetPath('/assets/images/Sri_Lankan_03.jpg'),
     price: 1500,
     duration: '6 days / 5 nights',
     highlights: [
@@ -482,7 +482,7 @@ const sriLankaPackages: SriLankaPackage[] = [
     ],
     featured: false,
     locations: ['Kandy', 'Nuwara Eliya', 'Horton Plains', 'Ella'],
-    culturalExperiences: [
+    cultural_experiences: [
       'Tea plucking experience',
       'Colonial high tea ceremony',
       'Traditional hill country cuisine',
@@ -497,9 +497,9 @@ const maldivesPackages: MaldivesPackage[] = [
     id: 'mv-001',
     type: 'maldives',
     title: 'Luxury Overwater Villa Experience',
-    shortDescription: 'Indulge in ultimate luxury with a stay in an overwater villa at an exclusive Maldivian resort.',
-    longDescription: 'Experience the epitome of luxury and tranquility with our exclusive Overwater Villa package in the Maldives. Suspended above crystal-clear turquoise waters, these elegant villas offer unparalleled privacy and direct access to the vibrant marine life below. Wake up to panoramic ocean views, enjoy breakfast delivered by boat, and fall asleep to the gentle lapping of waves beneath you. This carefully curated 5-day retreat combines luxurious accommodation with exceptional dining experiences and tailored activities designed to create memories that will last a lifetime.',
-    imageUrl: getAssetPath('/assets/images/Maldives_bg.jpg'),
+    short_description: 'Indulge in ultimate luxury with a stay in an overwater villa at an exclusive Maldivian resort.',
+    long_description: 'Experience the epitome of luxury and tranquility with our exclusive Overwater Villa package in the Maldives. Suspended above crystal-clear turquoise waters, these elegant villas offer unparalleled privacy and direct access to the vibrant marine life below. Wake up to panoramic ocean views, enjoy breakfast delivered by boat, and fall asleep to the gentle lapping of waves beneath you. This carefully curated 5-day retreat combines luxurious accommodation with exceptional dining experiences and tailored activities designed to create memories that will last a lifetime.',
+    image_url: getAssetPath('/assets/images/Maldives_bg.jpg'),
     price: 3200,
     duration: '5 days / 4 nights',
     highlights: [
@@ -585,7 +585,7 @@ const maldivesPackages: MaldivesPackage[] = [
       }
     ],
     featured: true,
-    resortName: 'Blue Lagoon Maldives Resort & Spa',
+    resort_name: 'Blue Lagoon Maldives Resort & Spa',
     resortRating: 5,
     waterActivities: [
       'Snorkeling with manta rays',
@@ -599,9 +599,9 @@ const maldivesPackages: MaldivesPackage[] = [
     id: 'mv-002',
     type: 'maldives',
     title: 'Family Beach Villa Getaway',
-    shortDescription: 'Perfect family holiday with spacious beach villas, kids\' club activities, and family-friendly excursions.',
-    longDescription: 'Create unforgettable family memories with our specially designed Family Beach Villa Getaway in the Maldives. Combining luxury accommodation with family-friendly amenities, this 6-day package offers the perfect balance of togetherness and individual enjoyment for all ages. Stay in spacious beachfront villas with separate children\'s sleeping areas, enjoy dedicated kids\' club activities, and participate in family excursions specially designed to engage and delight the whole family. With babysitting services available and family-focused dining options, this package ensures that parents can relax knowing that every family member is having the vacation of a lifetime.',
-    imageUrl: getAssetPath('/assets/images/valentin-petrov-m-mal-01.jpg'),
+    short_description: 'Perfect family holiday with spacious beach villas, kids\' club activities, and family-friendly excursions.',
+    long_description: 'Create unforgettable family memories with our specially designed Family Beach Villa Getaway in the Maldives. Combining luxury accommodation with family-friendly amenities, this 6-day package offers the perfect balance of togetherness and individual enjoyment for all ages. Stay in spacious beachfront villas with separate children\'s sleeping areas, enjoy dedicated kids\' club activities, and participate in family excursions specially designed to engage and delight the whole family. With babysitting services available and family-focused dining options, this package ensures that parents can relax knowing that every family member is having the vacation of a lifetime.',
+    image_url: getAssetPath('/assets/images/valentin-petrov-m-mal-01.jpg'),
     price: 4500,
     duration: '6 days / 5 nights',
     highlights: [
@@ -699,7 +699,7 @@ const maldivesPackages: MaldivesPackage[] = [
       }
     ],
     featured: true,
-    resortName: 'Palm Grove Island Resort',
+    resort_name: 'Palm Grove Island Resort',
     resortRating: 4.5,
     waterActivities: [
       'Child-friendly snorkeling',
@@ -713,9 +713,9 @@ const maldivesPackages: MaldivesPackage[] = [
     id: 'mv-003',
     type: 'maldives',
     title: 'All-Inclusive Diving Retreat',
-    shortDescription: 'Paradise for diving enthusiasts with unlimited dives, PADI courses, and access to world-class dive sites.',
-    longDescription: 'Calling all diving enthusiasts! Our All-Inclusive Diving Retreat offers the ultimate underwater adventure in one of the world\'s premier diving destinations. This specialized 7-day package combines luxury accommodation with exceptional diving experiences tailored to all skill levels. From beginners taking their first PADI courses to experienced divers exploring renowned dive sites, this retreat provides unlimited access to the Maldives\' spectacular underwater world. With expert dive masters, top-quality equipment, and a resort selected specifically for its proximity to the best dive sites, this package delivers an unparalleled diving vacation.',
-    imageUrl: getAssetPath('/assets/images/after.png'),
+    short_description: 'Paradise for diving enthusiasts with unlimited dives, PADI courses, and access to world-class dive sites.',
+    long_description: 'Calling all diving enthusiasts! Our All-Inclusive Diving Retreat offers the ultimate underwater adventure in one of the world\'s premier diving destinations. This specialized 7-day package combines luxury accommodation with exceptional diving experiences tailored to all skill levels. From beginners taking their first PADI courses to experienced divers exploring renowned dive sites, this retreat provides unlimited access to the Maldives\' spectacular underwater world. With expert dive masters, top-quality equipment, and a resort selected specifically for its proximity to the best dive sites, this package delivers an unparalleled diving vacation.',
+    image_url: getAssetPath('/assets/images/after.png'),
     price: 2800,
     duration: '7 days / 6 nights',
     highlights: [
@@ -824,7 +824,7 @@ const maldivesPackages: MaldivesPackage[] = [
       }
     ],
     featured: false,
-    resortName: 'Coral Reef Dive Resort',
+    resort_name: 'Coral Reef Dive Resort',
     resortRating: 4,
     waterActivities: [
       'Technical diving',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { useContactInquiry } from '../hooks/useApi';
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,7 +12,9 @@ const Contact = () => {
     destination: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Use the API hook for contact inquiry
+  const { submitInquiry, loading, error, success, reset } = useContactInquiry();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,14 +42,26 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.destination || !formData.message) {
+      return;
+    }
     
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', phone: '', destination: '', message: '' });
-    console.log('Form submitted:', formData);
+    // Submit inquiry using API
+    await submitInquiry({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      destination: formData.destination as 'maldives' | 'srilanka' | 'combined' | 'custom',
+      message: formData.message
+    });
+
+    // Reset form on success
+    if (success) {
+      setFormData({ name: '', email: '', phone: '', destination: '', message: '' });
+      setTimeout(() => reset(), 3000); // Reset success state after 3 seconds
+    }
   };
 
   const contactInfo = [
@@ -141,6 +156,24 @@ const Contact = () => {
             Let us craft your perfect getaway to paradise with our premium travel services
           </p>
         </div>
+
+        {/* Success Message */}
+        {success && (
+          <div className={`mb-8 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center transition-all duration-1000 ${
+            isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
+          }`}>
+            <p className="font-medium">Thank you for your inquiry! We will contact you soon.</p>
+          </div>
+        )}
+
+        {/* Error Message */}
+        {error && (
+          <div className={`mb-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center transition-all duration-1000 ${
+            isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
+          }`}>
+            <p className="font-medium">Error: {error}</p>
+          </div>
+        )}
 
         {/* Two Column Layout */}
         <div className={`grid lg:grid-cols-2 gap-8 transition-all duration-1000 ${
@@ -326,16 +359,16 @@ const Contact = () => {
                       <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-500 dark:to-blue-500 rounded-xl blur-md opacity-0 group-hover:opacity-70 transition-all duration-500 -z-10"></div>
                       <Button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={loading}
                         className="relative py-3 px-8 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 dark:from-purple-500 dark:to-blue-500 dark:hover:from-purple-600 dark:hover:to-blue-600 text-white rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-300 font-medium"
                       >
                         <span className={`flex items-center justify-center space-x-2 ${
-                          isSubmitting ? 'opacity-0' : 'opacity-100'
+                          loading ? 'opacity-0' : 'opacity-100'
                         }`}>
                           <span>Send Message</span>
                           <Send className="w-4 h-4 ml-2" />
                         </span>
-                        {isSubmitting && (
+                        {loading && (
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                           </div>

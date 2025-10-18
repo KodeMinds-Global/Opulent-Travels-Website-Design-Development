@@ -72,7 +72,7 @@ const SriLankaPackageDetail = () => {
         {/* Background Image with Parallax */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed transform scale-110"
-          style={{ backgroundImage: `url(${packageData.imageUrl})` }}
+          style={{ backgroundImage: `url(${packageData.image_url})` }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70"></div>
         </div>
@@ -112,7 +112,7 @@ const SriLankaPackageDetail = () => {
             
             {/* Description */}
             <p className="font-lora text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-              {packageData.longDescription}
+              {packageData.long_description}
             </p>
           </div>
         </div>

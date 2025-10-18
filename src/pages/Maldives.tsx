@@ -93,9 +93,9 @@ const Maldives = () => {
     experiences: maldivesPackages.slice(0, 3).map(pkg => ({
       id: pkg.id,
       title: pkg.title,
-      description: pkg.shortDescription,
+      description: pkg.short_description,
       price: `From $${pkg.price} per person`,
-      image: pkg.imageUrl,
+      image: pkg.image_url,
     }))
   };
 

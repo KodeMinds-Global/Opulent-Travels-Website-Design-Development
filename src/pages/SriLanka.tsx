@@ -209,7 +209,7 @@ const SriLanka = () => {
                   {/* Package Image */}
                   <div className="relative h-64 overflow-hidden">
                     <img
-                      src={pkg.imageUrl}
+                      src={pkg.image_url}
                       alt={pkg.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
@@ -250,7 +250,7 @@ const SriLanka = () => {
                     </h3>
                     
                     <p className="font-lora text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                      {pkg.shortDescription}
+                      {pkg.short_description}
                     </p>
 
                     {/* Highlights */}

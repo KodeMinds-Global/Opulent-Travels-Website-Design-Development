@@ -13,11 +13,13 @@ import Contact from '@/components/Contact';
 import ClientLogos from '@/components/ClientLogos';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import ApiTest from '@/components/ApiTest';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
       <Navigation />
+      {/* <ApiTest /> */}
       <Hero />
       <About />
       <ExploreSriLanka />

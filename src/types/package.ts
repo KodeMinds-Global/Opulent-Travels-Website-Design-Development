@@ -74,9 +74,9 @@ export interface TermsAndConditions {
 export interface BasePackage {
   id: string;
   title: string;
-  shortDescription: string;
-  longDescription: string;
-  imageUrl: string;
+  short_description: string;
+  long_description: string;
+  image_url: string;
   price: number;
   duration: string;
   highlights: string[];
@@ -105,14 +105,14 @@ export interface BasePackage {
 export interface SriLankaPackage extends BasePackage {
   type: 'sriLanka';
   locations: string[]; // Sri Lankan locations
-  culturalExperiences?: string[];
+  cultural_experiences?: string[];
 }
 
 export interface MaldivesPackage extends BasePackage {
   type: 'maldives';
-  resortName: string;
-  resortRating: number;
-  waterActivities?: string[];
+  resort_name: string;
+  resort_rating: number;
+  water_activities?: string[];
 }
 
 export type Package = SriLankaPackage | MaldivesPackage; 

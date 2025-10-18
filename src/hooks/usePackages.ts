@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Package } from '@/types/package';
-import { allPackages, sriLankaPackages, maldivesPackages } from '@/data/packages';
+import { usePackages as useApiPackages, usePackage as useApiPackage } from './useApi';
 
 type PackageType = 'all' | 'sriLanka' | 'maldives';
 
@@ -8,62 +8,39 @@ export function usePackages() {
   const [filter, setFilter] = useState<PackageType>('all');
   const [searchTerm, setSearchTerm] = useState('');
   
-  // Filter packages based on selected type and search term
-  const filteredPackages = useMemo(() => {
-    let packages: Package[] = [];
-    
-    // Filter by type
-    switch (filter) {
-      case 'sriLanka':
-        packages = sriLankaPackages;
-        break;
-      case 'maldives':
-        packages = maldivesPackages;
-        break;
-      default:
-        packages = allPackages;
-    }
-    
-    // Filter by search term if provided
-    if (searchTerm.trim() !== '') {
-      return packages.filter(pkg => 
-        pkg.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        pkg.shortDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (pkg.type === 'sriLanka' && 
-          pkg.locations.some(location => 
-            location.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-        ) ||
-        (pkg.type === 'maldives' && 
-          pkg.resortName.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-    
-    return packages;
-  }, [filter, searchTerm]);
-  
+  // Use API hook to fetch packages
+  const { 
+    data: allPackages, 
+    loading, 
+    error, 
+    refetch 
+  } = useApiPackages({
+    type: filter === 'all' ? undefined : filter,
+    search: searchTerm || undefined
+  });
+
   // Get featured packages
-  const featuredPackages = useMemo(() => {
-    return allPackages.filter(pkg => pkg.featured);
-  }, []);
+  const { data: featuredPackages } = useApiPackages({ featured: true });
   
-  // Get package by ID
-  const getPackageById = (id: string): Package | undefined => {
-    return allPackages.find(pkg => pkg.id === id);
+  // Get package by ID function
+  const getPackageById = (id: string) => {
+    // This will be handled by the usePackage hook when needed
+    return null; // Placeholder - use usePackage(id) hook in components instead
   };
   
   return {
-    allPackages,
-  // Expose specific collections for direct access where needed
-  sriLankaPackages,
-  maldivesPackages,
-    filteredPackages,
-    featuredPackages,
+    allPackages: allPackages || [],
+    sriLankaPackages: filter === 'sriLanka' ? (allPackages || []) : [],
+    maldivesPackages: filter === 'maldives' ? (allPackages || []) : [],
+    filteredPackages: allPackages || [],
+    featuredPackages: featuredPackages || [],
     filter,
     setFilter,
     searchTerm,
     setSearchTerm,
-    getPackageById
+    getPackageById,
+    loading,
+    error,
+    refetch
   };
 } 
