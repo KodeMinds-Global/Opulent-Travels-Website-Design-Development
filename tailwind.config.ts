@@ -84,9 +84,10 @@ export default {
 				}
 			},
 			fontFamily: {
-				'playfair': ['Playfair Display', 'serif'],
-				'montserrat': ['Montserrat', 'sans-serif'],
-				'lora': ['Lora', 'serif'],
+				sans: ['Poppins', 'sans-serif'],
+				'playfair': ['Poppins', 'serif'],
+				'montserrat': ['Poppins', 'sans-serif'],
+				'lora': ['Poppins', 'serif'],
 				'poppins': ['Poppins', 'sans-serif'],
 			},
 			backgroundImage: {
