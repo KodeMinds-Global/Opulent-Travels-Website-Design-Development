@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Car, Shield, Clock, MapPin } from 'lucide-react';
+import { getAssetPath } from '@/lib/utils';
 
 const RentCar = () => {
   const navigate = useNavigate();
@@ -70,17 +71,17 @@ const RentCar = () => {
   const carTypes = [
     {
       name: "Economy",
-      image: "https://images.unsplash.com/photo-1549924231-f129b911e442?q=80&w=2940&auto=format&fit=crop",
+      image: getAssetPath("/assets/images/Long Bus Branded.png"),
       price: "$25/day"
     },
     {
       name: "Luxury SUV",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?q=80&w=2940&auto=format&fit=crop",
+      image: getAssetPath("/assets/images/Hiace Flatroof Branded.png"),
       price: "$85/day"
     },
     {
       name: "Premium Sedan",
-      image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2940&auto=format&fit=crop",
+      image: getAssetPath("/assets/images/Bus.png"),
       price: "$65/day"
     }
   ];

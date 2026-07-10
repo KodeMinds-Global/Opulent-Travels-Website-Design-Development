@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Car, Shield, Clock, MapPin, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Users, Briefcase, Wrench, CheckCircle } from 'lucide-react';
+import { getAssetPath } from '@/lib/utils';
 
 interface Vehicle {
   id: number;
@@ -82,56 +83,47 @@ const RentCarPageSection = () => {
   const vehicles: Vehicle[] = [
     {
       id: 1,
-      name: "Toyota Allion",
-      image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2940&auto=format&fit=crop",
-      passengers: "Up-to 3 Passengers",
-      luggage: "Up-to 2 luggage / 200l Capacity in Trunk",
+      name: "Toyota Allion /Sedan",
+      image: getAssetPath("/assets/images/Sedan Branded.png"),
+      passengers: "3 Passengers",
+      luggage: "Trunk Space - 3 luggage",
       transmission: "Chauffeur guide included",
       features: "Vehicle & Passenger Insurance included"
     },
     {
       id: 2,
-      name: "Honda Odyssey",
-      image: "https://images.unsplash.com/photo-1606611013016-969c19d91202?q=80&w=2940&auto=format&fit=crop",
-      passengers: "Up-to 7 Passengers",
+      name: "Toyota KDH / Van",
+      image: getAssetPath("/assets/images/Hiace Flatroof Branded.png"),
+      passengers: "7 pax",
       luggage: "Up-to 5 luggage / 400l Capacity in Trunk",
       transmission: "Chauffeur guide included",
       features: "Vehicle & Passenger Insurance included"
     },
     {
       id: 3,
-      name: "Toyota Fortuner",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?q=80&w=2940&auto=format&fit=crop",
-      passengers: "Up-to 7 Passengers",
-      luggage: "Up-to 6 luggage / 500l Capacity in Trunk",
-      transmission: "Chauffeur guide included",
+      name: "Mini coaster",
+      image: getAssetPath("/assets/images/Hiace Branded.png"),
+      passengers: "21 seater",
+      luggage: "13 pax",
+      transmission: "National guide + driver included",
       features: "Vehicle & Passenger Insurance included"
     },
     {
       id: 4,
-      name: "Nissan Serena",
-      image: "https://images.unsplash.com/photo-1549924231-f129b911e442?q=80&w=2940&auto=format&fit=crop",
-      passengers: "Up-to 7 Passengers",
-      luggage: "Up-to 5 luggage / 400l Capacity in Trunk",
-      transmission: "Chauffeur guide included",
+      name: "Toyota Coaster / Bus",
+      image: getAssetPath("/assets/images/Bus.png"),
+      passengers: "39 Seater",
+      luggage: "30-34 pax",
+      transmission: "National guide + driver included",
       features: "Vehicle & Passenger Insurance included"
     },
     {
       id: 5,
-      name: "BMW 7 Series",
-      image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2940&auto=format&fit=crop",
-      passengers: "Up-to 5 Passengers",
-      luggage: "Up-to 3 luggage / 300l Capacity in Trunk",
-      transmission: "Chauffeur guide included",
-      features: "Vehicle & Passenger Insurance included"
-    },
-    {
-      id: 6,
-      name: "Mercedes S-Class",
-      image: "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?q=80&w=2940&auto=format&fit=crop",
-      passengers: "Up-to 5 Passengers",
-      luggage: "Up-to 4 luggage / 350l Capacity in Trunk",
-      transmission: "Chauffeur guide included",
+      name: "Tourist Bus",
+      image: getAssetPath("/assets/images/Long Bus Branded.png"),
+      passengers: "42 Seater",
+      luggage: "35-39 pax",
+      transmission: "National Guide + Driver included",
       features: "Vehicle & Passenger Insurance included"
     }
   ];
@@ -291,9 +283,7 @@ const RentCarPageSection = () => {
         <div className={`text-center transition-all duration-1000 delay-1500 ${
           isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
         }`}>
-          <Button className="light-button dark:dark-button text-base px-8 py-4">
-            Inquire Now
-          </Button>
+          
         </div>
       </div>
 
