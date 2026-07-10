@@ -49,19 +49,10 @@ const Packages = () => {
         </div>
         
         {/* Content */}
-        <div className="container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col justify-center">
-          <div className="max-w-3xl animate-fade-up">
-            <h1 className="font-playfair font-bold text-3xl sm:text-4xl md:text-5xl text-white mb-4">
-              {filter === 'maldives' ? 'Maldives ' : filter === 'sriLanka' ? 'Sri Lanka ' : 'Exclusive Travel '}<span className="text-luxury-gold">Packages</span>
-            </h1>
-            <p className="font-lora text-base sm:text-lg md:text-xl text-white/90 max-w-2xl">
-              {filter === 'maldives' ? 
-                'Discover our collection of luxury Maldives experiences, from overwater villas to underwater adventures.' : 
-                filter === 'sriLanka' ? 
-                'Explore our curated Sri Lanka packages, showcasing the island\'s rich culture, wildlife, and beaches.' :
-                'Discover our curated collection of luxury experiences in Sri Lanka and the Maldives, designed to create unforgettable memories.'}
-            </p>
-          </div>
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6">
+          <h1 className="font-playfair font-bold text-3xl sm:text-4xl md:text-5xl text-white text-center animate-fade-up">
+            {filter === 'maldives' ? 'Maldives ' : filter === 'sriLanka' ? 'Sri Lanka ' : 'Exclusive Travel '}<span className="text-luxury-gold">Packages</span>
+          </h1>
         </div>
       </section>
       

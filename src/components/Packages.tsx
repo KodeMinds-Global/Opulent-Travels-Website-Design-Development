@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const Packages = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('maldives');
   const [isVisible, setIsVisible] = useState(false);
 
@@ -207,7 +209,7 @@ const Packages = () => {
         
         {/* View All Button */}
         <div className="mt-12 flex justify-center">
-          <Button className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white shadow-md hover:shadow-lg dark:from-blue-500 dark:to-teal-400 dark:hover:from-blue-600 dark:hover:to-teal-500 transition-all duration-300 transform hover:-translate-y-1 font-medium">
+          <Button onClick={() => navigate('/packages')} className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 hover:from-blue-700 hover:to-teal-600 text-white shadow-md hover:shadow-lg dark:from-blue-500 dark:to-teal-400 dark:hover:from-blue-600 dark:hover:to-teal-500 transition-all duration-300 transform hover:-translate-y-1 font-medium">
             View All Packages
           </Button>
         </div>

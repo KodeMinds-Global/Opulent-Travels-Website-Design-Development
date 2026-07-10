@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Car, Shield, Clock, MapPin } from 'lucide-react';
+import { getAssetPath } from '@/lib/utils';
 
 const RentCar = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -68,17 +71,17 @@ const RentCar = () => {
   const carTypes = [
     {
       name: "Economy",
-      image: "https://images.unsplash.com/photo-1549924231-f129b911e442?q=80&w=2940&auto=format&fit=crop",
+      image: getAssetPath("/assets/images/Long Bus Branded.png"),
       price: "$25/day"
     },
     {
       name: "Luxury SUV",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?q=80&w=2940&auto=format&fit=crop",
+      image: getAssetPath("/assets/images/Hiace Flatroof Branded.png"),
       price: "$85/day"
     },
     {
       name: "Premium Sedan",
-      image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2940&auto=format&fit=crop",
+      image: getAssetPath("/assets/images/Bus.png"),
       price: "$65/day"
     }
   ];
@@ -188,7 +191,7 @@ const RentCar = () => {
         <div className={`text-center transition-all duration-1000 delay-1500 ${
           isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
         }`}>
-          <Button className="light-button dark:dark-button text-base px-8 py-4">
+          <Button onClick={() => navigate('/rent-car')} className="light-button dark:dark-button text-base px-8 py-4">
             View Details
           </Button>
         </div>
