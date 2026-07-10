@@ -5,7 +5,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getAssetPath } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import RentCar from '@/components/RentCar';
+import RentCarPageSection from '@/components/RentCarPageSection';
 
 const RentCarPage = () => {
   const handleScrollToContent = () => {
@@ -59,9 +59,9 @@ const RentCarPage = () => {
         </div>
       </section>
 
-      {/* Rent Car Section */}
+      {/* Rent Car Page Section */}
       <main>
-        <RentCar />
+        <RentCarPageSection />
       </main>
 
       <Footer />
