@@ -4,11 +4,18 @@ import ThemeToggle from "./ThemeToggle";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getAssetPath } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useTheme } from "next-themes";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,19 +47,23 @@ const Navigation = () => {
             : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 py-2 sm:py-4">
+      <div className="container mx-auto px-4 sm:px-6 py-1 sm:py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="bg-white/30 dark:bg-white/50 backdrop-blur-sm rounded-md p-1 flex items-center justify-center">
-              <Link to="/">
+            <Link to="/">
+              {mounted && (
                 <img
-                  src={getAssetPath("/assets/images/logo.png")}
+                  src={
+                    resolvedTheme === 'dark'
+                      ? getAssetPath("/assets/images/logo-dark.png")
+                      : getAssetPath("/assets/images/logo-light.png")
+                  }
                   alt="Opulent Travels"
-                  className="h-7 sm:h-10 md:h-12 w-auto" // Reduced size on smallest screens
+                  className="h-7 sm:h-10 md:h-12 w-auto"
                 />
-              </Link>
-            </div>
+              )}
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
