@@ -34,7 +34,7 @@ const Navigation = () => {
   { href: "/rent-car", label: "Rent Car", isRouterLink: true },
     { href: "/packages", label: "Packages", isRouterLink: true },
     { href: "#testimonials", label: "Reviews", isRouterLink: false },
-    { href: "#contact", label: "Contact", isRouterLink: false },
+    { href: "/contact", label: "Contact", isRouterLink: true },
   ];
 
   return (
