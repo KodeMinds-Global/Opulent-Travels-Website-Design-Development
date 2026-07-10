@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Car, Shield, Clock, MapPin } from 'lucide-react';
 
 const RentCar = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -188,7 +190,7 @@ const RentCar = () => {
         <div className={`text-center transition-all duration-1000 delay-1500 ${
           isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
         }`}>
-          <Button className="light-button dark:dark-button text-base px-8 py-4">
+          <Button onClick={() => navigate('/rent-car')} className="light-button dark:dark-button text-base px-8 py-4">
             View Details
           </Button>
         </div>

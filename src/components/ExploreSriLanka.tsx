@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { getAssetPath } from '@/lib/utils';
 
 const ExploreSriLanka = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -156,7 +158,9 @@ const ExploreSriLanka = () => {
         
         {/* Centered View More button */}
         <div className="flex justify-center mt-12">
-          <Button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 dark:dark-button">
+          <Button 
+            onClick={() => navigate('/sri-lanka')}
+            className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 dark:dark-button">
             View More
           </Button>
         </div>
