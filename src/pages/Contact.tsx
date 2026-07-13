@@ -5,9 +5,9 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getAssetPath } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import RentCarPageSection from '@/components/RentCarPageSection';
+import ContactSection from '@/components/Contact';
 
-const RentCarPage = () => {
+const ContactPage = () => {
   const handleScrollToContent = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -24,8 +24,8 @@ const RentCarPage = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src={getAssetPath("/assets/images/Maldives_bg.jpg")}
-            alt="Premium Car Rentals" 
+            src={getAssetPath("/assets/images/Sri_Lanka_bg.jpg")}
+            alt="Contact Us" 
             className="w-full h-full object-cover"
           />
           {/* Dark overlay for better text readability */}
@@ -36,13 +36,13 @@ const RentCarPage = () => {
         <div className="flex-grow flex items-center">
           <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6">
             <h1 className="font-playfair font-bold text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl text-white mb-2 sm:mb-4 md:mb-6 leading-tight">
-              Premium Car <span className="text-luxury-gold">Rentals</span>
+              Get in <span className="text-luxury-gold">Touch</span>
             </h1>
             <p className="font-lora text-lg sm:text-xl md:text-2xl text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto">
-              Explore Sri Lanka and the Maldives with our exclusive fleet of vehicles
+              We're here to help you plan your perfect travel experience
             </p>
             <Button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-medium py-2.5 px-6 sm:px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-              Explore Fleet
+              Let's Connect
             </Button>
           </div>
         </div>
@@ -59,9 +59,9 @@ const RentCarPage = () => {
         </div>
       </section>
 
-      {/* Rent Car Page Section */}
+      {/* Contact Section */}
       <main>
-        <RentCarPageSection />
+        <ContactSection />
       </main>
 
       <Footer />
@@ -70,4 +70,4 @@ const RentCarPage = () => {
   );
 };
 
-export default RentCarPage;
+export default ContactPage;
