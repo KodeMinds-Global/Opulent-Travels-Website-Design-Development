@@ -28,3 +28,10 @@ adminAxios.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+// Resolves a stored imageUrl (may be relative like /uploads/...) to a full URL
+export function getImageUrl(imageUrl?: string): string {
+  if (!imageUrl) return '';
+  if (imageUrl.startsWith('http')) return imageUrl; // already absolute
+  return `${baseURL}${imageUrl}`;
+}

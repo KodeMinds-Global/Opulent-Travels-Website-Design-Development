@@ -8,6 +8,7 @@ import { ConfirmDeleteDialog } from '../../components/ConfirmDeleteDialog';
 import { DestinationBadge } from '../../components/DestinationBadge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getImageUrl } from '../../api/axios';
 import type { AdminCar } from '../../types/car';
 
 type Destination = 'all' | 'sriLanka' | 'maldives';
@@ -40,7 +41,7 @@ export function AdminCarsListPage() {
       header: 'Image',
       render: (row) => (
         row.imageUrl
-          ? <img src={row.imageUrl} alt={row.name} className="w-14 h-10 object-cover rounded-md" />
+          ? <img src={getImageUrl(row.imageUrl as string)} alt={row.name as string} className="w-14 h-10 object-cover rounded-md" />
           : <div className="w-14 h-10 bg-gray-100 rounded-md flex items-center justify-center text-gray-400 text-xs">No img</div>
       ),
     },
@@ -51,7 +52,20 @@ export function AdminCarsListPage() {
       header: 'Destination',
       render: (row) => <DestinationBadge destination={row.destination} />,
     },
-    { key: 'pricePerDay', header: 'Price/Day', render: (row) => `$${row.pricePerDay}` },
+    {
+      key: 'pricePerDay',
+      header: 'Price/Day',
+      render: (row) => {
+        const price = row.pricePerDay as number;
+        const currency = (row.currency as string) ?? 'USD';
+        const symbol = currency === 'LKR' ? 'Rs' : '$';
+        const formatted = Number(price ?? 0).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+        return `${symbol} ${formatted}`;
+      },
+    },
     { key: 'seats', header: 'Seats', render: (row) => row.seats ?? '—' },
     { key: 'transmission', header: 'Trans.', render: (row) => row.transmission ?? '—' },
     {
@@ -83,7 +97,11 @@ export function AdminCarsListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="font-playfair text-2xl font-bold text-gray-800 dark:text-white">Rent Cars</h2>
-        <Button onClick={() => navigate('/admin/cars/new')} className="gap-2">
+        <Button
+          onClick={() => navigate('/admin/cars/new')}
+          className="gap-2"
+          style={{ backgroundColor: '#1E293B', color: '#fff' }}
+        >
           <Plus size={16} /> Add Car
         </Button>
       </div>
