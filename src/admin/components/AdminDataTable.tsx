@@ -14,10 +14,11 @@ interface AdminDataTableProps<T> {
   data: T[];
   isLoading?: boolean;
   emptyMessage?: string;
+  isDark?: boolean;
 }
 
 export function AdminDataTable<T extends Record<string, unknown>>({
-  columns, data, isLoading, emptyMessage = 'No records found.',
+  columns, data, isLoading, emptyMessage = 'No records found.', isDark = false,
 }: AdminDataTableProps<T>) {
   if (isLoading) {
     return (
@@ -29,38 +30,76 @@ export function AdminDataTable<T extends Record<string, unknown>>({
     );
   }
 
+  const wrapperBorder = isDark ? '#1E3A6B' : '#DBEAFE';
+  const wrapperShadow = isDark
+    ? '0 2px 8px rgba(0,0,0,0.4)'
+    : '0 2px 8px rgba(27,58,107,0.07)';
+  const rowBorder = isDark ? '#1A2F50' : '#EFF6FF';
+  const cellColor = isDark ? '#CBD5E1' : '#374151';
+  const emptyColor = isDark ? '#4A6080' : '#94A3B8';
+  const hoverBg = isDark ? '#162035' : '#F0F6FF';
+
   return (
-    <div className="rounded-md border overflow-x-auto">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {columns.map((col) => (
-              <TableHead key={col.key} className="font-montserrat text-xs uppercase text-gray-500">
-                {col.header}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="text-center py-10 font-lora text-gray-400">
-                {emptyMessage}
-              </TableCell>
+    <div
+      className="rounded-xl overflow-hidden w-full"
+      style={{ border: `1px solid ${wrapperBorder}`, boxShadow: wrapperShadow }}
+    >
+      {/* horizontal scroll on mobile */}
+      <div className="overflow-x-auto">
+        <Table style={{ minWidth: '600px' }}>
+          <TableHeader>
+            <TableRow
+              style={{
+                background: 'linear-gradient(90deg, #1B3A6B 0%, #2563EB 100%)',
+                borderBottom: 'none',
+              }}
+            >
+              {columns.map((col) => (
+                <TableHead
+                  key={col.key}
+                  className="font-montserrat text-xs uppercase tracking-wider whitespace-nowrap"
+                  style={{ color: '#BFDBFE', borderBottom: 'none' }}
+                >
+                  {col.header}
+                </TableHead>
+              ))}
             </TableRow>
-          ) : (
-            data.map((row, rowIdx) => (
-              <TableRow key={rowIdx} className="hover:bg-gray-50 dark:hover:bg-gray-800">
-                {columns.map((col) => (
-                  <TableCell key={col.key} className="font-lora text-sm">
-                    {col.render ? col.render(row) : String(row[col.key] ?? '')}
-                  </TableCell>
-                ))}
+          </TableHeader>
+          <TableBody>
+            {data.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="text-center py-10 font-lora"
+                  style={{ color: emptyColor }}
+                >
+                  {emptyMessage}
+                </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+            ) : (
+              data.map((row, rowIdx) => (
+                <TableRow
+                  key={rowIdx}
+                  className="transition-colors duration-150 cursor-default"
+                  style={{ borderBottom: `1px solid ${rowBorder}` }}
+                  onMouseEnter={e => (e.currentTarget.style.background = hoverBg)}
+                  onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                >
+                  {columns.map((col) => (
+                    <TableCell
+                      key={col.key}
+                      className="font-lora text-sm whitespace-nowrap"
+                      style={{ color: cellColor }}
+                    >
+                      {col.render ? col.render(row) : String(row[col.key] ?? '')}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

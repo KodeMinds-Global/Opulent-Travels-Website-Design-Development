@@ -291,7 +291,6 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
           type="submit"
           disabled={isSubmitting || uploading}
           className="gap-2 font-montserrat px-8"
-          style={{ backgroundColor: '#1E293B', color: '#fff' }}
         >
           {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> Saving...</> : 'Save Car'}
         </Button>
