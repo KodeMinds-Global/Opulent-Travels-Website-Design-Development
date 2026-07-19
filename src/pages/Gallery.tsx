@@ -138,11 +138,6 @@ const GalleryPage = () => {
                   alt={item.alt}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100"></div>
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 text-left text-white">
-                  <p className="font-montserrat text-xs uppercase tracking-[0.2em] text-white/70 mb-1">Special shot</p>
-                  <h3 className="font-playfair text-xl sm:text-2xl">{item.title}</h3>
-                </div>
               </button>
             ))}
           </div>
@@ -152,7 +147,7 @@ const GalleryPage = () => {
       <Dialog open={Boolean(selectedImage)} onOpenChange={(open) => !open && setSelectedImage(null)}>
         <DialogContent className="max-w-6xl border-0 bg-transparent p-0 shadow-none">
           {selectedImage && (
-            <div className="overflow-hidden rounded-3xl bg-black/90 shadow-2xl">
+            <div className="overflow-hidden rounded-3xl bg-white shadow-2xl">
               <DialogHeader className="sr-only">
                 <DialogTitle>{selectedImage.title}</DialogTitle>
                 <DialogDescription>{selectedImage.alt}</DialogDescription>
