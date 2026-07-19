@@ -17,7 +17,6 @@ type GalleryItem = {
   src: string;
   alt: string;
   title: string;
-  className: string;
 };
 
 const galleryItems: GalleryItem[] = [
@@ -25,49 +24,41 @@ const galleryItems: GalleryItem[] = [
     src: '/assets/images/valentin-petrov-m-mal-01.jpg',
     alt: 'Luxury Maldives shoreline',
     title: 'Maldives Escape',
-    className: 'lg:col-span-2 lg:row-span-2',
   },
   {
     src: '/assets/images/Sri_Lankan_01.jpg',
     alt: 'Sri Lanka scenic travel moment',
     title: 'Sri Lanka Journey',
-    className: 'lg:row-span-2',
   },
   {
     src: '/assets/images/about_01.jpg',
     alt: 'Travel experience highlight',
     title: 'Travel Moments',
-    className: '',
   },
   {
     src: '/assets/images/Sri_Lankan_02.jpg',
     alt: 'Sri Lanka landscape',
     title: 'Island Views',
-    className: 'lg:col-span-2',
   },
   {
     src: '/assets/images/about_02.jpg',
     alt: 'Luxury travel detail',
     title: 'Luxury Details',
-    className: '',
   },
   {
     src: '/assets/images/Sri_Lankan_03.jpg',
     alt: 'Sri Lanka vacation gallery image',
     title: 'Curated Routes',
-    className: 'lg:col-span-2 lg:row-span-2',
   },
   {
     src: '/assets/images/about_03.jpg',
     alt: 'Travel highlight image',
     title: 'Special Memories',
-    className: '',
   },
   {
     src: '/assets/images/Sri_Lankan_04.jpg',
     alt: 'Sri Lanka travel photo',
     title: 'Special Frames',
-    className: 'lg:col-span-2',
   },
 ];
 
@@ -134,13 +125,13 @@ const GalleryPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[220px] lg:auto-rows-[240px] grid-flow-dense">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {galleryItems.map((item) => (
               <button
                 key={item.src}
                 type="button"
                 onClick={() => setSelectedImage(item)}
-                className={`group relative overflow-hidden rounded-3xl bg-black/5 shadow-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold focus:ring-offset-2 focus:ring-offset-transparent ${item.className}`}
+                className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-black/5 shadow-lg focus:outline-none focus:ring-2 focus:ring-luxury-gold focus:ring-offset-2 focus:ring-offset-transparent"
               >
                 <img
                   src={getAssetPath(item.src)}
