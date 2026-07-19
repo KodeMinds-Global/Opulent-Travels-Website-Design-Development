@@ -33,7 +33,7 @@ const Navigation = () => {
     { href: "/maldives", label: "Maldives", isRouterLink: true },
   { href: "/rent-car", label: "Rent Car", isRouterLink: true },
     { href: "/packages", label: "Packages", isRouterLink: true },
-    { href: "#testimonials", label: "Reviews", isRouterLink: false },
+    { href: "/gallery", label: "Gallery", isRouterLink: true },
     { href: "/contact", label: "Contact", isRouterLink: true },
   ];
 
