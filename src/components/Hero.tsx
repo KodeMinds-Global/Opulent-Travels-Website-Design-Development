@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { OptimizedVideo } from '@/components/ui/optimized-video';
 import { getAssetPath } from '@/lib/utils';
@@ -16,24 +15,18 @@ const Hero = () => {
       video: "/assets/videos/Scene_01.webm",
       title: "Sri Lanka",
       description: "Embark on extraordinary journeys to Sri Lanka and the Maldives, where luxury meets pristine natural beauty",
-      primaryBtn: "Explore Destinations",
-      secondaryBtn: "Plan Your Trip",
       duration: 5000, // 5 seconds
     },
     {
       video: "/assets/videos/Scene_02.webm",
       title: "Maldives",
       description: "Experience world-class accommodations and personalized service in the most breathtaking locations",
-      primaryBtn: "View Luxury Suites",
-      secondaryBtn: "Contact Us",
       duration: 5000, // 5 seconds
     },
     {
       video: "/assets/videos/Scene_03.webm",
       title: "Rent Cars",
       description: "Create unforgettable memories with our curated collection of premium travel experiences",
-      primaryBtn: "Book Experience",
-      secondaryBtn: "Learn More",
       duration: 5000, // 5 seconds
     }
   ];
@@ -153,17 +146,6 @@ const Hero = () => {
             <p className="font-lora text-sm sm:text-base md:text-xl lg:text-2xl text-white/90 mb-4 sm:mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
               {currentSlideData.description}
             </p>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-6 justify-center items-center mb-4 sm:mb-6 md:mb-8">
-              <Button className="gold-button text-xs sm:text-sm md:text-base lg:text-lg px-4 sm:px-5 md:px-8 lg:px-10 py-1.5 sm:py-2 md:py-3 lg:py-4 xl:py-6 animate-pulse-gold text-black w-36 sm:w-40 md:w-48 lg:w-auto">
-                {currentSlideData.primaryBtn}
-              </Button>
-              <Button 
-                variant="outline" 
-                className="teal-button border border-luxury-teal sm:border-2 text-xs sm:text-sm md:text-base lg:text-lg px-4 sm:px-5 md:px-8 lg:px-10 py-1.5 sm:py-2 md:py-3 lg:py-4 xl:py-6 bg-transparent hover:bg-luxury-teal text-black w-36 sm:w-40 md:w-48 lg:w-auto mt-2 sm:mt-0"
-              >
-                {currentSlideData.secondaryBtn}
-              </Button>
-            </div>
           </div>
 
           {/* Slide Indicators */}
