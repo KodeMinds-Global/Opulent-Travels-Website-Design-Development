@@ -25,21 +25,6 @@ const OurServices = () => {
   }, []);
 
   const services = {
-    car: {
-      title: 'Rent Car Service',
-      icon: <Car className="w-8 h-8" />,
-      description: 'Experience comfortable, convenient, and transparent car rentals in Sri Lanka for any travel need.',
-      features: [
-        'Comfort & Convenience',
-        'Holiday & Business Ready',
-        'Experienced Service',
-        'Customer-Focused',
-        'Transparent Pricing',
-        'Reliable Transportation'
-      ],
-      image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?q=80&w=2940&auto=format&fit=crop',
-      color: 'from-blue-600 to-indigo-500'
-    },
     hotel: {
       title: 'Hotel Reservations',
       icon: <Building className="w-8 h-8" />,
@@ -52,7 +37,7 @@ const OurServices = () => {
         'Prime Locations',
         'Exclusive Benefits'
       ],
-      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2940&auto=format&fit=crop',
+      image: getAssetPath('/assets/images/Hiace Branded.png'),
       color: 'from-amber-500 to-orange-500'
     },
     mice: {
@@ -69,13 +54,29 @@ const OurServices = () => {
       ],
       image: getAssetPath('/assets/images/mice.jpg'),
       color: 'from-emerald-500 to-teal-500'
-    }
+    },
+    car: {
+      title: 'Rent Car Service',
+      icon: <Car className="w-8 h-8" />,
+      description: 'Experience comfortable, convenient, and transparent car rentals in Sri Lanka for any travel need.',
+      features: [
+        'Comfort & Convenience',
+        'Holiday & Business Ready',
+        'Experienced Service',
+        'Customer-Focused',
+        'Transparent Pricing',
+        'Reliable Transportation'
+      ],
+      image: getAssetPath('/assets/images/Hiace Flatroof Branded.png'),
+      color: 'from-blue-600 to-indigo-500'
+    },
+    
   };
 
   const filterOptions = [
-    { key: 'car', label: 'Rent Car Service', icon: <Car className="w-4 h-4" /> },
     { key: 'hotel', label: 'Hotel Reservations', icon: <Building className="w-4 h-4" /> },
-    { key: 'mice', label: 'MICE Groups', icon: <Users className="w-4 h-4" /> }
+    { key: 'mice', label: 'MICE Groups', icon: <Users className="w-4 h-4" /> },
+    { key: 'car', label: 'Rent Car Service', icon: <Car className="w-4 h-4" /> }
   ];
 
   const currentService = services[activeService as keyof typeof services];

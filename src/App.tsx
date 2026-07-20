@@ -14,6 +14,7 @@ import SriLankaPackageDetail from "./pages/PackageDetail/SriLankaPackageDetail";
 import MaldivesPackageDetail from "./pages/PackageDetail/MaldivesPackageDetail";
 import Packages from "./pages/Packages";
 import RentCarPage from "./pages/RentCar";
+import GalleryPage from "./pages/Gallery";
 import ContactPage from "./pages/Contact";
 import { Navigate } from 'react-router-dom';
 import { AdminAuthGuard } from './admin/guards/AdminAuthGuard';
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/rent-car" element={<RentCarPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/sri-lanka/package/:packageId" element={<SriLankaPackageDetail />} />
             <Route path="/maldives/package/:packageId" element={<MaldivesPackageDetail />} />
