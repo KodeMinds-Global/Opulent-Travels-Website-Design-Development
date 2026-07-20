@@ -36,7 +36,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename="/Opulent-Travels-Website-Design-Development">
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
