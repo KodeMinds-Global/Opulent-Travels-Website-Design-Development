@@ -18,6 +18,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export function AdminLoginPage() {
+  const base = import.meta.env.BASE_URL;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +48,7 @@ export function AdminLoginPage() {
       <div
         className="hidden md:flex md:w-1/2 relative flex-col justify-end"
         style={{
-          backgroundImage: `url('/assets/images/Sri_Lanka_bg.jpg')`,
+          backgroundImage: `url('${base}assets/images/Sri_Lanka_bg.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -109,7 +110,7 @@ export function AdminLoginPage() {
           {/* Logo */}
           <div className="flex justify-center mb-7">
             <img
-              src="/assets/images/logo-dark.png"
+              src={`${base}assets/images/logo-dark.png`}
               alt="Opulnet Travels"
               className="h-12 object-contain"
               onError={(e) => {
