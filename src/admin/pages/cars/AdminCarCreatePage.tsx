@@ -11,7 +11,7 @@ export function AdminCarCreatePage() {
 
   const handleSubmit = async (data: CarFormData) => {
     try {
-      await createMutation.mutateAsync(data);
+      await createMutation.mutateAsync({ ...data, destination: 'sriLanka' });
       toast.success('Car added successfully!');
       navigate('/admin/cars');
     } catch {
@@ -22,7 +22,7 @@ export function AdminCarCreatePage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Button variant="outline" size="sm" onClick={() => navigate('/admin/cars')} className="gap-2">
+        <Button variant="ghost" size="sm" onClick={() => navigate('/admin/cars')} className="gap-2 hover:bg-gray-200 dark:hover:bg-gray-700">
           <ArrowLeft size={14} /> Back
         </Button>
         <h2 className="font-playfair text-2xl font-bold text-gray-800 dark:text-white">Add Car</h2>

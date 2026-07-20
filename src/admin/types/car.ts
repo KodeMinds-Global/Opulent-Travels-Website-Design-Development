@@ -7,9 +7,12 @@ export interface AdminCar {
   pricePerDay: number;
   currency: string;
   seats: number;
-  transmission: 'Manual' | 'Automatic';
-  fuelType: string;
-  features: string[];
+  transmission?: string;
+  fuelType?: string;
+  features?: string[];
+  passengers?: string;
+  luggage?: string;
+  highlight?: string;
   available: boolean;
   createdAt: string;
   updatedAt: string;
