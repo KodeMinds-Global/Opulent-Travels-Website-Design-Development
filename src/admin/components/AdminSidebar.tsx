@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Package2, Car, X } from 'lucide-react';
+import { LayoutDashboard, Package2, Car, Images, X } from 'lucide-react';
 
 interface AdminSidebarProps {
   onClose?: () => void;
@@ -9,6 +9,7 @@ interface AdminSidebarProps {
 const navItems = [
   { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/admin/packages', icon: Package2, label: 'Packages' },
+  { to: '/admin/sri-lanka-gallery', icon: Images, label: 'Sri Lanka Gallery' },
   { to: '/admin/cars', icon: Car, label: 'Rent Cars' },
 ];
 
