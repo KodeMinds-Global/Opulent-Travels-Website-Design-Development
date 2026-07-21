@@ -34,7 +34,7 @@ const Packages = () => {
       id: 1,
       title: "Soneva Jani",
       category: "maldives",
-      subtitle: "5 Star",
+      rating: "★★★★★ 5.0",
       image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
       features: ["Overwater Villa", "All Meals Included", "Spa Treatment", "Sunset Cruise"],
       featured: true
@@ -53,7 +53,7 @@ const Packages = () => {
       id: 3,
       title: "Baros Maldives",
       category: "maldives",
-      subtitle: "5 Star",
+      rating: "★★★★★ 5.0",
       image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
       features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
       featured: true
@@ -62,7 +62,7 @@ const Packages = () => {
       id: 4,
       title: "Gili Lankanfushi",
       category: "maldives",
-      subtitle: "5 Star",
+      rating: "★★★★★ 5.0",
       image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
       features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
       featured: true
@@ -177,7 +177,7 @@ const Packages = () => {
                 </h3>
                 
                 <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
-                  {pkg.subtitle || pkg.duration}
+                  {pkg.rating || pkg.subtitle || pkg.duration}
                 </p>
 
                 {/* Features */}
