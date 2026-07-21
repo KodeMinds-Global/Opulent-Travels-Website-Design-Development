@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Packages = () => {
@@ -34,7 +35,7 @@ const Packages = () => {
       id: 1,
       title: "Soneva Jani",
       category: "maldives",
-      rating: "★★★★★ 5.0",
+      ratingCount: 3,
       image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
       features: ["Overwater Villa", "All Meals Included", "Spa Treatment", "Sunset Cruise"],
       featured: true
@@ -53,7 +54,7 @@ const Packages = () => {
       id: 3,
       title: "Baros Maldives",
       category: "maldives",
-      rating: "★★★★★ 5.0",
+      ratingCount: 5,
       image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
       features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
       featured: true
@@ -62,7 +63,7 @@ const Packages = () => {
       id: 4,
       title: "Gili Lankanfushi",
       category: "maldives",
-      rating: "★★★★★ 5.0",
+      ratingCount: 5,
       image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
       features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
       featured: true
@@ -162,9 +163,8 @@ const Packages = () => {
                 </div>
 
                 {/* Price Badge */}
-                {pkg.price && pkg.originalPrice && (
+                {pkg.category === 'srilanka' && pkg.price && (
                   <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
-                    <div className="text-xs line-through opacity-70">{pkg.originalPrice}</div>
                     <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
                   </div>
                 )}
@@ -176,9 +176,21 @@ const Packages = () => {
                   {pkg.title}
                 </h3>
                 
-                <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
-                  {pkg.rating || pkg.subtitle || pkg.duration}
-                </p>
+                {pkg.category === 'maldives' && typeof pkg.ratingCount === 'number' ? (
+                  <div className="flex items-center gap-1.5 mb-3 text-luxury-teal dark:text-dark-accent">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${i < pkg.ratingCount ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
+                      />
+                    ))}
+                    <span className="font-montserrat text-sm font-medium">{pkg.ratingCount}.0</span>
+                  </div>
+                ) : (
+                  <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+                    {pkg.rating || pkg.subtitle || pkg.duration}
+                  </p>
+                )}
 
                 {/* Features */}
                 <div className="space-y-1.5 mb-4">
