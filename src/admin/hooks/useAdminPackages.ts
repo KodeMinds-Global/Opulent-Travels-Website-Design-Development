@@ -41,3 +41,21 @@ export function useDeletePackage() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['admin-packages'] }),
   });
 }
+
+export function useFeaturedMaldivesPackages() {
+  return useQuery({
+    queryKey: ['admin-packages-featured-maldives'],
+    queryFn: () => packagesService.getFeaturedMaldives(),
+  });
+}
+
+export function useSetFeaturedMaldives() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (packageIds: string[]) => packagesService.setFeaturedMaldives(packageIds),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-packages-featured-maldives'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-packages'] });
+    },
+  });
+}

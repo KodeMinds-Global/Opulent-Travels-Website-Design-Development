@@ -21,9 +21,12 @@ import { AdminAuthGuard } from './admin/guards/AdminAuthGuard';
 import { AdminLayout } from './admin/components/AdminLayout';
 import { AdminLoginPage } from './admin/pages/AdminLoginPage';
 import { AdminDashboardPage } from './admin/pages/AdminDashboardPage';
-import { AdminPackagesListPage } from './admin/pages/packages/AdminPackagesListPage';
-import { AdminPackageCreatePage } from './admin/pages/packages/AdminPackageCreatePage';
-import { AdminPackageEditPage } from './admin/pages/packages/AdminPackageEditPage';
+import { AdminSriLankaPackagesListPage } from './admin/pages/packages/AdminSriLankaPackagesListPage';
+import { AdminSriLankaPackageCreatePage } from './admin/pages/packages/AdminSriLankaPackageCreatePage';
+import { AdminSriLankaPackageEditPage } from './admin/pages/packages/AdminSriLankaPackageEditPage';
+import { AdminMaldivesPackagesListPage } from './admin/pages/packages/AdminMaldivesPackagesListPage';
+import { AdminMaldivesPackageCreatePage } from './admin/pages/packages/AdminMaldivesPackageCreatePage';
+import { AdminMaldivesPackageEditPage } from './admin/pages/packages/AdminMaldivesPackageEditPage';
 import { AdminCarsListPage } from './admin/pages/cars/AdminCarsListPage';
 import { AdminCarCreatePage } from './admin/pages/cars/AdminCarCreatePage';
 import { AdminCarEditPage } from './admin/pages/cars/AdminCarEditPage';
@@ -59,9 +62,16 @@ const App = () => (
               <Route element={<AdminLayout />}>
                 <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
                 <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-                <Route path="/admin/packages" element={<AdminPackagesListPage />} />
-                <Route path="/admin/packages/new" element={<AdminPackageCreatePage />} />
-                <Route path="/admin/packages/:id/edit" element={<AdminPackageEditPage />} />
+                {/* Redirect /admin/packages to /admin/packages/sri-lanka */}
+                <Route path="/admin/packages" element={<Navigate to="/admin/packages/sri-lanka" replace />} />
+                {/* Sri Lanka Package Routes */}
+                <Route path="/admin/packages/sri-lanka" element={<AdminSriLankaPackagesListPage />} />
+                <Route path="/admin/packages/sri-lanka/new" element={<AdminSriLankaPackageCreatePage />} />
+                <Route path="/admin/packages/sri-lanka/:id/edit" element={<AdminSriLankaPackageEditPage />} />
+                {/* Maldives Package Routes */}
+                <Route path="/admin/packages/maldives" element={<AdminMaldivesPackagesListPage />} />
+                <Route path="/admin/packages/maldives/new" element={<AdminMaldivesPackageCreatePage />} />
+                <Route path="/admin/packages/maldives/:id/edit" element={<AdminMaldivesPackageEditPage />} />
                 <Route path="/admin/cars" element={<AdminCarsListPage />} />
                 <Route path="/admin/cars/new" element={<AdminCarCreatePage />} />
                 <Route path="/admin/cars/:id/edit" element={<AdminCarEditPage />} />

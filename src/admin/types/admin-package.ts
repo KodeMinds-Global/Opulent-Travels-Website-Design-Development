@@ -7,6 +7,15 @@ export interface ItineraryDay {
   accommodation: string;
 }
 
+export interface DetailedItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  activities: string[];
+  meals: string[];
+  accommodation: string;
+}
+
 export interface PricingCategoryPrices {
   '2Pax': number;
   '4Pax': number;
@@ -42,6 +51,7 @@ export interface AdminPackage {
   inclusions: string[];
   exclusions: string[];
   itinerary: ItineraryDay[];
+  detailedItinerary: DetailedItineraryDay[];
   pricingTable: PricingTable;
   supplements: string[];
   hotelList: Record<string, Record<string, string>>;
@@ -54,6 +64,8 @@ export interface AdminPackage {
   resortName: string;
   resortRating: number;
   waterActivities: string[];
+  descriptionPoints: string[];
+  galleryImages: string[];
   createdAt: string;
   updatedAt: string;
 }

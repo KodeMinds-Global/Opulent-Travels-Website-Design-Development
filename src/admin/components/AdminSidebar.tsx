@@ -12,8 +12,12 @@ export function AdminSidebar({ onClose, isDark }: AdminSidebarProps) {
   const isGalleryActive =
     location.pathname.startsWith('/admin/sri-lanka-gallery') ||
     location.pathname.startsWith('/admin/maldives-gallery');
+  const isPackagesActive =
+    location.pathname.startsWith('/admin/packages/sri-lanka') ||
+    location.pathname.startsWith('/admin/packages/maldives');
 
   const [galleryOpen, setGalleryOpen] = useState(isGalleryActive);
+  const [packagesOpen, setPackagesOpen] = useState(isPackagesActive);
 
   const sideBg = isDark
     ? 'linear-gradient(180deg, #0A1628 0%, #0F2040 60%, #0A1628 100%)'
@@ -76,15 +80,45 @@ export function AdminSidebar({ onClose, isDark }: AdminSidebarProps) {
           Dashboard
         </NavLink>
 
-        {/* Packages */}
-        <NavLink
-          to="/admin/packages"
-          className={({ isActive }) => navLinkClass(isActive)}
-          style={({ isActive }) => navLinkStyle(isActive)}
-        >
-          <Package2 size={17} />
-          Packages
-        </NavLink>
+        {/* Packages (collapsible) */}
+        <div>
+          <button
+            onClick={() => setPackagesOpen(prev => !prev)}
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg font-montserrat text-sm transition-all duration-200 ${
+              isPackagesActive ? 'text-white font-semibold' : 'text-white/60 hover:text-white'
+            }`}
+            style={{
+              background: isPackagesActive ? 'rgba(59,130,246,0.15)' : 'transparent',
+              borderLeft: isPackagesActive ? '3px solid #60A5FA' : '3px solid transparent',
+              paddingLeft: '13px',
+            }}
+          >
+            <Package2 size={17} />
+            <span className="flex-1 text-left">Packages</span>
+            {packagesOpen
+              ? <ChevronDown size={14} className="opacity-60" />
+              : <ChevronRight size={14} className="opacity-60" />}
+          </button>
+
+          {packagesOpen && (
+            <div className="mt-0.5 space-y-0.5">
+              <NavLink
+                to="/admin/packages/sri-lanka"
+                className={({ isActive }) => subLinkClass(isActive)}
+                style={({ isActive }) => subLinkStyle(isActive)}
+              >
+                Sri Lanka
+              </NavLink>
+              <NavLink
+                to="/admin/packages/maldives"
+                className={({ isActive }) => subLinkClass(isActive)}
+                style={({ isActive }) => subLinkStyle(isActive)}
+              >
+                Maldives
+              </NavLink>
+            </div>
+          )}
+        </div>
 
         {/* Gallery (collapsible) */}
         <div>

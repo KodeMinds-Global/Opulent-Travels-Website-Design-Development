@@ -1,6 +1,24 @@
 import { adminAxios } from '../api/axios';
 import type { AdminPackage } from '../types/admin-package';
 
+// Upload a single image file, returns the server URL
+async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append('file', file);
+  const res = await adminAxios.post<{ url: string }>('/upload/image', formData);
+  return res.data.url;
+}
+
+// Upload multiple image files sequentially, returns array of server URLs
+export async function uploadImages(files: File[]): Promise<string[]> {
+  const urls: string[] = [];
+  for (const file of files) {
+    const url = await uploadImage(file);
+    urls.push(url);
+  }
+  return urls;
+}
+
 export const packagesService = {
   async getPackages(destination?: string): Promise<AdminPackage[]> {
     const params = destination ? { destination } : {};
@@ -25,5 +43,15 @@ export const packagesService = {
 
   async deletePackage(id: string): Promise<void> {
     await adminAxios.delete(`/packages/${id}`);
+  },
+
+  async getFeaturedMaldives(): Promise<AdminPackage[]> {
+    const res = await adminAxios.get<AdminPackage[]>('/packages/featured/maldives');
+    return res.data;
+  },
+
+  async setFeaturedMaldives(packageIds: string[]): Promise<{ updated: boolean }> {
+    const res = await adminAxios.patch<{ updated: boolean }>('/packages/featured/maldives', { packageIds });
+    return res.data;
   },
 };
