@@ -7,21 +7,17 @@ const Footer = () => {
   const footerLinks = {
     destinations: [
       { name: 'Maldives Tours', href: '#maldives' },
-      { name: 'Sri Lanka Adventures', href: '#srilanka' },
-      { name: 'Combined Packages', href: '#packages' },
-      { name: 'Custom Itineraries', href: '#contact' }
+      { name: 'Sri Lanka Adventures', href: '#srilanka' }
     ],
     company: [
       { name: 'About Us', href: '#about' },
-      { name: 'Why Choose Us', href: '#why-choose-us' },
       { name: 'Testimonials', href: '#testimonials' },
       { name: 'Contact', href: '#contact' }
     ],
     support: [
       { name: 'Customer Support', href: '#contact' },
       { name: 'Travel Insurance', href: '#' },
-      { name: 'Terms & Conditions', href: '#' },
-      { name: 'Privacy Policy', href: '#' }
+      { name: 'Terms & Conditions', href: '#' }
     ]
   };
 
@@ -104,7 +100,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Support & Social */}
+          {/* Support */}
           <div>
             <h3 className="font-playfair font-bold text-xl text-luxury-gold mb-6">
               Support
@@ -122,21 +118,6 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-
-            {/* Social Media */}
-            <h4 className="font-poppins font-semibold text-white mb-4">Follow Us</h4>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-luxury-gold hover:text-luxury-charcoal transition-all duration-300 transform hover:scale-110"
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -148,16 +129,19 @@ const Footer = () => {
             <p className="font-montserrat text-white/60 text-sm text-center md:text-left">
               © {currentYear} Opulent Travels. All rights reserved.Powered by <a href="#" className="text-luxury-gold hover:text-luxury-teal transition-colors duration-300">KodeMinds Solutions</a>.
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="font-montserrat text-white/60 hover:text-luxury-gold text-sm transition-colors duration-300">
-                Privacy Policy
-              </a>
-              <a href="#" className="font-montserrat text-white/60 hover:text-luxury-gold text-sm transition-colors duration-300">
-                Terms of Service
-              </a>
-              <a href="#" className="font-montserrat text-white/60 hover:text-luxury-gold text-sm transition-colors duration-300">
-                Cookie Policy
-              </a>
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+              <div className="flex items-center gap-3">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-luxury-gold hover:text-luxury-charcoal transition-all duration-300 transform hover:scale-110"
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
