@@ -284,7 +284,7 @@ const SriLanka = () => {
           
           {/* View All Packages Button */}
           <div className="text-center mt-12">
-            <Link to="/packages">
+            <Link to="/packages?type=sriLanka">
               <Button className="px-8 py-3 rounded-full bg-gradient-to-r from-luxury-teal to-blue-500 hover:from-luxury-teal/90 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 font-medium">
                 View All Sri Lankan Packages
               </Button>
@@ -299,12 +299,11 @@ const SriLanka = () => {
           <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-6 text-luxury-charcoal dark:text-white">Ready to Explore Sri Lanka?</h2>
           <p className="font-lora text-xl text-gray-700 dark:text-white/90 max-w-3xl mx-auto mb-8">Contact our travel specialists to plan your perfect Sri Lankan adventure.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="gold-button">
-              Get a Quote
-            </Button>
-            <Button className="teal-button">
-              Learn More
-            </Button>
+            <Link to="/contact">
+              <Button className="gold-button">
+                Get a Quote
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
