@@ -10,6 +10,7 @@ interface AnimatedHeroProps {
   description: string;
   backgroundImage: string;
   svgPath?: string; // Make svgPath optional
+  showButton?: boolean;
 }
 
 const AnimatedHero: React.FC<AnimatedHeroProps> = ({
@@ -17,7 +18,8 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
   subtitle,
   description,
   backgroundImage,
-  svgPath
+  svgPath,
+  showButton = true
 }) => {
   // Function to handle scroll to next section
   const handleScrollToContent = () => {
@@ -61,9 +63,11 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
           
           <p className="font-lora text-xl md:text-2xl mb-6 opacity-0 animate-fadeIn">{subtitle}</p>
           <p className="font-montserrat max-w-3xl mx-auto mb-8 opacity-0 animate-fadeIn animation-delay-300">{description}</p>
-          <button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-medium py-2.5 px-8 rounded-full shadow-md hover:shadow-lg transition-all opacity-0 animate-fadeIn animation-delay-600">
-            Plan Your Trip
-          </button>
+          {showButton && (
+            <button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-medium py-2.5 px-8 rounded-full shadow-md hover:shadow-lg transition-all opacity-0 animate-fadeIn animation-delay-600">
+              Plan Your Trip
+            </button>
+          )}
         </div>
       </div>
 

@@ -143,6 +143,7 @@ const SriLanka = () => {
         subtitle={heroSection.subtitle}
         description={heroSection.description}
         backgroundImage={heroSection.backgroundImage}
+        showButton={false}
       />
 
       {/* Country Description Section */}
@@ -157,11 +158,6 @@ const SriLanka = () => {
                   {paragraph}
                 </p>
               ))}
-            </div>
-            <div className="mt-10 flex justify-center">
-              <Button className="light-button dark:dark-button">
-                Explore Sri Lanka Packages
-              </Button>
             </div>
           </div>
         </div>
