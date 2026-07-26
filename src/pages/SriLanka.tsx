@@ -133,6 +133,37 @@ const SriLanka = () => {
     ]
   };
 
+  const homepageSriLankaCards = [
+    {
+      id: 1,
+      title: "Sri Lanka Cultural Journey",
+      duration: "10 Days / 9 Nights",
+      price: "$2,299",
+      originalPrice: "$2,799",
+      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
+      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"],
+      featured: true
+    },
+    {
+      id: 2,
+      title: "Sri Lanka Cultural Journey",
+      duration: "10 Days / 9 Nights",
+      price: "$2,299",
+      originalPrice: "$2,799",
+      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
+      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
+    },
+    {
+      id: 3,
+      title: "Sri Lanka Cultural Journey",
+      duration: "10 Days / 9 Nights",
+      price: "$2,299",
+      originalPrice: "$2,799",
+      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
+      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
       <Navigation />
@@ -143,6 +174,7 @@ const SriLanka = () => {
         subtitle={heroSection.subtitle}
         description={heroSection.description}
         backgroundImage={heroSection.backgroundImage}
+        showButton={false}
       />
 
       {/* Country Description Section */}
@@ -157,11 +189,6 @@ const SriLanka = () => {
                   {paragraph}
                 </p>
               ))}
-            </div>
-            <div className="mt-10 flex justify-center">
-              <Button className="light-button dark:dark-button">
-                Explore Sri Lanka Packages
-              </Button>
             </div>
           </div>
         </div>
@@ -198,184 +225,70 @@ const SriLanka = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sriLankaPackages.map((pkg, index) => (
-              <Link
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {homepageSriLankaCards.map((pkg, index) => (
+              <div
                 key={pkg.id}
-                to={`/sri-lanka/package/${pkg.id}`}
-                className="group block"
+                className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
+                style={{
+                  animationDelay: `${600 + index * 200}ms`,
+                  width: '95%'
+                }}
               >
-                <div className="luxury-card hover-lift group overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20">
-                  {/* Package Image */}
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={pkg.imageUrl}
-                      alt={pkg.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    
-                    {/* Overlay with gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
-                    {/* Price Badge */}
-                    <div className="absolute top-4 right-4 bg-luxury-gold/90 backdrop-blur-sm text-black px-3 py-2 rounded-full font-bold">
-                      From ${pkg.price}
-                    </div>
-                    
-                    {/* Featured Badge */}
+                <div className="relative overflow-hidden rounded-t-xl">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  
+                  <div className="absolute top-3 left-3 flex gap-2">
                     {pkg.featured && (
-                      <div className="absolute top-4 left-4 bg-gradient-to-r from-luxury-coral to-pink-400 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
                         Featured
-                      </div>
+                      </span>
                     )}
                   </div>
 
-                  {/* Package Content */}
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-luxury-teal dark:text-luxury-teal font-montserrat text-sm font-medium">
-                        {pkg.duration}
-                      </span>
-                      <div className="flex items-center space-x-1">
-                        <svg className="w-4 h-4 text-luxury-gold" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Premium</span>
-                      </div>
-                    </div>
-                    
-                    <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-3 group-hover:text-luxury-teal dark:group-hover:text-luxury-teal transition-colors duration-300">
-                      {pkg.title}
-                    </h3>
-                    
-                    <p className="font-lora text-gray-700 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                      {pkg.shortDescription}
-                    </p>
-
-                    {/* Highlights */}
-                    <div className="space-y-2 mb-6">
-                      {pkg.highlights.slice(0, 3).map((highlight, i) => (
-                        <div key={i} className="flex items-start space-x-2">
-                          <div className="w-1.5 h-1.5 bg-luxury-gold rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="font-lora text-gray-600 dark:text-gray-400 text-sm">{highlight}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Locations */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {pkg.locations.slice(0, 3).map((location, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-1 bg-gray-100 dark:bg-dark-primary/20 text-gray-700 dark:text-gray-300 text-xs rounded-full"
-                        >
-                          {location}
-                        </span>
-                      ))}
-                      {pkg.locations.length > 3 && (
-                        <span className="px-2 py-1 bg-gray-100 dark:bg-dark-primary/20 text-gray-700 dark:text-gray-300 text-xs rounded-full">
-                          +{pkg.locations.length - 3} more
-                        </span>
-                      )}
-                    </div>
-
-                    {/* CTA */}
-                    <div className="flex items-center justify-between">
-                      <div className="text-luxury-charcoal dark:text-white">
-                        <span className="text-sm text-gray-500 dark:text-gray-400">Starting from</span>
-                        <div className="font-bold text-lg">${pkg.price} <span className="text-sm font-normal">/ person</span></div>
-                      </div>
-                      <div className="transform transition-transform duration-300 group-hover:translate-x-1">
-                        <svg className="w-6 h-6 text-luxury-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </div>
-                    </div>
+                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
+                    <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
-          
-          {/* View All Packages Button */}
-          <div className="text-center mt-12">
-            <Link to="/packages">
-              <Button className="px-8 py-3 rounded-full bg-gradient-to-r from-luxury-teal to-blue-500 hover:from-luxury-teal/90 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 font-medium">
-                View All Sri Lankan Packages
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
 
-      {/* Experiences Section */}
-      <section className="py-20 bg-light-background dark:bg-dark-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{experiencesSection.title}</h2>
-            <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">{experiencesSection.description}</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {experiencesSection.experiences.map((experience, index) => (
-              <div 
-                key={index} 
-                className="group theme-card overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover-lift"
-              >
-                <div className="h-60 overflow-hidden">
-                  <img 
-                    src={experience.image} 
-                    alt={experience.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-playfair text-xl font-bold mb-2 text-luxury-charcoal dark:text-white">{experience.title}</h3>
-                  <p className="font-montserrat text-gray-700 dark:text-gray-300 mb-4">{experience.description}</p>
-                  <p className="font-playfair text-lg font-bold text-light-accent dark:text-dark-accent">{experience.price}</p>
-                  <Button className="mt-4 w-full bg-light-primary/10 hover:bg-light-primary/20 text-light-primary dark:bg-dark-primary/30 dark:hover:bg-dark-primary/50 dark:text-white">
+                <div className="p-4">
+                  <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
+                    {pkg.title}
+                  </h3>
+                  
+                  <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+                    {pkg.duration}
+                  </p>
+
+                  <div className="space-y-1.5 mb-4">
+                    {pkg.features.map((feature, i) => (
+                      <div key={i} className="flex items-center space-x-2">
+                        <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
+                        <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
                     View Details
                   </Button>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-light-surface dark:bg-dark-surface">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">{testimonialSection.title}</h2>
-          </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonialSection.testimonials.map((testimonial, index) => (
-              <div 
-                key={index} 
-                className="luxury-card p-8 hover-lift"
-              >
-                <div className="flex items-center mb-4">
-                  {Array(5).fill(0).map((_, i) => (
-                    <svg 
-                      key={i} 
-                      className={`w-5 h-5 ${i < testimonial.rating ? 'text-luxury-gold' : 'text-gray-300'}`} 
-                      fill="currentColor" 
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="font-lora text-gray-700 dark:text-gray-300 italic mb-6">"{testimonial.comment}"</p>
-                <div>
-                  <p className="font-playfair font-bold text-luxury-charcoal dark:text-white">{testimonial.name}</p>
-                  <p className="font-montserrat text-gray-600 dark:text-gray-400">{testimonial.location}</p>
-                </div>
-              </div>
-            ))}
+          {/* View All Packages Button */}
+          <div className="text-center mt-12">
+            <Link to="/packages?type=sriLanka">
+              <Button className="px-8 py-3 rounded-full bg-gradient-to-r from-luxury-teal to-blue-500 hover:from-luxury-teal/90 hover:to-blue-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 font-medium">
+                View All Sri Lankan Packages
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -386,12 +299,11 @@ const SriLanka = () => {
           <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-6 text-luxury-charcoal dark:text-white">Ready to Explore Sri Lanka?</h2>
           <p className="font-lora text-xl text-gray-700 dark:text-white/90 max-w-3xl mx-auto mb-8">Contact our travel specialists to plan your perfect Sri Lankan adventure.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="gold-button">
-              Get a Quote
-            </Button>
-            <Button className="teal-button">
-              Learn More
-            </Button>
+            <Link to="/contact">
+              <Button className="gold-button">
+                Get a Quote
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
