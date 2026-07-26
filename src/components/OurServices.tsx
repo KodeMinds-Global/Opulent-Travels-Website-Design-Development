@@ -5,7 +5,7 @@ import { getAssetPath } from '@/lib/utils';
 
 const OurServices = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeService, setActiveService] = useState('car');
+  const [activeService, setActiveService] = useState('hotel');
 
   useEffect(() => {
     const observer = new IntersectionObserver(

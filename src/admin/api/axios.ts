@@ -4,7 +4,6 @@ const baseURL = (import.meta as any).env?.VITE_API_BASE_URL ?? 'http://localhost
 
 export const adminAxios = axios.create({
   baseURL,
-  headers: { 'Content-Type': 'application/json' },
 });
 
 // Attach JWT token to every request

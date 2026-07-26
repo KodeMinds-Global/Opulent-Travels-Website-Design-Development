@@ -65,9 +65,7 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
     try {
       const formData = new FormData();
       formData.append('file', file);
-      const res = await adminAxios.post<{ url: string }>('/upload/car-image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await adminAxios.post<{ url: string }>('/upload/image', formData);
       form.setValue('imageUrl', res.data.url);
     } catch {
       form.setError('imageUrl', { message: 'Image upload failed. Please try again.' });

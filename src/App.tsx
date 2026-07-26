@@ -27,6 +27,10 @@ import { AdminPackageEditPage } from './admin/pages/packages/AdminPackageEditPag
 import { AdminCarsListPage } from './admin/pages/cars/AdminCarsListPage';
 import { AdminCarCreatePage } from './admin/pages/cars/AdminCarCreatePage';
 import { AdminCarEditPage } from './admin/pages/cars/AdminCarEditPage';
+import { AdminSriLankaGalleryListPage } from './admin/pages/sri-lanka-gallery/AdminSriLankaGalleryListPage';
+import { AdminSriLankaGalleryEditPage } from './admin/pages/sri-lanka-gallery/AdminSriLankaGalleryEditPage';
+import { AdminMaldivesGalleryListPage } from './admin/pages/maldives-gallery/AdminMaldivesGalleryListPage';
+import { AdminMaldivesGalleryEditPage } from './admin/pages/maldives-gallery/AdminMaldivesGalleryEditPage';
 
 const queryClient = new QueryClient();
 
@@ -61,6 +65,10 @@ const App = () => (
                 <Route path="/admin/cars" element={<AdminCarsListPage />} />
                 <Route path="/admin/cars/new" element={<AdminCarCreatePage />} />
                 <Route path="/admin/cars/:id/edit" element={<AdminCarEditPage />} />
+                <Route path="/admin/sri-lanka-gallery" element={<AdminSriLankaGalleryListPage />} />
+                <Route path="/admin/sri-lanka-gallery/:id/edit" element={<AdminSriLankaGalleryEditPage />} />
+                <Route path="/admin/maldives-gallery" element={<AdminMaldivesGalleryListPage />} />
+                <Route path="/admin/maldives-gallery/:id/edit" element={<AdminMaldivesGalleryEditPage />} />
               </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
