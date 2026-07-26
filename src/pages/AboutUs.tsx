@@ -305,13 +305,12 @@ const AboutUs = () => {
             <p className="font-lora text-base md:text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Let us create a bespoke journey tailored to your preferences. Contact our team today and begin your extraordinary adventure.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button className="gold-button bg-luxury-gold text-black hover:bg-luxury-gold/90 transition-all">
-                Contact Us
-              </Button>
-              <Button variant="outline" className="border-luxury-gold text-luxury-gold hover:bg-luxury-gold/10 dark:border-luxury-gold dark:text-luxury-gold dark:hover:bg-luxury-gold/10 transition-all">
-                View Destinations
-              </Button>
+            <div className="flex justify-center">
+              <Link to="/contact">
+                <Button className="gold-button bg-luxury-gold text-black hover:bg-luxury-gold/90 transition-all">
+                  Contact Us
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
