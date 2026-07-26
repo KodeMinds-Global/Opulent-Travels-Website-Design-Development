@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getAssetPath } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const AboutUs = () => {
   const [isVisible, setIsVisible] = useState({
@@ -112,9 +113,11 @@ const AboutUs = () => {
             <p className="font-lora text-base sm:text-lg md:text-xl text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto">
               Discover the passion, expertise, and dedication that drives us to create extraordinary travel experiences for discerning travelers.
             </p>
-            <Button className="gold-button bg-luxury-gold text-black hover:bg-luxury-gold/90 transition-all">
-              Get in Touch
-            </Button>
+            <Link to="/contact">
+              <Button className="gold-button bg-luxury-gold text-black hover:bg-luxury-gold/90 transition-all">
+                Get in Touch
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
