@@ -123,6 +123,34 @@ const Maldives = () => {
     ]
   };
 
+  const homepageMaldivesCards = [
+    {
+      id: 1,
+      title: "Luxury Overwater Villa Experience",
+      duration: "5 days / 4 nights",
+      price: "$3,200",
+      image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
+      features: ["Overwater Villa", "All Meals Included", "Spa Treatment", "Sunset Cruise"],
+      featured: true
+    },
+    {
+      id: 2,
+      title: "Private Island Escape",
+      duration: "7 days / 6 nights",
+      price: "$4,800",
+      image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
+      features: ["Private Island", "Gourmet Dining", "Dolphin Watching", "Water Sports"]
+    },
+    {
+      id: 3,
+      title: "Coral Reef Adventure",
+      duration: "6 days / 5 nights",
+      price: "$3,600",
+      image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=3165&auto=format&fit=crop",
+      features: ["Snorkeling", "Island Hopping", "Beach Picnic", "Luxury Stay"]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
       <Navigation />
@@ -133,6 +161,7 @@ const Maldives = () => {
         subtitle={heroSection.subtitle}
         description={heroSection.description}
         backgroundImage={heroSection.backgroundImage}
+        showButton={false}
         // No svgPath prop, so it will use text animation
       />
 
@@ -149,13 +178,6 @@ const Maldives = () => {
                 </p>
               ))}
             </div>
-            <div className="mt-10 flex justify-center">
-              <Button className="light-button dark:dark-button" asChild>
-                <Link to="/packages?type=maldives">
-                  Explore Maldives Packages
-                </Link>
-              </Button>
-            </div>
           </div>
         </div>
       </section>
@@ -170,6 +192,83 @@ const Maldives = () => {
           
           {/* Image Carousel */}
           <ImageCarousel items={carouselItems} />
+        </div>
+      </section>
+
+      {/* Maldives Tour Packages Section */}
+      <section className="py-20 bg-white dark:bg-gradient-to-br dark:from-dark-background dark:via-dark-surface dark:to-dark-primary/10 relative">
+        <div className="hidden dark:block absolute inset-0 bg-gradient-to-br from-dark-background via-dark-surface to-dark-primary/10 z-0"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="font-playfair text-3xl md:text-5xl font-bold mb-4 text-luxury-charcoal dark:text-white">
+              Maldives <span className="text-transparent bg-clip-text" style={{
+                background: 'linear-gradient(90deg, #00308F 0%, #0066CC 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>Tour Packages</span>
+            </h2>
+            <p className="font-lora text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+              Discover carefully curated Maldives experiences designed to showcase the island’s luxury, marine life, and tropical beauty
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {homepageMaldivesCards.map((pkg, index) => (
+              <div
+                key={pkg.id}
+                className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
+                style={{
+                  animationDelay: `${600 + index * 200}ms`,
+                  width: '95%'
+                }}
+              >
+                <div className="relative overflow-hidden rounded-t-xl">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    {pkg.featured && (
+                      <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
+                        Featured
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
+                    <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
+                  </div>
+                </div>
+
+                <div className="p-4">
+                  <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
+                    {pkg.title}
+                  </h3>
+
+                  <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+                    {pkg.duration}
+                  </p>
+
+                  <div className="space-y-1.5 mb-4">
+                    {pkg.features.map((feature, i) => (
+                      <div key={i} className="flex items-center space-x-2">
+                        <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
+                        <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+                    View Details
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
