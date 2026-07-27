@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Packages = () => {
@@ -32,14 +33,12 @@ const Packages = () => {
   const packages = [
     {
       id: 1,
-      title: "Maldives Paradise",
+      title: "Soneva Jani",
       category: "maldives",
-      duration: "7 Days / 6 Nights",
-      price: "$3,999",
-      originalPrice: "$4,999",
+      ratingCount: 3,
       image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
       features: ["Overwater Villa", "All Meals Included", "Spa Treatment", "Sunset Cruise"],
-      popular: true
+      featured: true
     },
     {
       id: 2,
@@ -53,25 +52,21 @@ const Packages = () => {
     },
     {
       id: 3,
-      title: "Luxury Maldives Escape",
+      title: "Baros Maldives",
       category: "maldives",
-      duration: "8 Days / 7 Nights",
-      price: "$4,299",
-      originalPrice: "$5,499",
+      ratingCount: 5,
       image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
       features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
-      premium: true
+      featured: true
     },
     {
       id: 4,
-      title: "Luxury Maldives Escape",
+      title: "Gili Lankanfushi",
       category: "maldives",
-      duration: "8 Days / 7 Nights",
-      price: "$4,299",
-      originalPrice: "$5,499",
+      ratingCount: 5,
       image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
       features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
-      premium: true
+      featured: true
     },
     {
       id: 5,
@@ -160,23 +155,19 @@ const Packages = () => {
                 
                 {/* Badges */}
                 <div className="absolute top-3 left-3 flex gap-2">
-                  {pkg.popular && (
-                    <span className="bg-gradient-to-r from-luxury-coral to-pink-400 dark:from-dark-accent dark:to-dark-primary text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
-                      Popular
-                    </span>
-                  )}
-                  {pkg.premium && (
+                  {pkg.featured && (
                     <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
-                      Premium
+                      Featured
                     </span>
                   )}
                 </div>
 
                 {/* Price Badge */}
-                <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
-                  <div className="text-xs line-through opacity-70">{pkg.originalPrice}</div>
-                  <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
-                </div>
+                {pkg.category === 'srilanka' && pkg.price && (
+                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
+                    <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
+                  </div>
+                )}
               </div>
 
               {/* Package Content */}
@@ -185,9 +176,21 @@ const Packages = () => {
                   {pkg.title}
                 </h3>
                 
-                <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
-                  {pkg.duration}
-                </p>
+                {pkg.category === 'maldives' && typeof pkg.ratingCount === 'number' ? (
+                  <div className="flex items-center gap-1.5 mb-3 text-luxury-teal dark:text-dark-accent">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${i < pkg.ratingCount ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
+                      />
+                    ))}
+                    <span className="font-montserrat text-sm font-medium">{pkg.ratingCount}.0</span>
+                  </div>
+                ) : (
+                  <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+                    {pkg.rating || pkg.subtitle || pkg.duration}
+                  </p>
+                )}
 
                 {/* Features */}
                 <div className="space-y-1.5 mb-4">

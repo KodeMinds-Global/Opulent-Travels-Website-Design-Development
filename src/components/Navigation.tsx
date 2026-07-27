@@ -34,7 +34,6 @@ const Navigation = () => {
   { href: "/rent-car", label: "Rent Car", isRouterLink: true },
     { href: "/packages", label: "Packages", isRouterLink: true },
     { href: "/gallery", label: "Gallery", isRouterLink: true },
-    { href: "/contact", label: "Contact", isRouterLink: true },
   ];
 
   return (
@@ -102,9 +101,11 @@ const Navigation = () => {
           {/* Theme Toggle & CTA Button */}
           <div className="hidden lg:flex items-center space-x-4">
             <ThemeToggle />
-            <Button className="gold-button bg-luxury-gold text-black">
-              Get a quote
-            </Button>
+            <Link to="/contact">
+              <Button className="gold-button bg-luxury-gold text-black">
+                Get a quote
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -179,9 +180,11 @@ const Navigation = () => {
               )
             ))}
             <div className="pt-2">
-              <Button className="gold-button w-full text-xs sm:text-sm md:text-base py-1.5 sm:py-2 md:py-3 mt-2">
-                Get a quote
-              </Button>
+              <Link to="/contact">
+                <Button className="gold-button w-full text-xs sm:text-sm md:text-base py-1.5 sm:py-2 md:py-3 mt-2">
+                  Get a quote
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

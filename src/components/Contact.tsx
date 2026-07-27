@@ -272,31 +272,6 @@ const Contact = () => {
                       </label>
                       <div className="absolute inset-0 rounded-xl bg-purple-500/5 dark:bg-purple-400/5 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"></div>
                     </div>
-
-                    {/* Destination Select */}
-                    <div className="relative group">
-                      <select
-                        name="destination"
-                        value={formData.destination}
-                        onChange={handleInputChange}
-                        className="peer w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white bg-transparent focus:border-purple-500 dark:focus:border-purple-400 focus:outline-none transition-colors appearance-none"
-                      >
-                        <option value="" disabled>Select Destination</option>
-                        <option value="maldives" className="bg-white dark:bg-gray-800">Maldives</option>
-                        <option value="srilanka" className="bg-white dark:bg-gray-800">Sri Lanka</option>
-                        <option value="combined" className="bg-white dark:bg-gray-800">Combined Tour</option>
-                        <option value="custom" className="bg-white dark:bg-gray-800">Custom Package</option>
-                      </select>
-                      <label className="absolute left-4 top-3 text-gray-500 dark:text-gray-400 transition-all duration-300 transform -translate-y-[1.15rem] scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-[1.15rem] peer-focus:scale-75 peer-focus:text-purple-500 dark:peer-focus:text-purple-400 origin-[0]">
-                        Preferred Destination
-                      </label>
-                      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                      </div>
-                      <div className="absolute inset-0 rounded-xl bg-purple-500/5 dark:bg-purple-400/5 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"></div>
-                    </div>
                   </div>
 
                   {/* Message Field */}
@@ -315,11 +290,6 @@ const Contact = () => {
                     <div className="absolute inset-0 rounded-xl bg-purple-500/5 dark:bg-purple-400/5 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity"></div>
                   </div>
                   
-                  {/* Privacy Note */}
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    By submitting this form, you agree to our <a href="#" className="text-purple-600 dark:text-purple-400 hover:underline">Privacy Policy</a>.
-                  </div>
-
                   {/* Submit Button with Gradient & Glow Effect */}
                   <div className="flex justify-end">
                     <div className="relative group">

@@ -28,6 +28,7 @@ const Testimonials = () => {
       id: 1,
       name: "Sarah Johnson",
       location: "New York, USA",
+      date: "12 Jan 2026",
       rating: 5,
       text: "Absolutely breathtaking experience! The Maldives package exceeded all expectations. Every detail was perfectly orchestrated.",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=300&auto=format&fit=crop"
@@ -36,6 +37,7 @@ const Testimonials = () => {
       id: 2,
       name: "Michael Chen",
       location: "London, UK",
+      date: "24 Dec 2025",
       text: "The Sri Lanka cultural tour was phenomenal. Our guide's knowledge and the luxury accommodations made it unforgettable.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop"
@@ -44,9 +46,73 @@ const Testimonials = () => {
       id: 3,
       name: "Emma Williams",
       location: "Sydney, Australia",
+      date: "03 Nov 2025",
       text: "Opulent Travels delivered beyond our wildest dreams. The combined tour was seamlessly executed with luxury at every turn.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 4,
+      name: "Aisha Khan",
+      location: "Dubai, UAE",
+      date: "18 Oct 2025",
+      rating: 5,
+      text: "From airport pickup to resort check-in, everything felt polished and effortless. The trip felt truly premium.",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 5,
+      name: "Daniel Brown",
+      location: "Toronto, Canada",
+      date: "02 Sep 2025",
+      rating: 5,
+      text: "The attention to detail was excellent. We got a well-balanced itinerary with luxury, comfort, and great support.",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 6,
+      name: "Priya Menon",
+      location: "Bangalore, India",
+      date: "15 Aug 2025",
+      rating: 5,
+      text: "We loved every part of the trip. The package was thoughtfully arranged and the service felt very reliable.",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 7,
+      name: "James Wilson",
+      location: "Auckland, New Zealand",
+      date: "29 Jul 2025",
+      rating: 5,
+      text: "A smooth, classy holiday experience from start to finish. The resort choices were exactly what we wanted.",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 8,
+      name: "Maria Garcia",
+      location: "Madrid, Spain",
+      date: "11 Jun 2025",
+      rating: 5,
+      text: "We came back with amazing memories. The planning was smooth and the trip felt well cared for the whole way.",
+      image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 9,
+      name: "Omar Hassan",
+      location: "Doha, Qatar",
+      date: "20 Apr 2025",
+      rating: 5,
+      text: "Excellent communication and a beautiful travel plan. The experience matched the premium feel promised online.",
+      image: "https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=300&auto=format&fit=crop"
+    },
+    {
+      id: 10,
+      name: "Hannah Lee",
+      location: "Seoul, South Korea",
+      date: "05 Mar 2025",
+      rating: 5,
+      text: "The holiday was organized beautifully, and every destination was better than expected. We would book again.",
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=300&auto=format&fit=crop"
     }
   ];
 
@@ -125,6 +191,9 @@ const Testimonials = () => {
               <p className="font-montserrat text-xs sm:text-sm text-luxury-gold">
                 {testimonials[currentIndex].location}
               </p>
+              <p className="font-montserrat text-[11px] sm:text-xs text-gray-400 mt-1">
+                {testimonials[currentIndex].date}
+              </p>
             </div>
           </div>
 
@@ -195,6 +264,11 @@ const Testimonials = () => {
                         isCenter ? 'text-sm' : 'text-xs'
                       }`}>
                         {testimonial.location}
+                      </p>
+                      <p className={`font-montserrat text-gray-400 ${
+                        isCenter ? 'text-xs' : 'text-[10px]'
+                      }`}>
+                        {testimonial.date}
                       </p>
                     </div>
                   </div>
