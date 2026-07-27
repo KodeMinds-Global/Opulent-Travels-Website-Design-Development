@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package2, Car, Images, ChevronDown, ChevronRight, X } from 'lucide-react';
+import { LayoutDashboard, Package2, Car, Images, ChevronDown, ChevronRight, X, MessageSquare } from 'lucide-react';
 
 interface AdminSidebarProps {
   onClose?: () => void;
@@ -168,6 +168,16 @@ export function AdminSidebar({ onClose, isDark }: AdminSidebarProps) {
         >
           <Car size={17} />
           Rent Cars
+        </NavLink>
+
+        {/* Testimonials */}
+        <NavLink
+          to="/admin/testimonials"
+          className={({ isActive }) => navLinkClass(isActive)}
+          style={({ isActive }) => navLinkStyle(isActive)}
+        >
+          <MessageSquare size={17} />
+          Testimonials
         </NavLink>
       </nav>
 

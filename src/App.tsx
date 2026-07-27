@@ -34,6 +34,9 @@ import { AdminSriLankaGalleryListPage } from './admin/pages/sri-lanka-gallery/Ad
 import { AdminSriLankaGalleryEditPage } from './admin/pages/sri-lanka-gallery/AdminSriLankaGalleryEditPage';
 import { AdminMaldivesGalleryListPage } from './admin/pages/maldives-gallery/AdminMaldivesGalleryListPage';
 import { AdminMaldivesGalleryEditPage } from './admin/pages/maldives-gallery/AdminMaldivesGalleryEditPage';
+import { AdminTestimonialsListPage } from './admin/pages/testimonials/AdminTestimonialsListPage';
+import { AdminTestimonialCreatePage } from './admin/pages/testimonials/AdminTestimonialCreatePage';
+import { AdminTestimonialEditPage } from './admin/pages/testimonials/AdminTestimonialEditPage';
 
 const queryClient = new QueryClient();
 
@@ -79,6 +82,9 @@ const App = () => (
                 <Route path="/admin/sri-lanka-gallery/:id/edit" element={<AdminSriLankaGalleryEditPage />} />
                 <Route path="/admin/maldives-gallery" element={<AdminMaldivesGalleryListPage />} />
                 <Route path="/admin/maldives-gallery/:id/edit" element={<AdminMaldivesGalleryEditPage />} />
+                <Route path="/admin/testimonials" element={<AdminTestimonialsListPage />} />
+                <Route path="/admin/testimonials/new" element={<AdminTestimonialCreatePage />} />
+                <Route path="/admin/testimonials/:id/edit" element={<AdminTestimonialEditPage />} />
               </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
