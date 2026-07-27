@@ -41,7 +41,6 @@ export function AdminCarEditPage() {
             name: car.name,
             category: car.category,
             imageUrl: car.imageUrl,
-            available: car.available,
             passengers: car.passengers,
             luggage: car.luggage,
             transmission: car.transmission,

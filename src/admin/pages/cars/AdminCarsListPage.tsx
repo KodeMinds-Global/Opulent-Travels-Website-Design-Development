@@ -6,22 +6,16 @@ import { useAdminCars, useDeleteCar } from '../../hooks/useAdminCars';
 import { AdminDataTable, type TableColumn } from '../../components/AdminDataTable';
 import { ConfirmDeleteDialog } from '../../components/ConfirmDeleteDialog';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getImageUrl } from '../../api/axios';
 import { useAdminTheme } from '../../components/AdminLayout';
 import type { AdminCar } from '../../types/car';
 
-type Destination = 'all' | 'sriLanka' | 'maldives';
-
 export function AdminCarsListPage() {
   const navigate = useNavigate();
   const { isDark } = useAdminTheme();
-  const [destination, setDestination] = useState<Destination>('all');
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: cars = [], isLoading } = useAdminCars(
-    destination === 'all' ? undefined : destination,
-  );
+  const { data: cars = [], isLoading } = useAdminCars();
   const deleteMutation = useDeleteCar();
 
   const handleDelete = async () => {
@@ -51,15 +45,6 @@ export function AdminCarsListPage() {
     { key: 'name', header: 'Name', render: (row) => <span className="font-medium">{row.name}</span> },
     { key: 'category', header: 'Category' },
     {
-      key: 'available',
-      header: 'Available',
-      render: (row) => (
-        <span className={row.available ? 'text-green-500 font-medium' : 'text-gray-400'}>
-          {row.available ? '✓ Yes' : '– No'}
-        </span>
-      ),
-    },
-    {
       key: 'actions',
       header: 'Actions',
       render: (row) => (
@@ -88,7 +73,6 @@ export function AdminCarsListPage() {
 
   return (
     <div className="space-y-4">
-      {/* Page header — stacks on mobile */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-playfair text-xl sm:text-2xl font-bold" style={{ color: headingColor }}>
           Rent Cars
@@ -96,38 +80,6 @@ export function AdminCarsListPage() {
         <Button onClick={() => navigate('/admin/cars/new')} className="gap-2 font-montserrat text-sm">
           <Plus size={15} /> Add Car
         </Button>
-      </div>
-
-      {/* Tabs — scrollable on mobile */}
-      <div className="overflow-x-auto">
-        <Tabs value={destination} onValueChange={(v) => setDestination(v as Destination)}>
-          <TabsList
-            className="w-full sm:w-auto"
-            style={isDark ? { background: '#0F1E3D', border: '1px solid #1E3A6B' } : {}}
-          >
-            <TabsTrigger
-              value="all"
-              className="font-montserrat text-xs sm:text-sm flex-1 sm:flex-none"
-              style={isDark ? { color: '#93C5FD' } : {}}
-            >
-              All
-            </TabsTrigger>
-            <TabsTrigger
-              value="sriLanka"
-              className="font-montserrat text-xs sm:text-sm flex-1 sm:flex-none"
-              style={isDark ? { color: '#93C5FD' } : {}}
-            >
-              🇱🇰 Sri Lanka
-            </TabsTrigger>
-            <TabsTrigger
-              value="maldives"
-              className="font-montserrat text-xs sm:text-sm flex-1 sm:flex-none"
-              style={isDark ? { color: '#93C5FD' } : {}}
-            >
-              🇲🇻 Maldives
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
       </div>
 
       <AdminDataTable

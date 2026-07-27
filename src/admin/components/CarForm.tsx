@@ -6,7 +6,6 @@ import { Loader2, UploadCloud, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
@@ -18,7 +17,6 @@ const schema = z.object({
   name: z.string().min(1, 'Car name is required'),
   category: z.string().min(1, 'Category is required'),
   imageUrl: z.string().optional(),
-  available: z.boolean().default(true),
   passengers: z.string().optional(),
   luggage: z.string().optional(),
   transmission: z.string().optional(),
@@ -38,8 +36,14 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
   const form = useForm<CarFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name: '',
+      category: '',
+      imageUrl: '',
+      passengers: '',
+      luggage: '',
+      transmission: '',
+      highlight: '',
       ...initialData,
-      available: initialData?.available !== undefined ? initialData.available : true,
     },
   });
 
@@ -48,13 +52,11 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
   const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // When user picks a file: show preview only, do NOT upload yet
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setPendingFile(file);
     setPreviewUrl(URL.createObjectURL(file));
-    // Clear any previous imageUrl so we know a new file is pending
     form.setValue('imageUrl', '');
     form.clearErrors('imageUrl');
   };
@@ -66,7 +68,6 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  // On submit: upload pending file first (if any), then call onSubmit
   const handleSubmit = async (data: CarFormData) => {
     if (pendingFile) {
       setUploading(true);
@@ -80,7 +81,7 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
       } catch {
         form.setError('imageUrl', { message: 'Image upload failed. Please try again.' });
         setUploading(false);
-        return; // stop — don't save if upload failed
+        return;
       } finally {
         setUploading(false);
       }
@@ -114,13 +115,6 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
               </Select>
             )} />
           </div>
-          {/* Available */}
-          <div className="flex items-center gap-2 mt-4 col-span-2">
-            <Controller control={form.control} name="available" render={({ field }) => (
-              <Checkbox checked={!!field.value} onCheckedChange={field.onChange} id="available" />
-            )} />
-            <Label htmlFor="available" className="font-montserrat text-sm cursor-pointer">Available for booking</Label>
-          </div>
         </CardContent>
       </Card>
 
@@ -132,40 +126,24 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
           <Separator />
         </CardHeader>
         <CardContent className="grid md:grid-cols-1 gap-4">
-          {/* Passengers */}
           <div className="space-y-1">
             <Label className="font-montserrat text-sm">Passengers</Label>
-            <Input
-              {...form.register('passengers')}
-              placeholder="e.g. 3 Passengers / 7 pax / 21 seater"
-            />
+            <Input {...form.register('passengers')} placeholder="e.g. 3 Passengers / 7 pax / 21 seater" />
             <p className="text-xs text-gray-400">How many passengers this vehicle carries</p>
           </div>
-          {/* Luggage */}
           <div className="space-y-1">
             <Label className="font-montserrat text-sm">Luggage</Label>
-            <Input
-              {...form.register('luggage')}
-              placeholder="e.g. Trunk Space - 3 luggage / Up-to 5 luggage / 400l Capacity"
-            />
+            <Input {...form.register('luggage')} placeholder="e.g. Trunk Space - 3 luggage / Up-to 5 luggage / 400l Capacity" />
             <p className="text-xs text-gray-400">Luggage capacity description</p>
           </div>
-          {/* Transmission / Chauffeur Info */}
           <div className="space-y-1">
             <Label className="font-montserrat text-sm">Chauffeur / Guide Info</Label>
-            <Input
-              {...form.register('transmission')}
-              placeholder="e.g. National Guide + Driver included / Chauffeur guide included"
-            />
-            <p className="text-xs text-gray-400">Driver or guide service included with this vehicle (shown with the wrench icon on the public page)</p>
+            <Input {...form.register('transmission')} placeholder="e.g. National Guide + Driver included / Chauffeur guide included" />
+            <p className="text-xs text-gray-400">Driver or guide service included with this vehicle</p>
           </div>
-          {/* Highlight */}
           <div className="space-y-1">
             <Label className="font-montserrat text-sm">Highlight</Label>
-            <Input
-              {...form.register('highlight')}
-              placeholder="e.g. Vehicle & Passenger Insurance included"
-            />
+            <Input {...form.register('highlight')} placeholder="e.g. Vehicle & Passenger Insurance included" />
             <p className="text-xs text-gray-400">Key feature or selling point shown in the vehicle detail popup</p>
           </div>
         </CardContent>
@@ -175,32 +153,18 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
       <Card>
         <CardHeader><CardTitle className="font-playfair text-lg">Car Image</CardTitle><Separator /></CardHeader>
         <CardContent className="space-y-3">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
+          <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
 
           {previewUrl ? (
             <div className="relative w-full bg-gray-50 dark:bg-gray-800 rounded-lg border flex items-center justify-center">
-              <img
-                src={previewUrl}
-                alt="Car preview"
-                className="max-h-80 w-full object-contain rounded-lg"
-              />
+              <img src={previewUrl} alt="Car preview" className="max-h-80 w-full object-contain rounded-lg" />
               {uploading && (
                 <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
                   <Loader2 className="h-8 w-8 animate-spin text-white" />
                 </div>
               )}
               {!uploading && (
-                <button
-                  type="button"
-                  onClick={removeImage}
-                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
-                >
+                <button type="button" onClick={removeImage} className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600">
                   <X size={14} />
                 </button>
               )}
@@ -219,34 +183,18 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
           )}
 
           {!previewUrl && (
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
-              className="gap-2"
-            >
-              {uploading
-                ? <><Loader2 size={14} className="animate-spin" /> Uploading...</>
-                : <><UploadCloud size={14} /> Choose Image</>}
+            <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={uploading} className="gap-2">
+              {uploading ? <><Loader2 size={14} className="animate-spin" /> Uploading...</> : <><UploadCloud size={14} /> Choose Image</>}
             </Button>
           )}
 
           {pendingFile && <p className="text-xs text-blue-500 font-montserrat">Image will be uploaded when you save.</p>}
-
-          {form.formState.errors.imageUrl && (
-            <p className="text-xs text-red-500">{form.formState.errors.imageUrl.message}</p>
-          )}
+          {form.formState.errors.imageUrl && <p className="text-xs text-red-500">{form.formState.errors.imageUrl.message}</p>}
         </CardContent>
       </Card>
 
       <div className="flex justify-end">
-        <Button
-          type="submit"
-          disabled={isSubmitting || uploading}
-          className="gap-2 font-montserrat px-8"
-        >
+        <Button type="submit" disabled={isSubmitting || uploading} className="gap-2 font-montserrat px-8">
           {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> Saving...</> : 'Save Car'}
         </Button>
       </div>

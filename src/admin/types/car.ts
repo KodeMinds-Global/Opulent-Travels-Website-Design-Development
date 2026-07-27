@@ -1,6 +1,5 @@
 export interface AdminCar {
   _id: string;
-  destination: 'sriLanka' | 'maldives';
   name: string;
   category: string;
   imageUrl: string;
@@ -10,7 +9,6 @@ export interface AdminCar {
   passengers?: string;
   luggage?: string;
   highlight?: string;
-  available: boolean;
   createdAt: string;
   updatedAt: string;
 }
