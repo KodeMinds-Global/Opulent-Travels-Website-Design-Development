@@ -310,13 +310,13 @@ const Packages = () => {
                   loading="lazy"
                 />
 
-                <div className="absolute top-3 left-3 flex gap-2">
+                {/* <div className="absolute top-3 left-3 flex gap-2">
                   {pkg.category === 'maldives' && pkg.featured && (
                     <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
                       Featured
                     </span>
                   )}
-                </div>
+                </div> */}
 
                 {pkg.category === 'srilanka' && pkg.price && (
                   <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
