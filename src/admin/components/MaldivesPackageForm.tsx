@@ -14,7 +14,6 @@ import { adminAxios, getImageUrl } from '../api/axios';
 const schema = z.object({
   resortName: z.string().min(1, 'Resort name is required'),
   resortRating: z.number().min(1).max(5),
-  featured: z.boolean().optional(),
   imageUrl: z.string().optional(),
   galleryImages: z.array(z.string()).optional(),
   descriptionPoints: z.array(z.string()).max(4, 'Maximum 4 description points').optional(),
@@ -81,7 +80,6 @@ export function MaldivesPackageForm({ initialData, initialImageUrl, initialGalle
     defaultValues: {
       resortName: '',
       resortRating: 0,
-      featured: false,
       descriptionPoints: [],
       galleryImages: [],
       ...initialData,
@@ -221,10 +219,6 @@ export function MaldivesPackageForm({ initialData, initialImageUrl, initialGalle
               render={({ field }) => <StarRatingPicker value={field.value} onChange={field.onChange} />}
             />
             {form.formState.errors.resortRating && <p className="text-xs text-red-500">{form.formState.errors.resortRating.message}</p>}
-          </div>
-          <div className="flex items-center gap-2 mt-6">
-            <input type="checkbox" id="featured" {...form.register('featured')} className="w-4 h-4" />
-            <Label htmlFor="featured" className="font-montserrat text-sm cursor-pointer">Featured package</Label>
           </div>
         </CardContent>
       </Card>

@@ -30,7 +30,6 @@ export function AdminMaldivesPackageEditPage() {
           imageUrl: data.imageUrl,
           price: data.price,
           duration: data.duration,
-          featured: data.featured,
           descriptionPoints: data.descriptionPoints,
           galleryImages: data.galleryImages,
           title: data.resortName,
@@ -63,7 +62,6 @@ export function AdminMaldivesPackageEditPage() {
             imageUrl: pkg.imageUrl,
             price: pkg.price,
             duration: pkg.duration,
-            featured: pkg.featured,
             descriptionPoints: pkg.descriptionPoints ?? [],
             galleryImages: pkg.galleryImages ?? [],
           }}

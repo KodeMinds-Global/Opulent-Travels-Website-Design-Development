@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, Star, Loader2 } from 'lucide-react';
-import { useAdminPackages, useDeletePackage } from '../../hooks/useAdminPackages';
+import { useAdminPackages, useDeletePackage, useSetFeaturedMaldives } from '../../hooks/useAdminPackages';
 import { ConfirmDeleteDialog } from '../../components/ConfirmDeleteDialog';
 import { Button } from '@/components/ui/button';
-import type { AdminPackage } from '../../types/admin-package';
 import { getImageUrl } from '../../api/axios';
 import { useAdminTheme } from '../../components/AdminLayout';
 
@@ -16,6 +15,9 @@ export function AdminMaldivesPackagesListPage() {
 
   const { data: packages = [], isLoading } = useAdminPackages('maldives');
   const deleteMutation = useDeletePackage();
+  const featuredMutation = useSetFeaturedMaldives();
+
+  const featuredIds = packages.filter(p => p.featured).map(p => p._id);
 
   const handleDelete = async () => {
     if (!deleteId) return;
@@ -29,6 +31,22 @@ export function AdminMaldivesPackagesListPage() {
     }
   };
 
+  const handleFeaturedToggle = async (id: string, checked: boolean) => {
+    if (checked && featuredIds.length >= 3) {
+      toast.warning('You can only feature up to 3 packages.');
+      return;
+    }
+    const newIds = checked
+      ? [...featuredIds, id]
+      : featuredIds.filter(fid => fid !== id);
+    try {
+      await featuredMutation.mutateAsync(newIds);
+      toast.success('Featured packages updated');
+    } catch {
+      toast.error('Failed to update featured packages');
+    }
+  };
+
   const headingColor = isDark ? '#BFDBFE' : '#1B3A6B';
   const cardBg = isDark ? '#0F1E3D' : 'white';
   const borderColor = isDark ? '#1E3A6B' : '#DBEAFE';
@@ -36,9 +54,14 @@ export function AdminMaldivesPackagesListPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-playfair text-2xl font-bold" style={{ color: headingColor }}>
-          Maldives Packages
-        </h2>
+        <div>
+          <h2 className="font-playfair text-2xl font-bold" style={{ color: headingColor }}>
+            Maldives Packages
+          </h2>
+          <p className="text-xs font-montserrat mt-1" style={{ color: isDark ? '#93C5FD' : '#2563EB' }}>
+            Featured: {featuredIds.length} / 3
+          </p>
+        </div>
         <Button onClick={() => navigate('/admin/packages/maldives/new')} className="gap-2">
           <Plus size={16} /> Add Package
         </Button>
@@ -60,38 +83,45 @@ export function AdminMaldivesPackagesListPage() {
                 <tr><td colSpan={5} className="text-center p-8"><Loader2 className="animate-spin mx-auto" size={20} /></td></tr>
               ) : packages.length === 0 ? (
                 <tr><td colSpan={5} className="text-center p-8 text-sm font-montserrat" style={{ color: isDark ? '#64748B' : '#94A3B8' }}>No packages found.</td></tr>
-              ) : packages.map((row, i) => (
-                <tr key={row._id} style={{ borderBottom: `1px solid ${borderColor}`, background: i % 2 === 0 ? 'transparent' : (isDark ? 'rgba(30,58,107,0.1)' : 'rgba(219,234,254,0.2)') }}>
-                  <td className="p-3">
-                    {row.imageUrl
-                      ? <img src={getImageUrl(row.imageUrl)} alt={row.title} className="w-12 h-10 object-cover rounded-md" />
-                      : <div className="w-12 h-10 rounded-md flex items-center justify-center text-xs" style={{ background: isDark ? '#1E3A6B' : '#F1F5F9', color: isDark ? '#64748B' : '#94A3B8' }}>No img</div>}
-                  </td>
-                  <td className="p-3">
-                    <span className="font-medium text-sm" style={{ color: isDark ? '#E2E8F0' : '#1E293B' }}>{row.resortName || row.title}</span>
-                  </td>
-                  <td className="p-3">
-                    <div className="flex">
-                      {[1,2,3,4,5].map(s => <Star key={s} size={12} className={s <= (row.resortRating ?? 0) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'} />)}
-                    </div>
-                  </td>
-                  <td className="p-3">
-                    {row.featured
-                      ? <span className="inline-flex items-center gap-1 text-xs font-medium text-yellow-600"><Star size={11} className="fill-yellow-400 text-yellow-400" /> Yes</span>
-                      : <span className="text-xs" style={{ color: isDark ? '#64748B' : '#94A3B8' }}>– No</span>}
-                  </td>
-                  <td className="p-3">
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" onClick={() => navigate(`/admin/packages/maldives/${row._id}/edit`)} className="gap-1 px-2 text-xs" style={isDark ? { borderColor: '#1E3A6B', color: '#93C5FD', background: 'transparent' } : {}}>
-                        <Pencil size={11} /> Edit
-                      </Button>
-                      <Button variant="destructive" size="sm" onClick={() => setDeleteId(row._id)} className="gap-1 px-2 text-xs">
-                        <Trash2 size={11} /> Delete
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              ) : packages.map((row, i) => {
+                const isDisabled = !row.featured && featuredIds.length >= 3 || featuredMutation.isPending;
+                return (
+                  <tr key={row._id} style={{ borderBottom: `1px solid ${borderColor}`, background: i % 2 === 0 ? 'transparent' : (isDark ? 'rgba(30,58,107,0.1)' : 'rgba(219,234,254,0.2)') }}>
+                    <td className="p-3">
+                      {row.imageUrl
+                        ? <img src={getImageUrl(row.imageUrl)} alt={row.title} className="w-12 h-10 object-cover rounded-md" />
+                        : <div className="w-12 h-10 rounded-md flex items-center justify-center text-xs" style={{ background: isDark ? '#1E3A6B' : '#F1F5F9', color: isDark ? '#64748B' : '#94A3B8' }}>No img</div>}
+                    </td>
+                    <td className="p-3">
+                      <span className="font-medium text-sm" style={{ color: isDark ? '#E2E8F0' : '#1E293B' }}>{row.resortName || row.title}</span>
+                    </td>
+                    <td className="p-3">
+                      <div className="flex">
+                        {[1,2,3,4,5].map(s => <Star key={s} size={12} className={s <= (row.resortRating ?? 0) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'} />)}
+                      </div>
+                    </td>
+                    <td className="p-3">
+                      <input
+                        type="checkbox"
+                        checked={!!row.featured}
+                        disabled={isDisabled}
+                        onChange={(e) => handleFeaturedToggle(row._id, e.target.checked)}
+                        className={`w-4 h-4 accent-yellow-400 ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
+                      />
+                    </td>
+                    <td className="p-3">
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm" onClick={() => navigate(`/admin/packages/maldives/${row._id}/edit`)} className="gap-1 px-2 text-xs" style={isDark ? { borderColor: '#1E3A6B', color: '#93C5FD', background: 'transparent' } : {}}>
+                          <Pencil size={11} /> Edit
+                        </Button>
+                        <Button variant="destructive" size="sm" onClick={() => setDeleteId(row._id)} className="gap-1 px-2 text-xs">
+                          <Trash2 size={11} /> Delete
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
