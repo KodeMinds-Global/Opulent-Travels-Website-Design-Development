@@ -5,7 +5,6 @@ import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { useAdminCars, useDeleteCar } from '../../hooks/useAdminCars';
 import { AdminDataTable, type TableColumn } from '../../components/AdminDataTable';
 import { ConfirmDeleteDialog } from '../../components/ConfirmDeleteDialog';
-import { DestinationBadge } from '../../components/DestinationBadge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getImageUrl } from '../../api/axios';
@@ -51,27 +50,6 @@ export function AdminCarsListPage() {
     },
     { key: 'name', header: 'Name', render: (row) => <span className="font-medium">{row.name}</span> },
     { key: 'category', header: 'Category' },
-    {
-      key: 'destination',
-      header: 'Destination',
-      render: (row) => <DestinationBadge destination={row.destination} />,
-    },
-    {
-      key: 'pricePerDay',
-      header: 'Price/Day',
-      render: (row) => {
-        const price = row.pricePerDay as number;
-        const currency = (row.currency as string) ?? 'USD';
-        const symbol = currency === 'LKR' ? 'Rs' : '$';
-        const formatted = Number(price ?? 0).toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-        return `${symbol} ${formatted}`;
-      },
-    },
-    { key: 'seats', header: 'Seats', render: (row) => row.seats ?? '—' },
-    { key: 'transmission', header: 'Guide/Driver', render: (row) => row.transmission ?? '—' },
     {
       key: 'available',
       header: 'Available',

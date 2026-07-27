@@ -18,9 +18,6 @@ const schema = z.object({
   name: z.string().min(1, 'Car name is required'),
   category: z.string().min(1, 'Category is required'),
   imageUrl: z.string().optional(),
-  pricePerDay: z.coerce.number().min(0).optional().default(0),
-  currency: z.string().default('USD'),
-  seats: z.coerce.number().min(1).optional(),
   available: z.boolean().default(true),
   passengers: z.string().optional(),
   luggage: z.string().optional(),
@@ -41,48 +38,58 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
   const form = useForm<CarFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      currency: 'USD',
-      available: true,
-      pricePerDay: 0,
       ...initialData,
+      available: initialData?.available !== undefined ? initialData.available : true,
     },
   });
 
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(initialPreviewUrl ?? initialData?.imageUrl);
-  const [priceDisplay, setPriceDisplay] = useState<string>(
-    initialData?.pricePerDay != null && Number(initialData.pricePerDay) > 0
-      ? Number(initialData.pricePerDay).toFixed(2)
-      : ''
-  );
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // When user picks a file: show preview only, do NOT upload yet
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setPendingFile(file);
     setPreviewUrl(URL.createObjectURL(file));
-    setUploading(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const res = await adminAxios.post<{ url: string }>('/upload/image', formData);
-      form.setValue('imageUrl', res.data.url);
-    } catch {
-      form.setError('imageUrl', { message: 'Image upload failed. Please try again.' });
-      setPreviewUrl(initialPreviewUrl ?? initialData?.imageUrl);
-    } finally {
-      setUploading(false);
-    }
+    // Clear any previous imageUrl so we know a new file is pending
+    form.setValue('imageUrl', '');
+    form.clearErrors('imageUrl');
   };
 
   const removeImage = () => {
     setPreviewUrl(undefined);
+    setPendingFile(null);
     form.setValue('imageUrl', '');
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
+  // On submit: upload pending file first (if any), then call onSubmit
+  const handleSubmit = async (data: CarFormData) => {
+    if (pendingFile) {
+      setUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append('file', pendingFile);
+        const res = await adminAxios.post<{ url: string }>('/upload/image', formData);
+        data.imageUrl = res.data.url;
+        form.setValue('imageUrl', res.data.url);
+        setPendingFile(null);
+      } catch {
+        form.setError('imageUrl', { message: 'Image upload failed. Please try again.' });
+        setUploading(false);
+        return; // stop — don't save if upload failed
+      } finally {
+        setUploading(false);
+      }
+    }
+    onSubmit(data);
+  };
+
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
       {/* Car Details */}
       <Card>
         <CardHeader><CardTitle className="font-playfair text-lg">Car Details</CardTitle><Separator /></CardHeader>
@@ -106,58 +113,6 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
                 </SelectContent>
               </Select>
             )} />
-          </div>
-          {/* Price per day — optional */}
-          <div className="space-y-1">
-            <Label className="font-montserrat text-sm">Price Per Day</Label>
-            <div className="flex gap-2">
-              <Input
-                type="text"
-                inputMode="decimal"
-                placeholder="0.00"
-                className="flex-1"
-                value={priceDisplay}
-                onChange={(e) => {
-                  // allow digits and a single decimal point only
-                  const raw = e.target.value.replace(/[^0-9.]/g, '');
-                  setPriceDisplay(raw);
-                  const num = parseFloat(raw);
-                  form.setValue('pricePerDay', isNaN(num) ? 0 : num);
-                }}
-                onFocus={(e) => {
-                  // strip trailing .00 so user can type freely
-                  const raw = e.target.value.replace(/\.00$/, '').replace(/,/g, '');
-                  setPriceDisplay(raw === '0' ? '' : raw);
-                }}
-                onBlur={(e) => {
-                  const num = parseFloat(e.target.value.replace(/,/g, ''));
-                  if (!isNaN(num)) {
-                    const formatted = num.toFixed(2);
-                    setPriceDisplay(formatted);
-                    form.setValue('pricePerDay', num);
-                  } else {
-                    setPriceDisplay('');
-                    form.setValue('pricePerDay', 0);
-                  }
-                }}
-              />
-              <Controller control={form.control} name="currency" render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value ?? 'USD'}>
-                  <SelectTrigger className="w-24">
-                    <SelectValue placeholder="Currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="USD">USD</SelectItem>
-                    <SelectItem value="LKR">LKR (Rs)</SelectItem>
-                  </SelectContent>
-                </Select>
-              )} />
-            </div>
-          </div>
-          {/* Seats */}
-          <div className="space-y-1">
-            <Label className="font-montserrat text-sm">Seats</Label>
-            <Input type="number" min={1} {...form.register('seats')} placeholder="5" />
           </div>
           {/* Available */}
           <div className="flex items-center gap-2 mt-4 col-span-2">
@@ -277,6 +232,8 @@ export function CarForm({ initialData, initialPreviewUrl, onSubmit, isSubmitting
                 : <><UploadCloud size={14} /> Choose Image</>}
             </Button>
           )}
+
+          {pendingFile && <p className="text-xs text-blue-500 font-montserrat">Image will be uploaded when you save.</p>}
 
           {form.formState.errors.imageUrl && (
             <p className="text-xs text-red-500">{form.formState.errors.imageUrl.message}</p>

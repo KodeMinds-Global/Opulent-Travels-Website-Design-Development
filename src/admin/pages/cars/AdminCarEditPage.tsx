@@ -36,13 +36,11 @@ export function AdminCarEditPage() {
       </div>
       {car && (
         <CarForm
+          key={car._id}
           initialData={{
             name: car.name,
             category: car.category,
             imageUrl: car.imageUrl,
-            pricePerDay: car.pricePerDay,
-            currency: car.currency,
-            seats: car.seats,
             available: car.available,
             passengers: car.passengers,
             luggage: car.luggage,

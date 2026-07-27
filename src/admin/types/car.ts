@@ -4,9 +4,6 @@ export interface AdminCar {
   name: string;
   category: string;
   imageUrl: string;
-  pricePerDay: number;
-  currency: string;
-  seats: number;
   transmission?: string;
   fuelType?: string;
   features?: string[];
