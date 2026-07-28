@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import PackageCard from '@/components/PackageCard';
+
 import PackageFilter from '@/components/PackageFilter';
 import { usePackages } from '@/hooks/usePackages';
 import { getAssetPath } from '@/lib/utils';
 import { useSearchParams } from 'react-router-dom';
-import { MaldivesPackage } from '@/types/package';
+import { MaldivesPackage, SriLankaPackage } from '@/types/package';
 import { Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -16,6 +16,55 @@ interface MaldivesDetailModalProps {
   pkg: MaldivesPackage;
   onClose: () => void;
 }
+
+// --- Sri Lanka Package Card ---
+interface SriLankaCardProps {
+  pkg: SriLankaPackage;
+}
+
+const SriLankaCard: React.FC<SriLankaCardProps> = ({ pkg }) => {
+  return (
+    <div className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto" style={{ width: '100%' }}>
+      <div className="relative overflow-hidden rounded-t-xl">
+        <img
+          src={pkg.imageUrl}
+          alt={pkg.title}
+          className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+        />
+        <div className="absolute top-3 left-3 flex gap-2">
+          {pkg.featured && (
+            <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
+              Featured
+            </span>
+          )}
+        </div>
+        <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
+          <div className="font-bold text-luxury-gold dark:text-dark-accent">${pkg.price}</div>
+        </div>
+      </div>
+      <div className="p-4">
+        <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
+          {pkg.title}
+        </h3>
+        <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+          {pkg.duration}
+        </p>
+        <div className="space-y-1.5 mb-4">
+          {pkg.highlights.slice(0, 4).map((feature, i) => (
+            <div key={i} className="flex items-center space-x-2">
+              <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
+              <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+            </div>
+          ))}
+        </div>
+        <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+          View Details
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 // Extra gallery images per Maldives package ID
 const MALDIVES_GALLERY: Record<string, string[]> = {
@@ -329,11 +378,11 @@ const Packages = () => {
             </div>
           )}
 
-          {/* Sri Lanka packages — existing PackageCard */}
+          {/* Sri Lanka packages — new card style */}
           {sriLankaFiltered.length > 0 && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {sriLankaFiltered.map(pkg => (
-                <PackageCard key={pkg.id} package={pkg} />
+              {(sriLankaFiltered as SriLankaPackage[]).map(pkg => (
+                <SriLankaCard key={pkg.id} pkg={pkg} />
               ))}
             </div>
           )}
