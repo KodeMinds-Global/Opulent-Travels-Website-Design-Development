@@ -266,11 +266,17 @@ const Packages = () => {
           <div className="absolute inset-0 bg-black/50 dark:bg-black/60"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-light-background dark:to-dark-background"></div>
         </div>
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 gap-6">
           <h1 className="font-playfair font-bold text-3xl sm:text-4xl md:text-5xl text-white text-center animate-fade-up">
             {filter === 'maldives' ? 'Maldives ' : filter === 'sriLanka' ? 'Sri Lanka ' : 'Exclusive Travel '}
             <span className="text-luxury-gold">Packages</span>
           </h1>
+          <button
+            onClick={() => window.open('https://wa.me/+94774830911', '_blank')}
+            className="gold-button !rounded-lg !px-6 !py-2.5 !text-sm"
+          >
+            Custom Package
+          </button>
         </div>
       </section>
 
