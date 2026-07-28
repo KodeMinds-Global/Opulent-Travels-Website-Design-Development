@@ -334,26 +334,7 @@ const Packages = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-12 bg-light-surface dark:bg-dark-surface/50">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="bg-white dark:bg-dark-background rounded-2xl p-8 md:p-12 shadow-xl">
-            <div className="flex flex-col md:flex-row md:items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-8">
-                <h3 className="font-playfair font-bold text-2xl sm:text-3xl text-luxury-charcoal dark:text-white mb-3">
-                  Looking for something custom?
-                </h3>
-                <p className="font-lora text-gray-700 dark:text-gray-300 max-w-lg">
-                  Our travel experts can design a bespoke itinerary tailored to your preferences and interests.
-                </p>
-              </div>
-              <button className="gold-button bg-luxury-gold text-black flex-shrink-0">
-                Request Custom Package
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       <Footer />
       <FloatingWhatsApp />
