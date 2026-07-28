@@ -286,6 +286,8 @@ export function SriLankaPackageForm({
       detailedItinerary: [],
       hotelListEntries: [],
       destinationsCount: 0,
+      imageUrl: '',
+      mapImageUrl: '',
       ...initialData,
       hotelListEntries:
         initialData?.hotelListEntries ??
@@ -389,7 +391,9 @@ export function SriLankaPackageForm({
     }
     // Serialise hotel list entries → nested Record
     const hotelList = entriesToHotelList(data.hotelListEntries ?? []);
-    onSubmit({ ...data, hotelList });
+    // Ensure mapImageUrl is explicitly included (zod may strip undefined optional fields)
+    const mapImageUrl = data.mapImageUrl || form.getValues('mapImageUrl') || '';
+    onSubmit({ ...data, mapImageUrl, hotelList });
   };
 
   return (
