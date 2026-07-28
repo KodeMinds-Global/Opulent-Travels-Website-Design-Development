@@ -66,6 +66,8 @@ export interface AdminPackage {
   waterActivities: string[];
   descriptionPoints: string[];
   galleryImages: string[];
+  mapImageUrl?: string;
+  destinationsCount?: number;
   createdAt: string;
   updatedAt: string;
 }

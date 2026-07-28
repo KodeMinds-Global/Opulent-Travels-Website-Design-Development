@@ -13,27 +13,22 @@ export function AdminSriLankaPackageCreatePage() {
 
   const headingColor = isDark ? '#BFDBFE' : '#1B3A6B';
 
-  const handleSubmit = async (data: SriLankaPackageFormData & { hotelList?: Record<string, unknown>; seasonalSupplements?: Record<string, unknown> }) => {
+  const handleSubmit = async (data: SriLankaPackageFormData & { hotelList?: Record<string, unknown> }) => {
     try {
       await createMutation.mutateAsync({
         destination: 'sriLanka',
         title: data.title,
-        shortDescription: data.shortDescription,
         longDescription: data.longDescription,
         imageUrl: data.imageUrl,
         price: data.price,
         duration: data.duration,
-        featured: data.featured,
+        destinationsCount: data.destinationsCount,
         highlights: data.highlights,
         inclusions: data.inclusions,
         exclusions: data.exclusions,
-        supplements: data.supplements,
-        locations: data.locations,
-        culturalExperiences: data.culturalExperiences,
         detailedItinerary: data.detailedItinerary,
-        pricingTable: data.pricingTable,
         hotelList: data.hotelList,
-        seasonalSupplements: data.seasonalSupplements,
+        mapImageUrl: data.mapImageUrl,
       });
       toast.success('Package created successfully!');
       navigate('/admin/packages/sri-lanka');

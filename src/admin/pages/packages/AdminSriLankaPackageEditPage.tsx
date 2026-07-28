@@ -16,7 +16,7 @@ export function AdminSriLankaPackageEditPage() {
 
   const headingColor = isDark ? '#BFDBFE' : '#1B3A6B';
 
-  const handleSubmit = async (data: SriLankaPackageFormData & { hotelList?: Record<string, unknown>; seasonalSupplements?: Record<string, unknown> }) => {
+  const handleSubmit = async (data: SriLankaPackageFormData & { hotelList?: Record<string, unknown> }) => {
     if (!id) return;
     try {
       await updateMutation.mutateAsync({
@@ -24,22 +24,17 @@ export function AdminSriLankaPackageEditPage() {
         data: {
           destination: 'sriLanka',
           title: data.title,
-          shortDescription: data.shortDescription,
           longDescription: data.longDescription,
           imageUrl: data.imageUrl,
           price: data.price,
           duration: data.duration,
-          featured: data.featured,
+          destinationsCount: data.destinationsCount,
           highlights: data.highlights,
           inclusions: data.inclusions,
           exclusions: data.exclusions,
-          supplements: data.supplements,
-          locations: data.locations,
-          culturalExperiences: data.culturalExperiences,
           detailedItinerary: data.detailedItinerary,
-          pricingTable: data.pricingTable as any,
           hotelList: data.hotelList as any,
-          seasonalSupplements: data.seasonalSupplements as any,
+          mapImageUrl: data.mapImageUrl,
         },
       });
       toast.success('Package updated successfully!');
@@ -63,24 +58,20 @@ export function AdminSriLankaPackageEditPage() {
         <SriLankaPackageForm
           initialData={{
             title: pkg.title,
-            shortDescription: pkg.shortDescription,
             longDescription: pkg.longDescription,
             imageUrl: pkg.imageUrl,
             price: pkg.price,
             duration: pkg.duration,
-            featured: pkg.featured,
+            destinationsCount: pkg.destinationsCount,
             highlights: pkg.highlights ?? [],
             inclusions: pkg.inclusions ?? [],
             exclusions: pkg.exclusions ?? [],
-            supplements: pkg.supplements ?? [],
-            locations: pkg.locations ?? [],
-            culturalExperiences: pkg.culturalExperiences ?? [],
             detailedItinerary: (pkg.detailedItinerary ?? []) as any,
-            pricingTable: pkg.pricingTable as any,
             hotelList: pkg.hotelList as any,
-            seasonalSupplements: pkg.seasonalSupplements as any,
+            mapImageUrl: pkg.mapImageUrl,
           }}
           initialImageUrl={pkg.imageUrl}
+          initialMapImageUrl={pkg.mapImageUrl}
           onSubmit={handleSubmit}
           isSubmitting={updateMutation.isPending}
         />

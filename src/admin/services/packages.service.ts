@@ -54,4 +54,14 @@ export const packagesService = {
     const res = await adminAxios.patch<{ updated: boolean }>('/packages/featured/maldives', { packageIds });
     return res.data;
   },
+
+  async getFeaturedSriLanka(): Promise<AdminPackage[]> {
+    const res = await adminAxios.get<AdminPackage[]>('/packages/featured/sri-lanka');
+    return res.data;
+  },
+
+  async setFeaturedSriLanka(packageIds: string[]): Promise<{ updated: boolean }> {
+    const res = await adminAxios.patch<{ updated: boolean }>('/packages/featured/sri-lanka', { packageIds });
+    return res.data;
+  },
 };

@@ -59,3 +59,21 @@ export function useSetFeaturedMaldives() {
     },
   });
 }
+
+export function useFeaturedSriLankaPackages() {
+  return useQuery({
+    queryKey: ['admin-packages-featured-srilanka'],
+    queryFn: () => packagesService.getFeaturedSriLanka(),
+  });
+}
+
+export function useSetFeaturedSriLanka() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (packageIds: string[]) => packagesService.setFeaturedSriLanka(packageIds),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-packages-featured-srilanka'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-packages'] });
+    },
+  });
+}
