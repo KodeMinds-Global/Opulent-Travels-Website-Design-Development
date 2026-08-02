@@ -100,12 +100,19 @@ export function TestimonialForm({ initialData, onSubmit, isSubmitting }: Testimo
                         selected={selectedDate}
                         onSelect={(date) => {
                           if (date) {
-                            // Format as "12 Jan 2026" to match the existing display format
                             field.onChange(format(date, 'd MMM yyyy'));
                           } else {
                             field.onChange('');
                           }
                           setCalendarOpen(false);
+                        }}
+                        captionLayout="dropdown-buttons"
+                        fromYear={2000}
+                        toYear={new Date().getFullYear() + 2}
+                        classNames={{
+                          caption_dropdowns: 'flex gap-2 items-center',
+                          dropdown: 'text-sm border rounded px-1 py-0.5 bg-white dark:bg-gray-800 cursor-pointer',
+                          caption_label: 'hidden',
                         }}
                         initialFocus
                       />
