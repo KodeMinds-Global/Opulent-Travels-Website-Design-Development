@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { toast } from 'sonner';
+import { enquiriesPublicService } from '@/services/enquiries.service';
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -40,13 +42,20 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', phone: '', destination: '', message: '' });
-    console.log('Form submitted:', formData);
+    try {
+      await enquiriesPublicService.submit({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      });
+      toast.success('Message sent! We will get back to you soon.');
+      setFormData({ name: '', email: '', phone: '', destination: '', message: '' });
+    } catch {
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [

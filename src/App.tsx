@@ -38,6 +38,7 @@ import { AdminMaldivesGalleryEditPage } from './admin/pages/maldives-gallery/Adm
 import { AdminTestimonialsListPage } from './admin/pages/testimonials/AdminTestimonialsListPage';
 import { AdminTestimonialCreatePage } from './admin/pages/testimonials/AdminTestimonialCreatePage';
 import { AdminTestimonialEditPage } from './admin/pages/testimonials/AdminTestimonialEditPage';
+import { AdminEnquiriesPage } from './admin/pages/enquiries/AdminEnquiriesPage';
 
 const queryClient = new QueryClient();
 
@@ -87,6 +88,7 @@ const App = () => (
                 <Route path="/admin/testimonials" element={<AdminTestimonialsListPage />} />
                 <Route path="/admin/testimonials/new" element={<AdminTestimonialCreatePage />} />
                 <Route path="/admin/testimonials/:id/edit" element={<AdminTestimonialEditPage />} />
+                <Route path="/admin/enquiries" element={<AdminEnquiriesPage />} />
               </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
