@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Car, Shield, Clock, MapPin } from 'lucide-react';
-import { getAssetPath } from '@/lib/utils';
+import { useCars } from '@/hooks/useCars';
+import { resolveCarImageUrl } from '@/services/cars.service';
 
 const RentCar = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const { data: allCars = [], isLoading } = useCars();
+
+  // Show first 3 cars on the homepage preview
+  const carTypes = allCars.slice(0, 3);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -18,72 +23,40 @@ const RentCar = () => {
       },
       { threshold: 0.3 }
     );
-
     const section = document.getElementById('rent-car');
     if (section) observer.observe(section);
-
     return () => observer.disconnect();
   }, []);
 
   const features = [
     {
       icon: <Car className="w-6 h-6" />,
-      title: "Premium Fleet",
-      description: "Luxury cars, SUVs, and comfortable vehicles for every need",
-      gradient: {
-        light: "from-blue-100 to-indigo-200",
-        dark: "from-blue-800/40 to-indigo-700/50"
-      },
-      iconColor: "text-blue-600 dark:text-blue-300"
+      title: 'Premium Fleet',
+      description: 'Luxury cars, SUVs, and comfortable vehicles for every need',
+      gradient: { light: 'from-blue-100 to-indigo-200', dark: 'from-blue-800/40 to-indigo-700/50' },
+      iconColor: 'text-blue-600 dark:text-blue-300',
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: "Full Insurance",
-      description: "Comprehensive coverage for your peace of mind",
-      gradient: {
-        light: "from-emerald-100 to-teal-200",
-        dark: "from-emerald-800/40 to-teal-700/50"
-      },
-      iconColor: "text-emerald-600 dark:text-emerald-300"
+      title: 'Full Insurance',
+      description: 'Comprehensive coverage for your peace of mind',
+      gradient: { light: 'from-emerald-100 to-teal-200', dark: 'from-emerald-800/40 to-teal-700/50' },
+      iconColor: 'text-emerald-600 dark:text-emerald-300',
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "24/7 Support",
-      description: "Round-the-clock assistance wherever you go",
-      gradient: {
-        light: "from-amber-100 to-orange-200",
-        dark: "from-amber-800/40 to-orange-700/50"
-      },
-      iconColor: "text-amber-600 dark:text-amber-300"
+      title: '24/7 Support',
+      description: 'Round-the-clock assistance wherever you go',
+      gradient: { light: 'from-amber-100 to-orange-200', dark: 'from-amber-800/40 to-orange-700/50' },
+      iconColor: 'text-amber-600 dark:text-amber-300',
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "GPS Navigation",
-      description: "Modern GPS systems to guide your journey",
-      gradient: {
-        light: "from-rose-100 to-pink-200",
-        dark: "from-rose-800/40 to-pink-700/50"
-      },
-      iconColor: "text-rose-600 dark:text-rose-300"
-    }
-  ];
-
-  const carTypes = [
-    {
-      name: "Economy",
-      image: getAssetPath("/assets/images/Long Bus Branded.png"),
-      price: "$25/day"
+      title: 'GPS Navigation',
+      description: 'Modern GPS systems to guide your journey',
+      gradient: { light: 'from-rose-100 to-pink-200', dark: 'from-rose-800/40 to-pink-700/50' },
+      iconColor: 'text-rose-600 dark:text-rose-300',
     },
-    {
-      name: "Luxury SUV",
-      image: getAssetPath("/assets/images/Hiace Flatroof Branded.png"),
-      price: "$85/day"
-    },
-    {
-      name: "Premium Sedan",
-      image: getAssetPath("/assets/images/Bus.png"),
-      price: "$65/day"
-    }
   ];
 
   return (
@@ -91,10 +64,10 @@ const RentCar = () => {
       <div className="container mx-auto px-2 max-w-6xl">
         {/* Section Header */}
         <div className="text-center mb-10">
-        <h2 className={`font-playfair font-bold text-4xl lg:text-5xl mb-6 transition-all duration-1000 ${
+          <h2 className={`font-playfair font-bold text-4xl lg:text-5xl mb-6 transition-all duration-1000 ${
             isVisible ? 'animate-slide-up' : 'opacity-0 translate-y-8'
           } text-light-primary dark:text-dark-accent`}>
-             <span 
+            <span
               className="text-transparent bg-clip-text"
               style={{
                 background: 'linear-gradient(90deg, #00308F 0%, #0066CC 100%)',
@@ -126,68 +99,69 @@ const RentCar = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`p-5 mx-auto text-center rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 
-                transition-all duration-300 relative bg-gradient-to-br 
+              className={`p-5 mx-auto text-center rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1
+                transition-all duration-300 relative bg-gradient-to-br
                 ${feature.gradient.light} dark:${feature.gradient.dark}
                 dark:border dark:border-white/10 group
                 dark:hover:shadow-glow dark:hover:shadow-white/20
                 ${isVisible ? 'animate-zoom-in' : 'opacity-0 scale-75'}`}
-              style={{ 
+              style={{
                 animationDelay: `${700 + index * 150}ms`,
                 overflow: 'hidden',
                 width: '94%',
                 height: '185px',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
             >
-              {/* Dark mode glow effect overlay */}
-              <div className="absolute inset-0 opacity-0 dark:group-hover:opacity-40 
-                transition-opacity duration-500 pointer-events-none bg-gradient-to-tr 
-                dark:from-white/15 dark:via-white/10 dark:to-transparent 
-                rounded-xl"></div>
-              
-              <div className={`mb-3 flex justify-center relative z-10 ${feature.iconColor}`}>
-                {feature.icon}
-              </div>
-              <h3 className="font-playfair font-bold text-base text-gray-800 dark:text-white mb-2 relative z-10">
-                {feature.title}
-              </h3>
-              <p className="font-lora text-gray-700 dark:text-gray-200 text-sm relative z-10">
-                {feature.description}
-              </p>
+              <div className="absolute inset-0 opacity-0 dark:group-hover:opacity-40 transition-opacity duration-500 pointer-events-none bg-gradient-to-tr dark:from-white/15 dark:via-white/10 dark:to-transparent rounded-xl" />
+              <div className={`mb-3 flex justify-center relative z-10 ${feature.iconColor}`}>{feature.icon}</div>
+              <h3 className="font-playfair font-bold text-base text-gray-800 dark:text-white mb-2 relative z-10">{feature.title}</h3>
+              <p className="font-lora text-gray-700 dark:text-gray-200 text-sm relative z-10">{feature.description}</p>
             </div>
           ))}
         </div>
 
-        {/* Car Types */}
+        {/* Car Types preview grid */}
         <div className={`grid md:grid-cols-3 gap-3 mb-8 transition-all duration-1000 delay-1000 ${
           isVisible ? 'animate-slide-up' : 'opacity-0 translate-y-8'
         }`}>
-          {carTypes.map((car, index) => (
-            <div
-              key={index}
-              className={`overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
-                isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
-              } bg-white dark:bg-gray-800/90 dark:border dark:border-white/10 mx-auto`}
-              style={{ 
-                animationDelay: `${1200 + index * 200}ms`,
-                width: '96%'
-              }}
-            >
-              <div className="relative h-44">
-                <img
-                  src={car.image}
-                  alt={car.name}
-                  className="w-full h-full object-cover"
+          {isLoading
+            ? [0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className="rounded-xl bg-gray-200 dark:bg-gray-700 animate-pulse mx-auto"
+                  style={{ height: '176px', width: '96%' }}
                 />
-              </div>
-            </div>
-          ))}
+              ))
+            : carTypes.map((car, index) => (
+                <div
+                  key={car._id}
+                  className={`overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
+                    isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
+                  } bg-white dark:bg-gray-800/90 dark:border dark:border-white/10 mx-auto`}
+                  style={{ animationDelay: `${1200 + index * 200}ms`, width: '96%' }}
+                >
+                  <div className="relative h-44">
+                    {car.imageUrl ? (
+                      <img
+                        src={resolveCarImageUrl(car.imageUrl)}
+                        alt={car.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <Car className="w-10 h-10 text-gray-400" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))
+          }
         </div>
 
-        {/* CTA Section */}
+        {/* CTA */}
         <div className={`text-center transition-all duration-1000 delay-1500 ${
           isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
         }`}>
