@@ -16,6 +16,7 @@ import Packages from "./pages/Packages";
 import RentCarPage from "./pages/RentCar";
 import GalleryPage from "./pages/Gallery";
 import ContactPage from "./pages/Contact";
+import TermsConditionsPage from './pages/TermsConditions';
 import { Navigate } from 'react-router-dom';
 import { AdminAuthGuard } from './admin/guards/AdminAuthGuard';
 import { AdminLayout } from './admin/components/AdminLayout';
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/rent-car" element={<RentCarPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/terms-conditions" element={<TermsConditionsPage />} />
             <Route path="/packages" element={<Packages />} />
             <Route path="/sri-lanka/package/:packageId" element={<SriLankaPackageDetail />} />
             <Route path="/maldives/package/:packageId" element={<MaldivesPackageDetail />} />

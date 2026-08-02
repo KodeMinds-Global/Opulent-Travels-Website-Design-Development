@@ -4,7 +4,6 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getAssetPath } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import RentCarPageSection from '@/components/RentCarPageSection';
 
 const RentCarPage = () => {
@@ -41,9 +40,6 @@ const RentCarPage = () => {
             <p className="font-lora text-lg sm:text-xl md:text-2xl text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto">
               Explore Sri Lanka and the Maldives with our exclusive fleet of vehicles
             </p>
-            <Button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white font-medium py-2.5 px-6 sm:px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-              Explore Fleet
-            </Button>
           </div>
         </div>
 

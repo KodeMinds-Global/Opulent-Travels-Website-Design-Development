@@ -6,7 +6,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import PackageFilter from '@/components/PackageFilter';
 import { usePackages } from '@/hooks/usePackages';
 import { getAssetPath } from '@/lib/utils';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { MaldivesPackage, SriLankaPackage } from '@/types/package';
 import { Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -58,9 +58,11 @@ const SriLankaCard: React.FC<SriLankaCardProps> = ({ pkg }) => {
             </div>
           ))}
         </div>
-        <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
-          View Details
-        </Button>
+        <Link to={`/sri-lanka/package/${pkg.id}`}>
+          <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+            View Details
+          </Button>
+        </Link>
       </div>
     </div>
   );

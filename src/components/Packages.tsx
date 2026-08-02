@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { usePackages } from '@/hooks/usePackages';
 import { Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // --- Types ---
 interface MaldivesPackage {
-  id: number;
+  id: string | number;
   title: string;
   category: 'maldives';
   ratingCount: number;
@@ -16,7 +17,7 @@ interface MaldivesPackage {
 }
 
 interface SriLankaPackage {
-  id: number;
+  id: string | number;
   title: string;
   category: 'srilanka';
   duration: string;
@@ -151,6 +152,7 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
 // --- Main Packages Component ---
 const Packages = () => {
   const navigate = useNavigate();
+  const { sriLankaPackages } = usePackages();
   const [activeFilter, setActiveFilter] = useState('maldives');
   const [isVisible, setIsVisible] = useState(false);
   const [selectedMaldivesPkg, setSelectedMaldivesPkg] = useState<MaldivesPackage | null>(null);
@@ -177,6 +179,17 @@ const Packages = () => {
     { id: 'srilanka', label: 'Sri Lanka' }
   ];
 
+  const sriLankaAsPackages: SriLankaPackage[] = sriLankaPackages.map(pkg => ({
+    id: pkg.id,
+    title: pkg.title,
+    category: 'srilanka' as const,
+    duration: pkg.duration,
+    price: `$${pkg.price}`,
+    originalPrice: '',
+    image: pkg.imageUrl,
+    features: pkg.highlights.slice(0, 4),
+  }));
+
   const packages: Package[] = [
     {
       id: 1,
@@ -192,16 +205,6 @@ const Packages = () => {
         "https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=3133&auto=format&fit=crop",
         "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2940&auto=format&fit=crop",
       ]
-    },
-    {
-      id: 2,
-      title: "Sri Lanka Cultural Journey",
-      category: "srilanka",
-      duration: "10 Days / 9 Nights",
-      price: "$2,299",
-      originalPrice: "$2,799",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
-      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
     },
     {
       id: 3,
@@ -233,26 +236,7 @@ const Packages = () => {
         "https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=2301&auto=format&fit=crop",
       ]
     },
-    {
-      id: 5,
-      title: "Sri Lanka Cultural Journey",
-      category: "srilanka",
-      duration: "10 Days / 9 Nights",
-      price: "$2,299",
-      originalPrice: "$2,799",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
-      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
-    },
-    {
-      id: 6,
-      title: "Sri Lanka Cultural Journey",
-      category: "srilanka",
-      duration: "10 Days / 9 Nights",
-      price: "$2,299",
-      originalPrice: "$2,799",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
-      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
-    },
+    ...sriLankaAsPackages,
   ];
 
   const filteredPackages = packages.filter(pkg => pkg.category === activeFilter);
@@ -366,12 +350,20 @@ const Packages = () => {
                   </>
                 )}
 
-                <Button
-                  className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5"
-                  onClick={pkg.category === 'maldives' ? () => setSelectedMaldivesPkg(pkg as MaldivesPackage) : undefined}
-                >
-                  View Details
-                </Button>
+                {pkg.category === 'maldives' ? (
+                  <Button
+                    className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5"
+                    onClick={() => setSelectedMaldivesPkg(pkg as MaldivesPackage)}
+                  >
+                    View Details
+                  </Button>
+                ) : (
+                  <Link to={`/sri-lanka/package/${pkg.id}`}>
+                    <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+                      View Details
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           ))}

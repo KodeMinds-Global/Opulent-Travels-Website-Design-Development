@@ -133,36 +133,7 @@ const SriLanka = () => {
     ]
   };
 
-  const homepageSriLankaCards = [
-    {
-      id: 1,
-      title: "Sri Lanka Cultural Journey",
-      duration: "10 Days / 9 Nights",
-      price: "$2,299",
-      originalPrice: "$2,799",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
-      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"],
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Sri Lanka Cultural Journey",
-      duration: "10 Days / 9 Nights",
-      price: "$2,299",
-      originalPrice: "$2,799",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
-      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
-    },
-    {
-      id: 3,
-      title: "Sri Lanka Cultural Journey",
-      duration: "10 Days / 9 Nights",
-      price: "$2,299",
-      originalPrice: "$2,799",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?q=80&w=3648&auto=format&fit=crop",
-      features: ["Cultural Sites", "Tea Plantation Tours", "Wildlife Safari", "Local Cuisine"]
-    }
-  ];
+
 
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
@@ -226,7 +197,7 @@ const SriLanka = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {homepageSriLankaCards.map((pkg, index) => (
+            {sriLankaPackages.map((pkg, index) => (
               <div
                 key={pkg.id}
                 className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
@@ -237,7 +208,7 @@ const SriLanka = () => {
               >
                 <div className="relative overflow-hidden rounded-t-xl">
                   <img
-                    src={pkg.image}
+                    src={pkg.imageUrl}
                     alt={pkg.title}
                     className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
@@ -252,7 +223,7 @@ const SriLanka = () => {
                   </div>
 
                   <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
-                    <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
+                    <div className="font-bold text-luxury-gold dark:text-dark-accent">From ${pkg.price}</div>
                   </div>
                 </div>
 
@@ -266,17 +237,19 @@ const SriLanka = () => {
                   </p>
 
                   <div className="space-y-1.5 mb-4">
-                    {pkg.features.map((feature, i) => (
+                    {pkg.highlights.slice(0, 4).map((highlight, i) => (
                       <div key={i} className="flex items-center space-x-2">
                         <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
-                        <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                        <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{highlight}</span>
                       </div>
                     ))}
                   </div>
 
-                  <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
-                    View Details
-                  </Button>
+                  <Link to={`/sri-lanka/package/${pkg.id}`}>
+                    <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+                      View Details
+                    </Button>
+                  </Link>
                 </div>
               </div>
             ))}
