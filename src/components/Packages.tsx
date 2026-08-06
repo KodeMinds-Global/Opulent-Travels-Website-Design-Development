@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { usePackages } from '@/hooks/usePackages';
+import { useFeaturedMaldivesPackages } from '@/hooks/useFeaturedMaldivesPackages';
+import { resolvePackageImageUrl } from '@/services/packages.service';
 import { Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 // --- Types ---
 interface MaldivesPackage {
@@ -70,11 +73,17 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
 
         {/* Image Slideshow */}
         <div className="relative overflow-hidden rounded-t-2xl h-64">
-          <img
-            src={images[currentSlide]}
-            alt={`${pkg.title} - image ${currentSlide + 1}`}
-            className="w-full h-full object-cover transition-opacity duration-500"
-          />
+          {images.length > 0 ? (
+            <img
+              src={images[currentSlide]}
+              alt={`${pkg.title} - image ${currentSlide + 1}`}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+              <span className="text-gray-400 text-sm font-lora">No images available</span>
+            </div>
+          )}
 
           {images.length > 1 && (
             <>
@@ -95,22 +104,26 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
             </>
           )}
 
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentSlide(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === currentSlide ? 'bg-white scale-125' : 'bg-white/50'
-                }`}
-                aria-label={`Go to image ${i + 1}`}
-              />
-            ))}
-          </div>
+          {images.length > 1 && (
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    i === currentSlide ? 'bg-white scale-125' : 'bg-white/50'
+                  }`}
+                  aria-label={`Go to image ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
 
-          <div className="absolute top-3 left-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full">
-            {currentSlide + 1} / {images.length}
-          </div>
+          {images.length > 1 && (
+            <div className="absolute top-3 left-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full">
+              {currentSlide + 1} / {images.length}
+            </div>
+          )}
         </div>
 
         {/* Modal Content */}
@@ -149,10 +162,30 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
   );
 };
 
+// --- Maldives Card Skeleton ---
+const MaldivesCardSkeleton = () => (
+  <div
+    className="luxury-card backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
+    style={{ width: '95%' }}
+  >
+    <Skeleton className="h-48 rounded-t-xl rounded-b-none" />
+    <div className="p-4 space-y-3">
+      <Skeleton className="h-6 w-3/4" />
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="h-3 w-full" />
+      <Skeleton className="h-3 w-5/6" />
+      <Skeleton className="h-3 w-4/6" />
+      <Skeleton className="h-3 w-3/6" />
+      <Skeleton className="h-9 w-full mt-2" />
+    </div>
+  </div>
+);
+
 // --- Main Packages Component ---
 const Packages = () => {
   const navigate = useNavigate();
   const { sriLankaPackages } = usePackages();
+  const { data: featuredMaldivesRaw = [], isLoading: isMaldivesLoading } = useFeaturedMaldivesPackages();
   const [activeFilter, setActiveFilter] = useState('maldives');
   const [isVisible, setIsVisible] = useState(false);
   const [selectedMaldivesPkg, setSelectedMaldivesPkg] = useState<MaldivesPackage | null>(null);
@@ -179,6 +212,22 @@ const Packages = () => {
     { id: 'srilanka', label: 'Sri Lanka' }
   ];
 
+  // Map API data to MaldivesPackage shape
+  const featuredMaldivesPackages: MaldivesPackage[] = featuredMaldivesRaw.map(pkg => ({
+    id: pkg._id,
+    title: pkg.title,
+    category: 'maldives' as const,
+    ratingCount: pkg.resortRating ?? 5,
+    image: resolvePackageImageUrl(pkg.imageUrl),
+    features: (
+      pkg.descriptionPoints?.length > 0
+        ? pkg.descriptionPoints
+        : pkg.highlights ?? []
+    ).slice(0, 4),
+    featured: true,
+    galleryImages: (pkg.galleryImages ?? []).map(resolvePackageImageUrl),
+  }));
+
   const sriLankaAsPackages: SriLankaPackage[] = sriLankaPackages.map(pkg => ({
     id: pkg.id,
     title: pkg.title,
@@ -190,56 +239,12 @@ const Packages = () => {
     features: pkg.highlights.slice(0, 4),
   }));
 
-  const packages: Package[] = [
-    {
-      id: 1,
-      title: "Soneva Jani",
-      category: "maldives",
-      ratingCount: 3,
-      image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
-      features: ["Overwater Villa", "All Meals Included", "Spa Treatment", "Sunset Cruise"],
-      featured: true,
-      galleryImages: [
-        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=3165&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=3133&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2940&auto=format&fit=crop",
-      ]
-    },
-    {
-      id: 3,
-      title: "Baros Maldives",
-      category: "maldives",
-      ratingCount: 5,
-      image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
-      features: ["Private Infinity Pool", "Dolphin Watching", "Gourmet Dining", "Water Sports"],
-      featured: true,
-      galleryImages: [
-        "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=2301&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=3133&auto=format&fit=crop",
-      ]
-    },
-    {
-      id: 4,
-      title: "Gili Lankanfushi",
-      category: "maldives",
-      ratingCount: 5,
-      image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=3165&auto=format&fit=crop",
-      features: ["Private Lagoon", "Barefoot Luxury", "Sunset Fishing", "Yoga & Wellness"],
-      featured: true,
-      galleryImages: [
-        "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=3165&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2940&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
-        "https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=2301&auto=format&fit=crop",
-      ]
-    },
+  const allPackages: Package[] = [
+    ...featuredMaldivesPackages,
     ...sriLankaAsPackages,
   ];
 
-  const filteredPackages = packages.filter(pkg => pkg.category === activeFilter);
+  const filteredPackages = allPackages.filter(pkg => pkg.category === activeFilter);
 
   return (
     <section id="packages" className="py-16 bg-white dark:bg-gradient-to-br dark:from-dark-background dark:via-dark-surface dark:to-dark-primary/10 relative">
@@ -278,95 +283,94 @@ const Packages = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredPackages.map((pkg, index) => (
-            <div
-              key={pkg.id}
-              className={`luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto ${
-                isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ animationDelay: `${600 + index * 200}ms`, width: '95%' }}
-            >
-              <div className="relative overflow-hidden rounded-t-xl">
-                <img
-                  src={pkg.image}
-                  alt={pkg.title}
-                  className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
+          {/* Maldives tab: show skeletons while loading, then live cards */}
+          {activeFilter === 'maldives' && isMaldivesLoading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <MaldivesCardSkeleton key={i} />
+            ))
+          ) : (
+            filteredPackages.map((pkg, index) => (
+              <div
+                key={pkg.id}
+                className={`luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto ${
+                  isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ animationDelay: `${600 + index * 200}ms`, width: '95%' }}
+              >
+                <div className="relative overflow-hidden rounded-t-xl">
+                  <img
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
 
-                {/* <div className="absolute top-3 left-3 flex gap-2">
-                  {pkg.category === 'maldives' && pkg.featured && (
-                    <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
-                      Featured
-                    </span>
+                  {pkg.category === 'srilanka' && pkg.price && (
+                    <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
+                      <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
+                    </div>
                   )}
-                </div> */}
+                </div>
 
-                {pkg.category === 'srilanka' && pkg.price && (
-                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
-                    <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
-                  </div>
-                )}
-              </div>
+                <div className="p-4">
+                  <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
+                    {pkg.title}
+                  </h3>
 
-              <div className="p-4">
-                <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
-                  {pkg.title}
-                </h3>
+                  {pkg.category === 'maldives' ? (
+                    <>
+                      <div className="flex items-center gap-1.5 mb-3 text-luxury-teal dark:text-dark-accent">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${i < pkg.ratingCount ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
+                          />
+                        ))}
+                        <span className="font-montserrat text-sm font-medium">{pkg.ratingCount}.0</span>
+                      </div>
+                      <div className="space-y-1.5 mb-4">
+                        {pkg.features.map((feature, i) => (
+                          <div key={i} className="flex items-center space-x-2">
+                            <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
+                            <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+                        {pkg.duration}
+                      </p>
+                      <div className="space-y-1.5 mb-4">
+                        {pkg.features.map((feature, i) => (
+                          <div key={i} className="flex items-center space-x-2">
+                            <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
+                            <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
 
-                {pkg.category === 'maldives' ? (
-                  <>
-                    <div className="flex items-center gap-1.5 mb-3 text-luxury-teal dark:text-dark-accent">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${i < pkg.ratingCount ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
-                        />
-                      ))}
-                      <span className="font-montserrat text-sm font-medium">{pkg.ratingCount}.0</span>
-                    </div>
-                    <div className="space-y-1.5 mb-4">
-                      {pkg.features.map((feature, i) => (
-                        <div key={i} className="flex items-center space-x-2">
-                          <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
-                          <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
-                      {pkg.duration}
-                    </p>
-                    <div className="space-y-1.5 mb-4">
-                      {pkg.features.map((feature, i) => (
-                        <div key={i} className="flex items-center space-x-2">
-                          <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
-                          <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                {pkg.category === 'maldives' ? (
-                  <Button
-                    className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5"
-                    onClick={() => setSelectedMaldivesPkg(pkg as MaldivesPackage)}
-                  >
-                    View Details
-                  </Button>
-                ) : (
-                  <Link to={`/sri-lanka/package/${pkg.id}`}>
-                    <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+                  {pkg.category === 'maldives' ? (
+                    <Button
+                      className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5"
+                      onClick={() => setSelectedMaldivesPkg(pkg as MaldivesPackage)}
+                    >
                       View Details
                     </Button>
-                  </Link>
-                )}
+                  ) : (
+                    <Link to={`/sri-lanka/package/${pkg.id}`}>
+                      <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
+                        View Details
+                      </Button>
+                    </Link>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         <div className="mt-12 flex justify-center">

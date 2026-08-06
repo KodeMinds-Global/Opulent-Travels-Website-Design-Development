@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-
 import PackageFilter from '@/components/PackageFilter';
 import { usePackages } from '@/hooks/usePackages';
+import { useAllMaldivesPackages } from '@/hooks/useAllMaldivesPackages';
+import { resolvePackageImageUrl, type AllMaldivesPackage } from '@/services/packages.service';
 import { getAssetPath } from '@/lib/utils';
 import { useSearchParams, Link } from 'react-router-dom';
-import { MaldivesPackage, SriLankaPackage } from '@/types/package';
+import { SriLankaPackage } from '@/types/package';
 import { Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-// --- Maldives Detail Modal ---
-interface MaldivesDetailModalProps {
-  pkg: MaldivesPackage;
-  onClose: () => void;
-}
+import { Skeleton } from '@/components/ui/skeleton';
 
 // --- Sri Lanka Package Card ---
 interface SriLankaCardProps {
@@ -68,40 +64,16 @@ const SriLankaCard: React.FC<SriLankaCardProps> = ({ pkg }) => {
   );
 };
 
-// Extra gallery images per Maldives package ID
-const MALDIVES_GALLERY: Record<string, string[]> = {
-  'mv-001': [
-    'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1512100356356-de1b84283e18?q=80&w=1920&auto=format&fit=crop',
-  ],
-  'mv-002': [
-    'https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1439066615861-d1af74d74000?q=80&w=1920&auto=format&fit=crop',
-  ],
-  'mv-003': [
-    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1682687982107-14492010e05e?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1596436889106-be35e843f974?q=80&w=1920&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1601581875039-e899893d520c?q=80&w=1920&auto=format&fit=crop',
-  ],
-};
-
-const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose }) => {
+// --- Maldives Detail Modal ---
+const MaldivesDetailModal: React.FC<{ pkg: AllMaldivesPackage; onClose: () => void }> = ({ pkg, onClose }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  // Use gallery lookup; fall back to the package's own imageUrl
-  const images = MALDIVES_GALLERY[pkg.id] ?? [pkg.imageUrl];
+  const images = (pkg.galleryImages ?? []).map(resolvePackageImageUrl).filter(Boolean);
+  const displayImages = images.length > 0 ? images : [resolvePackageImageUrl(pkg.imageUrl)].filter(Boolean);
 
   const prevSlide = () =>
-    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentSlide((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1));
   const nextSlide = () =>
-    setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1));
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
@@ -112,6 +84,8 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
+
+  const features = (pkg.descriptionPoints?.length > 0 ? pkg.descriptionPoints : pkg.highlights ?? []).slice(0, 6);
 
   return (
     <div
@@ -129,13 +103,19 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
 
         {/* Image Slideshow */}
         <div className="relative overflow-hidden rounded-t-2xl h-64">
-          <img
-            src={images[currentSlide]}
-            alt={`${pkg.title} - image ${currentSlide + 1}`}
-            className="w-full h-full object-cover transition-opacity duration-500"
-          />
+          {displayImages.length > 0 ? (
+            <img
+              src={displayImages[currentSlide]}
+              alt={`${pkg.title} - image ${currentSlide + 1}`}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+              <span className="text-gray-400 text-sm font-lora">No images available</span>
+            </div>
+          )}
 
-          {images.length > 1 && (
+          {displayImages.length > 1 && (
             <>
               <button
                 onClick={prevSlide}
@@ -151,25 +131,23 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {displayImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentSlide(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      i === currentSlide ? 'bg-white scale-125' : 'bg-white/50'
+                    }`}
+                    aria-label={`Go to image ${i + 1}`}
+                  />
+                ))}
+              </div>
+              <div className="absolute top-3 left-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full">
+                {currentSlide + 1} / {displayImages.length}
+              </div>
             </>
           )}
-
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentSlide(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === currentSlide ? 'bg-white scale-125' : 'bg-white/50'
-                }`}
-                aria-label={`Go to image ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          <div className="absolute top-3 left-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full">
-            {currentSlide + 1} / {images.length}
-          </div>
         </div>
 
         {/* Modal Content */}
@@ -178,27 +156,29 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
             {pkg.resortName || pkg.title}
           </h2>
 
-          <div className="flex items-center gap-1.5 mb-4">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className={`w-5 h-5 ${
-                  i < Math.round(pkg.resortRating)
-                    ? 'fill-yellow-400 text-yellow-400'
-                    : 'text-gray-300 dark:text-gray-600'
-                }`}
-              />
-            ))}
-            <span className="font-montserrat text-sm font-medium text-luxury-teal dark:text-dark-accent ml-1">
-              {pkg.resortRating.toFixed(1)}
-            </span>
-          </div>
+          {pkg.resortRating > 0 && (
+            <div className="flex items-center gap-1.5 mb-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-5 h-5 ${
+                    i < Math.round(pkg.resortRating)
+                      ? 'fill-yellow-400 text-yellow-400'
+                      : 'text-gray-300 dark:text-gray-600'
+                  }`}
+                />
+              ))}
+              <span className="font-montserrat text-sm font-medium text-luxury-teal dark:text-dark-accent ml-1">
+                {pkg.resortRating.toFixed(1)}
+              </span>
+            </div>
+          )}
 
           <ul className="space-y-2">
-            {pkg.highlights.map((highlight, i) => (
+            {features.map((feature, i) => (
               <li key={i} className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-luxury-gold dark:bg-dark-accent rounded-full flex-shrink-0" />
-                <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{highlight}</span>
+                <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
               </li>
             ))}
           </ul>
@@ -209,13 +189,11 @@ const MaldivesDetailModal: React.FC<MaldivesDetailModalProps> = ({ pkg, onClose 
 };
 
 // --- Maldives Package Card ---
-interface MaldivesCardProps {
-  pkg: MaldivesPackage;
-  onViewDetails: (pkg: MaldivesPackage) => void;
+const MaldivesCard: React.FC<{
+  pkg: AllMaldivesPackage;
+  onViewDetails: (pkg: AllMaldivesPackage) => void;
   index: number;
-}
-
-const MaldivesCard: React.FC<MaldivesCardProps> = ({ pkg, onViewDetails, index }) => {
+}> = ({ pkg, onViewDetails, index }) => {
   return (
     <div
       className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
@@ -223,7 +201,7 @@ const MaldivesCard: React.FC<MaldivesCardProps> = ({ pkg, onViewDetails, index }
     >
       <div className="relative overflow-hidden rounded-t-xl">
         <img
-          src={pkg.imageUrl}
+          src={resolvePackageImageUrl(pkg.imageUrl)}
           alt={pkg.title}
           className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
@@ -242,25 +220,27 @@ const MaldivesCard: React.FC<MaldivesCardProps> = ({ pkg, onViewDetails, index }
           {pkg.resortName || pkg.title}
         </h3>
 
-        <div className="flex items-center gap-1.5 mb-3 text-luxury-teal dark:text-dark-accent">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              className={`w-4 h-4 ${
-                i < Math.round(pkg.resortRating)
-                  ? 'fill-yellow-400 text-yellow-400'
-                  : 'text-gray-300 dark:text-gray-600'
-              }`}
-            />
-          ))}
-          <span className="font-montserrat text-sm font-medium">{pkg.resortRating.toFixed(1)}</span>
-        </div>
+        {pkg.resortRating > 0 && (
+          <div className="flex items-center gap-1.5 mb-3 text-luxury-teal dark:text-dark-accent">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < Math.round(pkg.resortRating)
+                    ? 'fill-yellow-400 text-yellow-400'
+                    : 'text-gray-300 dark:text-gray-600'
+                }`}
+              />
+            ))}
+            <span className="font-montserrat text-sm font-medium">{pkg.resortRating.toFixed(1)}</span>
+          </div>
+        )}
 
         <div className="space-y-1.5 mb-4">
-          {pkg.highlights.slice(0, 4).map((highlight, i) => (
+          {(pkg.descriptionPoints?.length > 0 ? pkg.descriptionPoints : pkg.highlights ?? []).slice(0, 4).map((feature, i) => (
             <div key={i} className="flex items-center space-x-2">
               <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full flex-shrink-0"></div>
-              <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{highlight}</span>
+              <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
             </div>
           ))}
         </div>
@@ -276,19 +256,37 @@ const MaldivesCard: React.FC<MaldivesCardProps> = ({ pkg, onViewDetails, index }
   );
 };
 
+// --- Maldives Card Skeleton ---
+const MaldivesCardSkeleton = () => (
+  <div className="luxury-card backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto" style={{ width: '100%' }}>
+    <Skeleton className="h-48 rounded-t-xl rounded-b-none" />
+    <div className="p-4 space-y-3">
+      <Skeleton className="h-6 w-3/4" />
+      <Skeleton className="h-4 w-1/2" />
+      <Skeleton className="h-3 w-full" />
+      <Skeleton className="h-3 w-5/6" />
+      <Skeleton className="h-3 w-4/6" />
+      <Skeleton className="h-3 w-3/6" />
+      <Skeleton className="h-9 w-full mt-2" />
+    </div>
+  </div>
+);
+
 // --- Main Packages Page ---
 const Packages = () => {
   const [searchParams] = useSearchParams();
   const typeParam = searchParams.get('type');
-  const [selectedMaldivesPkg, setSelectedMaldivesPkg] = useState<MaldivesPackage | null>(null);
+  const [selectedMaldivesPkg, setSelectedMaldivesPkg] = useState<AllMaldivesPackage | null>(null);
 
   const {
-    filteredPackages,
     filter,
     setFilter,
     searchTerm,
-    setSearchTerm
+    setSearchTerm,
+    sriLankaPackages,
   } = usePackages();
+
+  const { data: maldivesPackages = [], isLoading: isMaldivesLoading } = useAllMaldivesPackages();
 
   useEffect(() => {
     if (typeParam === 'sriLanka' || typeParam === 'maldives') {
@@ -296,9 +294,34 @@ const Packages = () => {
     }
   }, [typeParam, setFilter]);
 
-  // Split filtered packages by type
-  const maldivesFiltered = filteredPackages.filter(p => p.type === 'maldives') as MaldivesPackage[];
-  const sriLankaFiltered = filteredPackages.filter(p => p.type === 'sriLanka');
+  // Filter Sri Lanka packages by search term
+  const sriLankaFiltered = (sriLankaPackages as SriLankaPackage[]).filter(pkg => {
+    if (!searchTerm.trim()) return true;
+    const term = searchTerm.toLowerCase();
+    return (
+      pkg.title.toLowerCase().includes(term) ||
+      pkg.shortDescription?.toLowerCase().includes(term) ||
+      pkg.locations?.some(l => l.toLowerCase().includes(term))
+    );
+  });
+
+  // Filter Maldives packages by search term
+  const maldivesFiltered = maldivesPackages.filter(pkg => {
+    if (!searchTerm.trim()) return true;
+    const term = searchTerm.toLowerCase();
+    return (
+      pkg.title.toLowerCase().includes(term) ||
+      pkg.resortName?.toLowerCase().includes(term) ||
+      pkg.shortDescription?.toLowerCase().includes(term)
+    );
+  });
+
+  const showMaldives = filter === 'all' || filter === 'maldives';
+  const showSriLanka = filter === 'all' || filter === 'sriLanka';
+
+  const totalCount =
+    (showMaldives ? (isMaldivesLoading ? 0 : maldivesFiltered.length) : 0) +
+    (showSriLanka ? sriLankaFiltered.length : 0);
 
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
@@ -346,11 +369,39 @@ const Packages = () => {
               {filter === 'all' ? 'All Packages' : filter === 'sriLanka' ? 'Sri Lanka Packages' : 'Maldives Packages'}
             </h2>
             <p className="font-lora text-gray-600 dark:text-gray-300">
-              Showing {filteredPackages.length} packages
+              {isMaldivesLoading && showMaldives ? 'Loading...' : `Showing ${totalCount} packages`}
             </p>
           </div>
 
-          {filteredPackages.length === 0 && (
+          {/* Maldives packages */}
+          {showMaldives && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+              {isMaldivesLoading ? (
+                Array.from({ length: 3 }).map((_, i) => <MaldivesCardSkeleton key={i} />)
+              ) : maldivesFiltered.length === 0 ? null : (
+                maldivesFiltered.map((pkg, index) => (
+                  <MaldivesCard
+                    key={pkg._id}
+                    pkg={pkg}
+                    index={index}
+                    onViewDetails={setSelectedMaldivesPkg}
+                  />
+                ))
+              )}
+            </div>
+          )}
+
+          {/* Sri Lanka packages */}
+          {showSriLanka && sriLankaFiltered.length > 0 && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sriLankaFiltered.map(pkg => (
+                <SriLankaCard key={pkg.id} pkg={pkg as SriLankaPackage} />
+              ))}
+            </div>
+          )}
+
+          {/* Empty state — only when not loading and nothing to show */}
+          {!isMaldivesLoading && totalCount === 0 && (
             <div className="bg-white dark:bg-dark-surface rounded-xl p-10 text-center shadow-md">
               <svg className="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -365,33 +416,8 @@ const Packages = () => {
               </button>
             </div>
           )}
-
-          {/* Maldives packages — new card style */}
-          {maldivesFiltered.length > 0 && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-              {maldivesFiltered.map((pkg, index) => (
-                <MaldivesCard
-                  key={pkg.id}
-                  pkg={pkg}
-                  index={index}
-                  onViewDetails={setSelectedMaldivesPkg}
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Sri Lanka packages — new card style */}
-          {sriLankaFiltered.length > 0 && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {(sriLankaFiltered as SriLankaPackage[]).map(pkg => (
-                <SriLankaCard key={pkg.id} pkg={pkg} />
-              ))}
-            </div>
-          )}
         </div>
       </section>
-
-
 
       <Footer />
       <FloatingWhatsApp />

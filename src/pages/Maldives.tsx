@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
@@ -7,11 +7,138 @@ import { getAssetPath } from '@/lib/utils';
 import AnimatedHero from '@/components/AnimatedHero';
 import ImageCarousel from '@/components/ui/image-carousel';
 import { Link } from 'react-router-dom';
-import { usePackages } from '@/hooks/usePackages';
+import { useFeaturedMaldivesPackages } from '@/hooks/useFeaturedMaldivesPackages';
+import { resolvePackageImageUrl } from '@/services/packages.service';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Star, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import type { FeaturedMaldivesPackage } from '@/services/packages.service';
+
+// --- Maldives Detail Modal ---
+const MaldivesDetailModal: React.FC<{ pkg: FeaturedMaldivesPackage; onClose: () => void }> = ({ pkg, onClose }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const images = (pkg.galleryImages ?? []).map(resolvePackageImageUrl);
+
+  const prevSlide = () =>
+    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  const nextSlide = () =>
+    setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  const features = (pkg.descriptionPoints?.length > 0 ? pkg.descriptionPoints : pkg.highlights ?? []).slice(0, 4);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      onClick={handleBackdropClick}
+    >
+      <div className="relative bg-white dark:bg-dark-surface rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 z-10 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors"
+          aria-label="Close"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* Image Slideshow */}
+        <div className="relative overflow-hidden rounded-t-2xl h-64">
+          {images.length > 0 ? (
+            <img
+              src={images[currentSlide]}
+              alt={`${pkg.title} - image ${currentSlide + 1}`}
+              className="w-full h-full object-cover transition-opacity duration-500"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+              <span className="text-gray-400 text-sm font-lora">No images available</span>
+            </div>
+          )}
+
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition-colors"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentSlide(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      i === currentSlide ? 'bg-white scale-125' : 'bg-white/50'
+                    }`}
+                    aria-label={`Go to image ${i + 1}`}
+                  />
+                ))}
+              </div>
+              <div className="absolute top-3 left-3 bg-black/40 text-white text-xs px-2 py-1 rounded-full">
+                {currentSlide + 1} / {images.length}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Modal Content */}
+        <div className="p-5">
+          <h2 className="font-playfair font-bold text-2xl text-luxury-charcoal dark:text-white mb-2">
+            {pkg.title}
+          </h2>
+
+          {pkg.resortRating > 0 && (
+            <div className="flex items-center gap-1.5 mb-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-5 h-5 ${
+                    i < pkg.resortRating
+                      ? 'fill-yellow-400 text-yellow-400'
+                      : 'text-gray-300 dark:text-gray-600'
+                  }`}
+                />
+              ))}
+              <span className="font-montserrat text-sm font-medium text-luxury-teal dark:text-dark-accent ml-1">
+                {pkg.resortRating}.0
+              </span>
+            </div>
+          )}
+
+          <ul className="space-y-2">
+            {features.map((feature, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-luxury-gold dark:bg-dark-accent rounded-full flex-shrink-0" />
+                <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Maldives = () => {
-  // Get Maldives packages from the hook
-  const { maldivesPackages } = usePackages();
+  const { data: featuredPackages = [], isLoading: isFeaturedLoading } = useFeaturedMaldivesPackages();
+  const [selectedPkg, setSelectedPkg] = useState<FeaturedMaldivesPackage | null>(null);
   
   // Main sections data
   const heroSection = {
@@ -86,19 +213,6 @@ const Maldives = () => {
     ]
   };
 
-  // Use real package data for experiences section
-  const experiencesSection = {
-    title: "Luxury Experiences",
-    description: "Curated experiences that showcase the best of the Maldives",
-    experiences: maldivesPackages.slice(0, 3).map(pkg => ({
-      id: pkg.id,
-      title: pkg.title,
-      description: pkg.shortDescription,
-      price: `From $${pkg.price} per person`,
-      image: pkg.imageUrl,
-    }))
-  };
-
   const testimonialSection = {
     title: "What Our Travelers Say",
     testimonials: [
@@ -122,34 +236,6 @@ const Maldives = () => {
       }
     ]
   };
-
-  const homepageMaldivesCards = [
-    {
-      id: 1,
-      title: "Luxury Overwater Villa Experience",
-      duration: "5 days / 4 nights",
-      price: "$3,200",
-      image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=3945&auto=format&fit=crop",
-      features: ["Overwater Villa", "All Meals Included", "Spa Treatment", "Sunset Cruise"],
-      featured: true
-    },
-    {
-      id: 2,
-      title: "Private Island Escape",
-      duration: "7 days / 6 nights",
-      price: "$4,800",
-      image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=4752&auto=format&fit=crop",
-      features: ["Private Island", "Gourmet Dining", "Dolphin Watching", "Water Sports"]
-    },
-    {
-      id: 3,
-      title: "Coral Reef Adventure",
-      duration: "6 days / 5 nights",
-      price: "$3,600",
-      image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=3165&auto=format&fit=crop",
-      features: ["Snorkeling", "Island Hopping", "Beach Picnic", "Luxury Stay"]
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-light-background dark:bg-dark-background transition-colors duration-300">
@@ -214,60 +300,79 @@ const Maldives = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {homepageMaldivesCards.map((pkg, index) => (
-              <div
-                key={pkg.id}
-                className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
-                style={{
-                  animationDelay: `${600 + index * 200}ms`,
-                  width: '95%'
-                }}
-              >
-                <div className="relative overflow-hidden rounded-t-xl">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.title}
-                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                  />
-
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    {pkg.featured && (
-                      <span className="bg-gradient-to-r from-luxury-gold to-yellow-400 dark:from-dark-accent/80 dark:to-dark-secondary text-luxury-charcoal dark:text-white px-2 py-0.5 rounded-full text-xs font-poppins font-medium">
-                        Featured
-                      </span>
+            {isFeaturedLoading ? (
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="luxury-card backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto" style={{ width: '95%' }}>
+                  <Skeleton className="h-48 rounded-t-xl rounded-b-none" />
+                  <div className="p-4 space-y-3">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/3" />
+                    <Skeleton className="h-3 w-full" />
+                    <Skeleton className="h-3 w-5/6" />
+                    <Skeleton className="h-3 w-4/6" />
+                    <Skeleton className="h-3 w-3/6" />
+                    <Skeleton className="h-9 w-full mt-2" />
+                  </div>
+                </div>
+              ))
+            ) : featuredPackages.length === 0 ? (
+              <div className="col-span-3 text-center py-12">
+                <p className="font-lora text-gray-500 dark:text-gray-400">No featured packages available at the moment.</p>
+              </div>
+            ) : (
+              featuredPackages.map((pkg, index) => (
+                <div
+                  key={pkg._id}
+                  className="luxury-card hover-lift group transition-all duration-1000 backdrop-blur-sm dark:bg-dark-surface/60 dark:border dark:border-dark-primary/20 mx-auto"
+                  style={{
+                    animationDelay: `${600 + index * 200}ms`,
+                    width: '95%'
+                  }}
+                >
+                  <div className="relative overflow-hidden rounded-t-xl">
+                    <img
+                      src={resolvePackageImageUrl(pkg.imageUrl)}
+                      alt={pkg.title}
+                      className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    {pkg.price > 0 && (
+                      <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
+                        <div className="font-bold text-luxury-gold dark:text-dark-accent">From ${pkg.price}</div>
+                      </div>
                     )}
                   </div>
 
-                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-sm">
-                    <div className="font-bold text-luxury-gold dark:text-dark-accent">{pkg.price}</div>
+                  <div className="p-4">
+                    <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
+                      {pkg.title}
+                    </h3>
+
+                    {pkg.duration && (
+                      <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
+                        {pkg.duration}
+                      </p>
+                    )}
+
+                    <div className="space-y-1.5 mb-4">
+                      {(pkg.descriptionPoints?.length > 0 ? pkg.descriptionPoints : pkg.highlights ?? []).slice(0, 4).map((feature, i) => (
+                        <div key={i} className="flex items-center space-x-2">
+                          <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
+                          <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button
+                      className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5"
+                      onClick={() => setSelectedPkg(pkg)}
+                    >
+                      View Details
+                    </Button>
                   </div>
                 </div>
-
-                <div className="p-4">
-                  <h3 className="font-playfair font-bold text-xl text-luxury-charcoal dark:text-white mb-1.5">
-                    {pkg.title}
-                  </h3>
-
-                  <p className="font-montserrat text-luxury-teal dark:text-dark-accent text-sm font-medium mb-3">
-                    {pkg.duration}
-                  </p>
-
-                  <div className="space-y-1.5 mb-4">
-                    {pkg.features.map((feature, i) => (
-                      <div key={i} className="flex items-center space-x-2">
-                        <div className="w-1.5 h-1.5 bg-luxury-gold dark:bg-dark-accent rounded-full"></div>
-                        <span className="font-lora text-gray-700 dark:text-gray-300 text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Button className="w-full teal-button dark:dark-button group-hover:scale-105 transition-transform duration-300 text-sm py-1.5">
-                    View Details
-                  </Button>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
           <div className="text-center mt-12">
@@ -297,6 +402,13 @@ const Maldives = () => {
 
       <Footer />
       <FloatingWhatsApp />
+
+      {selectedPkg && (
+        <MaldivesDetailModal
+          pkg={selectedPkg}
+          onClose={() => setSelectedPkg(null)}
+        />
+      )}
     </div>
   );
 };
